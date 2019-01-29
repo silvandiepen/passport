@@ -63,6 +63,17 @@ module.exports = {
 		},
 		baseURL: config.api
 	},
+	
+	generate: {
+    routes: function () {
+      return axios.get('https://raw.githubusercontent.com/silvandiepen/passport-data/master/country-names.json')
+      .then((res) => {
+        return res.data.map((country) => {
+          return '/country/' + country.id
+        })
+      })
+    }
+  }
 
 	/*
 	 ** Build configuration
