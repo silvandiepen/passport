@@ -16,4 +16,4 @@ dist
 
 # Misc
 .DS_Store
-config/latest.js
+# config/latest.js
