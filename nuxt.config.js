@@ -1,5 +1,6 @@
 import pkg from './package';
 import config from './config/latest';
+import axios from 'axios';
 
 if (config.env === 'development') {
 	process.env.DEBUG = 'nuxt:*';
@@ -63,17 +64,18 @@ module.exports = {
 		},
 		baseURL: config.api
 	},
-	
+
 	generate: {
-    routes: function () {
-      return axios.get('https://raw.githubusercontent.com/silvandiepen/passport-data/master/country-names.json')
-      .then((res) => {
-        return res.data.map((country) => {
-          return '/country/' + country.id
-        })
-      })
-    }
-  }
+		routes: function() {
+			return axios
+				.get('https://raw.githubusercontent.com/silvandiepen/passport-data/master/country-names.json')
+				.then((res) => {
+					return res.data.map((country) => {
+						return '/country/' + country.id;
+					});
+				});
+		}
+	},
 
 	/*
 	 ** Build configuration
