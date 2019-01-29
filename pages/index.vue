@@ -1,6 +1,5 @@
 <template>
-	<main class="page page--home">
-	</main>
+	<main class="page page--home"></main>
 </template>
 
 <script>

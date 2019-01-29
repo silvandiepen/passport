@@ -3,14 +3,24 @@
 		<div class="content">
 			<div class="row">
 				<div class="column small-full medium-half">
-					<h3>{{ title }}</h3>
+					<h3>{{ getTitle() }}</h3>
 					<div class="country-list">
+						<div class="country-list__order">
+							<div class="input-field input-select">
+								<select v-model="orderType">
+									<option value="name">
+										by Name
+									</option>
+									<option value="status">
+										by Status
+									</option>
+								</select>
+							</div>
+						</div>
 						<table>
 							<tr v-for="(value, key) in countryData" :key="key">
 								<td>
-									<a class="highlight-on-map" :href="`#country-${key}`">
-										{{ getTitle(key) }}
-									</a>
+									{{ getTitle(key) }}
 								</td>
 								<td>
 									<span v-if="value === 3" class="label visa-free">
@@ -25,18 +35,37 @@
 									<span v-if="value === 0" class="label visa-required">
 										Visa required
 									</span>
-									<!-- <span v-if="value === 0" class="label visa-banned">
-							banned
-						</span> -->
 								</td>
 							</tr>
 						</table>
 					</div>
 				</div>
-				<div class="column small-full medium-half"></div>
-			</div>
-						<div class="map">
+				<div class="column small-full medium-half">
 					<country-map />
+
+					<div class="country__stats">
+						<table>
+							<tbody>
+								<tr>
+									<td>Visa free</td>
+									<td>{{ totalVisa(3) }}</td>
+								</tr>
+								<tr>
+									<td>Visa eta</td>
+									<td>{{ totalVisa(2) }}</td>
+								</tr>
+								<tr>
+									<td>Visa on arrival</td>
+									<td>{{ totalVisa(1) }}</td>
+								</tr>
+								<tr>
+									<td>Visa required</td>
+									<td>{{ totalVisa(0) }}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -51,16 +80,9 @@ export default {
 	data() {
 		return {
 			title: this.getTitle(),
-			countryData: null
+			countryData: null,
+			orderType: null
 		};
-	},
-	watch: {
-		countryData: {
-			handler() {
-				console.log('hoiiii');
-			},
-			deep: true
-		}
 	},
 	created() {
 		let _this = this;
@@ -103,6 +125,14 @@ export default {
 				}
 			});
 			return countryName;
+		},
+		totalVisa(visa) {
+			console.log(this.countryData);
+			if (this.countryData) {
+				return Object.keys(this.countryData).filter((x) => this.countryData[x] === visa).length;
+			} else {
+				return '-';
+			}
 		}
 	}
 };
@@ -118,6 +148,21 @@ export default {
 	overflow: scroll;
 	width: 100%;
 	position: relative;
+}
+.country__stats {
+	table {
+		width: 100%;
+		tr {
+			td {
+				padding: 0.5rem 1rem;
+			}
+			&:not(:first-child) {
+				td {
+					border-top: 1px solid color(Black, 0.25);
+				}
+			}
+		}
+	}
 }
 
 .label {
@@ -148,13 +193,5 @@ export default {
 	&:target {
 		fill: color(Green);
 	}
-}
-.map {
-	position: fixed;
-	right: 0;
-	top: 0;
-	width: 50%;
-	z-index: 0;
-	pointer-events: none;
 }
 </style>

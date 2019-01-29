@@ -29,14 +29,8 @@ export const actions = {
 		});
 	},
 	getCountry: (store, value) => {
-		console.log(store, value);
-		if (store.state.countries[value]) {
-			console.log('country exists');
-			// 	return state.country[value];
-		} else {
-			console.log('should set the country');
+		if (!store.state.countries[value]) {
 			store.dispatch('setCountry', value);
-			// 	return state.country[value];
 		}
 	},
 	getCountries: (store) => {

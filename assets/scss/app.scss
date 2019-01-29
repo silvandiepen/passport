@@ -18,10 +18,12 @@ $output: set-output(form, true);
 @import 'typography/typography';
 @import 'components/index';
 
-.input-field {
-	--border-width: 0;
-	--form-body: color(Dark);
-	--form-text-color: color(White);
-	--form-accent-color: color(Purple);
-	--form-body-focus: color(Blue);
+body {
+	.input-field {
+		--border-width: 0;
+		--form-body: color(Dark);
+		--form-text-color: color(White);
+		--form-accent-color: color(Purple);
+		--form-body-focus: color(Blue);
+	}
 }

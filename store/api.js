@@ -15,7 +15,7 @@ export default {
 	},
 	async getCountryList() {
 		// then return the promise of the axios instance
-		return http.get(`/countries.json`).catch((e) => {
+		return http.get(`/country-names.json`).catch((e) => {
 			// catch errors here if you want
 			console.log(e);
 		});
