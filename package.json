@@ -10,7 +10,8 @@
 		"staging": "sh scripts/staging.sh",
 		"production": "sh scripts/production.sh",
 		"lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
-		"precommit": "lint"
+		"precommit": "lint",
+		"generate": "nuxt generate"
 	},
 	"dependencies": {
 		"nuxt": "^2.3.4",
