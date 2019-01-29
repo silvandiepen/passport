@@ -19,5 +19,12 @@ export default {
 			// catch errors here if you want
 			console.log(e);
 		});
+	},
+	async getCountryStats() {
+		// then return the promise of the axios instance
+		return http.get(`/stats.json`).catch((e) => {
+			// catch errors here if you want
+			console.log(e);
+		});
 	}
 };

@@ -120,14 +120,14 @@ export default {
 			let countryList = this.$store.state.countryList;
 			Object.keys(countryList).forEach(function(country) {
 				if (countryList[country].id === ID) {
-					console.log(countryList[country].title);
+					// console.log(countryList[country].title);
 					countryName = countryList[country].title;
 				}
 			});
 			return countryName;
 		},
 		totalVisa(visa) {
-			console.log(this.countryData);
+			// console.log(this.countryData);
 			if (this.countryData) {
 				return Object.keys(this.countryData).filter((x) => this.countryData[x] === visa).length;
 			} else {
@@ -142,14 +142,6 @@ export default {
 @import '~tools';
 .content {
 	padding: grid(1);
-}
-.page {
-	@media #{$medium-up} {
-		max-height: 100vh;
-		overflow: scroll;
-	}
-	width: 100%;
-	position: relative;
 }
 .country__stats {
 	table {

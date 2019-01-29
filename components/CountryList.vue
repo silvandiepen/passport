@@ -1,7 +1,7 @@
 <template>
 	<div class="countries">
 		<div class="input-field input-search">
-			<input v-model="searchTerm" type="search" placeholder="Search.."/>
+			<input v-model="searchTerm" type="search" placeholder="Search.."  >
 		</div>
 		<ul v-if="countries" class="countries__list">
 			<li v-for="(country, index) in countries" :key="index" class="countries__item">
