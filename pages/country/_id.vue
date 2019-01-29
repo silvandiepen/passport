@@ -144,8 +144,10 @@ export default {
 	padding: grid(1);
 }
 .page {
-	max-height: 100vh;
-	overflow: scroll;
+	@media #{$medium-up} {
+		max-height: 100vh;
+		overflow: scroll;
+	}
 	width: 100%;
 	position: relative;
 }
