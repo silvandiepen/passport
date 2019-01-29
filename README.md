@@ -1,29 +1,38 @@
 # passport
 
-## Project setup
-```
-npm install
+> Passport
+
+## Build Setup
+
+```bash
+# install dependencies
+$ npm install
+
+# serve with hot reload at localhost:3000
+$ npm run dev
+
+# build for staging/production and launch server
+$ npm run staging/production
+$ ./node_modules/.bin/nuxt start
 ```
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+For detailed explanation on how things work, checkout [Nuxt.js docs](https://nuxtjs.org).
 
-### Compiles and minifies for production
-```
-npm run build
-```
+For detailed explanation on henris, checkout [Henris docs](https://henris.style).
 
-### Run your tests
-```
-npm run test
-```
 
-### Lints and fixes files
-```
-npm run lint
-```
+### Wordpress
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+| Env | Url | Codeship |  
+| ---- | ---- | ---- |
+| develop | https://dev.api.url.nl | [ ![Codeship Status for MatiseAms/projectname](https://app.codeship.com/projects/fixme-fixme/status?branch=develop)](https://app.codeship.com/projects/projectid) |
+| staging | https://staging.api.url.nl | [ ![Codeship Status for MatiseAms/projectname](https://app.codeship.com/projects/fixme-fixme/status?branch=staging)](https://app.codeship.com/projects/projectid) |
+| production | TBD | [ ![Codeship Status for MatiseAms/projectname](https://app.codeship.com/projects/fixme-fixme/status?branch=master)](https://app.codeship.com/projects/projectid) |
+
+### Nuxt
+
+| Env | Url | Codeship |  
+| ---- | ---- | ---- |
+| develop | https://dev.url.nl | [ ![Codeship Status for MatiseAms/projectname](https://app.codeship.com/projects/fixme-fixme/status?branch=fixme)](https://app.codeship.com/projects/projectid) |
+| staging | https://staging.url.nl | [ ![Codeship Status for MatiseAms/projectname](https://app.codeship.com/projects/fixme-fixme/status?branch=fixme)](https://app.codeship.com/projects/projectid) |
+| production | TBD | [ ![Codeship Status for MatiseAms/projectname](https://app.codeship.com/projects/fixme-fixme/status?branch=fixme)](https://app.codeship.com/projects/projectid) |

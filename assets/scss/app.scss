@@ -1,0 +1,27 @@
+// Basics
+@import 'tools/pre';
+@import 'typography/embed';
+
+$form-border-radius: 0;
+
+// Define output settings for project
+$output: set-output(css, true);
+$output: set-output(form, true);
+
+// Output the whole framework
+@import '~henris';
+
+// Defined settings
+@import 'tools/post';
+
+// Theme
+@import 'typography/typography';
+@import 'components/index';
+
+.input-field {
+	--border-width: 0;
+	--form-body: color(Dark);
+	--form-text-color: color(White);
+	--form-accent-color: color(Purple);
+	--form-body-focus: color(Blue);
+}
