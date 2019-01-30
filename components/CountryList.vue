@@ -1,7 +1,7 @@
 <template>
 	<div class="countries">
 		<div class="input-field input-search">
-			<input v-model="searchTerm" type="search" placeholder="Search.." >
+			<input v-model="searchTerm" type="search" placeholder="Search.."/>
 		</div>
 		<div class="countries__container">
 			<ul v-if="countries" class="countries__list">
@@ -11,11 +11,13 @@
 							<small>{{ country.id }}</small> {{ country.title }}
 						</span>
 					</nuxt-link>
-					<span class="to-compare" :class="{ 'is-in-compare': checkCompare(country.id) }" @click="compareThis(country.id)">
+					<span
+						class="to-compare"
+						:class="[checkCompare(country.id) ? 'is-in-compare' : 'not-in-compare']"
+						@click="compareThis(country.id)"
+					>
 						<span v-if="checkCompare(country.id)"></span>
-						<span v-else>
-							Add to compare
-						</span>
+						<span v-else></span>
 					</span>
 				</li>
 			</ul>
@@ -85,20 +87,19 @@ export default {
 	}
 	&__list {
 		width: 100%;
-		padding: 2rem 1rem;
 	}
 	&__item {
 		position: relative;
 		display: block;
+		&:hover {
+			background-color: color(Blue, 0.25);
+		}
 	}
 	&__link {
 		display: inline-block;
-		padding: 0.5rem 1rem 0.5rem 2rem;
+		padding: 0.75rem 1rem 0.75rem 2rem;
 		text-decoration: none;
 		position: relative;
-		&:hover {
-			background-color: blue;
-		}
 	}
 	&__text {
 		display: block;
@@ -116,17 +117,24 @@ export default {
 	}
 	.to-compare {
 		position: absolute;
-		right: 0;
-		top: 0;
-		float: right;
+		right: 1rem;
+		top: 50%;
 		display: block;
 		font-size: 10px;
-		&.is-in-compare {
-			color: color(Green);
-			position: relative;
+		color: color(White);
+		transform: translateY(-50%);
+		span {
 			--stroke: 0.2em;
 		}
+		&.is-in-compare {
+			color: color(Green);
+			&:hover {
+				color: color(Red);
+			}
+		}
 	}
+	@include silicon-math-minus('.to-compare.not-in-compare span');
 	@include silicon-check('.to-compare.is-in-compare span');
+	@include silicon-math-times('.to-compare.is-in-compare:hover span');
 }
 </style>

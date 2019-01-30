@@ -1,11 +1,11 @@
 <template>
 	<div class="country-visas">
-		<span class="country-visas__title">
+		<span v-if="showTitle" class="country-visas__title">
 			{{ getTitle() }}
 		</span>
 		<ul class="country-visas__list">
 			<li v-for="(value, key) in countryData" :key="key" class="country-visas__item">
-				<span v-if="showTitle" class="country-name">
+				<span v-if="showCountry" class="country-name">
 					{{ getTitle(key) }}
 				</span>
 				<span class="country-visas__labels">
@@ -37,6 +37,10 @@ export default {
 		showTitle: {
 			type: Boolean,
 			default: false
+		},
+		showCountry: {
+			type: Boolean,
+			default: true
 		}
 	},
 	data() {

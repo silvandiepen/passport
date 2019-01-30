@@ -20,7 +20,7 @@
 						</ul>
 					</div>
 					<div v-for="(country, index) in compareCountries" :key="index" class="compare__item">
-						<country-visas :country-id="country" :show-title="false" />
+						<country-visas :country-id="country" :show-country="false" />
 					</div>
 				</div>
 			</div>
