@@ -30,7 +30,8 @@ body {
 }
 
 .content {
-	padding: grid(1);
+	padding: grid(2);
+	@media #{$small-only}{padding: 4rem 2rem;}
 }
 .page {
 	@media #{$medium-up} {
@@ -39,4 +40,27 @@ body {
 	}
 	width: 100%;
 	position: relative;
+}
+.label {
+	color: color(White);
+	border-radius: 3px;
+	font-size: 12px;
+	font-weight: bold;
+	display: inline-block;
+	padding: 0.25rem 0.5rem;
+	&.visa-free {
+		background-color: color(Green);
+	}
+	&.visa-eta {
+		background-color: mix(color(Green), color(Yellow), 50%);
+	}
+	&.visa-on-arrival {
+		background-color: color(Yellow);
+	}
+	&.visa-required {
+		background-color: color(Orange);
+	}
+	&.banned {
+		background-color: color(Red);
+	}
 }

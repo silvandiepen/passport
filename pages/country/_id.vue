@@ -3,42 +3,7 @@
 		<div class="content">
 			<div class="row">
 				<div class="column small-full medium-half">
-					<h3>{{ getTitle() }}</h3>
-					<div class="country-list">
-						<div class="country-list__order">
-							<div class="input-field input-select">
-								<select v-model="orderType">
-									<option value="name">
-										by Name
-									</option>
-									<option value="status">
-										by Status
-									</option>
-								</select>
-							</div>
-						</div>
-						<table>
-							<tr v-for="(value, key) in countryData" :key="key">
-								<td>
-									{{ getTitle(key) }}
-								</td>
-								<td>
-									<span v-if="value === 3" class="label visa-free">
-										Visa free
-									</span>
-									<span v-if="value === 2" class="label visa-eta">
-										ETA required
-									</span>
-									<span v-if="value === 1" class="label visa-on-arrival">
-										Visa on arrival
-									</span>
-									<span v-if="value === 0" class="label visa-required">
-										Visa required
-									</span>
-								</td>
-							</tr>
-						</table>
-					</div>
+					<country-visas :country="countryID" />
 				</div>
 				<div class="column small-full medium-half">
 					<country-map />
@@ -72,44 +37,20 @@
 </template>
 
 <script>
+const CountryVisas = () => import('@/components/CountryVisas.vue');
 const CountryMap = () => import('@/components/CountryMap.vue');
 export default {
 	components: {
-		CountryMap
+		CountryMap,
+		CountryVisas
 	},
 	data() {
 		return {
+			countryID: this.$route.params.id,
 			title: this.getTitle(),
 			countryData: null,
 			orderType: null
 		};
-	},
-	created() {
-		let _this = this;
-		_this.$store.dispatch('getCountry', _this.$route.params.id);
-
-		if (_this.$store.state.countries[_this.$route.params.id]) {
-			_this.countryData = this.$store.state.countries[_this.$route.params.id];
-		} else {
-			setTimeout(() => {
-				_this.countryData = _this.$store.state.countries[_this.$route.params.id];
-			}, 500);
-		}
-
-		// _this.$store.dispatch('getCountry', _this.$route.params.id);
-		//   const promise = new Promise((resolve, reject) => {
-		//     if (_this.$store.dispatch('getCountry', _this.$route.params.id)) {
-		//       resolve();
-		//     } else {
-		//       reject(Error('it broke'));
-		//     }
-		//   });
-		//  promise.then(result => {
-		// 	 _this.countryData = _this.$store.state.countries[_this.$route.params.id];
-
-		//   }, err => {
-		//     console.log(err);
-		//   });
 	},
 	methods: {
 		getTitle(ID = '') {
@@ -140,9 +81,7 @@ export default {
 
 <style lang="scss">
 @import '~tools';
-.content {
-	padding: grid(1);
-}
+
 .country__stats {
 	table {
 		width: 100%;
@@ -159,29 +98,6 @@ export default {
 	}
 }
 
-.label {
-	color: color(White);
-	border-radius: 3px;
-	font-size: 12px;
-	font-weight: bold;
-	display: inline-block;
-	padding: 0.25rem 0.5rem;
-	&.visa-free {
-		background-color: color(Green);
-	}
-	&.visa-eta {
-		background-color: mix(color(Green), color(Yellow), 50%);
-	}
-	&.visa-on-arrival {
-		background-color: color(Yellow);
-	}
-	&.visa-required {
-		background-color: color(Orange);
-	}
-	&.banned {
-		background-color: color(Red);
-	}
-}
 .highlight-on-map:hover {
 	color: color(Green);
 	&:target {

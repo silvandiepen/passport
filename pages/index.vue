@@ -50,20 +50,6 @@ export default {
 		this.$store.dispatch('setStats');
 	},
 	methods: {
-		getTitle(ID = '') {
-			if (ID == '') {
-				ID = this.$route.params.id;
-			}
-			let countryName = '';
-			let countryList = this.$store.state.countryList;
-			Object.keys(countryList).forEach(function(country) {
-				if (countryList[country].id === ID) {
-					// console.log(countryList[country].title);
-					countryName = countryList[country].title;
-				}
-			});
-			return countryName;
-		},
 		sortProperty(obj) {
 			console.log(obj);
 			return obj;

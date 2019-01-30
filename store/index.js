@@ -3,6 +3,7 @@ import api from './api';
 export const state = () => ({
 	countryList: {},
 	countries: {},
+	compareCountries: [],
 	stats: {}
 });
 
@@ -15,6 +16,13 @@ export const mutations = {
 	},
 	setCountry(state, value) {
 		state.countries = Object.assign({}, state.countries, value);
+	},
+	toggleCompare(state, value) {
+		if (state.compareCountries.includes(value)) {
+			state.compareCountries.splice(state.compareCountries.indexOf(value), 1);
+		} else {
+			state.compareCountries.push(value);
+		}
 	}
 };
 
