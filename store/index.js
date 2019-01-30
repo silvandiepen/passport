@@ -23,6 +23,9 @@ export const mutations = {
 		} else {
 			state.compareCountries.push(value);
 		}
+	},
+	resetCompare(state) {
+		state.compareCountries = [];
 	}
 };
 
@@ -58,6 +61,9 @@ export const actions = {
 		if (Object.keys(store.state.stats).length < 1) {
 			store.dispatch('setStats');
 		}
+	},
+	resetCompare({ commit }) {
+		commit('resetCompare');
 	}
 };
 

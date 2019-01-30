@@ -1,7 +1,7 @@
 <template>
 	<div class="countries">
 		<div class="input-field input-search">
-			<input v-model="searchTerm" type="search" placeholder="Search.."/>
+			<input v-model="searchTerm" type="search" placeholder="Search.."  >
 		</div>
 		<div class="countries__container">
 			<ul v-if="countries" class="countries__list">
@@ -19,6 +19,13 @@
 						<span v-if="checkCompare(country.id)"></span>
 						<span v-else></span>
 					</span>
+				</li>
+				<li class="countries__item">
+					<a class="countries__link" @click="resetCompare">
+						<span class="countries__text">
+							Reset Compare
+						</span>
+					</a>
 				</li>
 			</ul>
 		</div>
@@ -58,6 +65,9 @@ export default {
 		},
 		compareThis(id) {
 			this.$store.commit('toggleCompare', id);
+		},
+		resetCompare() {
+			this.$store.dispatch('resetCompare');
 		},
 		checkCompare(id) {
 			if (this.$store.state.compareCountries.includes(id)) {
