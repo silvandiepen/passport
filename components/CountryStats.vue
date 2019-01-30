@@ -4,19 +4,19 @@
 			<tbody>
 				<tr>
 					<td>Visa free</td>
-					<td>{{ totalVisa(3) }}</td>
+					<td>{{ visa.free }}</td>
 				</tr>
 				<tr>
 					<td>Visa eta</td>
-					<td>{{ totalVisa(2) }}</td>
+					<td>{{ visa.eta }}</td>
 				</tr>
 				<tr>
 					<td>Visa on arrival</td>
-					<td>{{ totalVisa(1) }}</td>
+					<td>{{ visa.arrival }}</td>
 				</tr>
 				<tr>
 					<td>Visa required</td>
-					<td>{{ totalVisa(0) }}</td>
+					<td>{{ visa.required }}</td>
 				</tr>
 			</tbody>
 		</table>
@@ -25,40 +25,35 @@
 
 <script>
 export default {
-	props: {
-		countryId: {
-			type: String,
-			default: null
-		}
-	},
-	data() {
-		return {
-			countryData: null
-		};
-	},
-	created() {
-		console.log(this.$props);
-		let _this = this;
-		_this.$store.dispatch('getCountry', _this.countryId);
-		if (_this.$store.state.countries[_this.countryId]) {
-			_this.countryData = this.$store.state.countries[_this.countryId];
-		} else {
-			setTimeout(() => {
-				_this.countryData = _this.$store.state.countries[_this.countryId];
-			}, 500);
+	computed: {
+		visa() {
+			return {
+				free: this.getVisa(3),
+				eta: this.getVisa(2),
+				arrival: this.getVisa(1),
+				required: this.getVisa(0)
+			};
 		}
 	},
 	methods: {
-		totalVisa(visa) {
-			// console.log(this.countryData);
-			if (this.countryData) {
-				return Object.keys(this.countryData).filter((x) => this.countryData[x] === visa).length;
-			} else {
-				return '-';
+		getVisa(visa) {
+			if (this.$store.state.currentCountry) {
+				return Object.keys(this.$store.state.currentCountry).filter((x) => this.$store.state.currentCountry[x] === visa)
+					.length;
 			}
 		}
 	}
 };
 </script>
 
-<style></style>
+<style>
+table {
+	width: 100%;
+}
+table tr td:nth-child(2) {
+	font-weight: bold;
+}
+.country-stats {
+	padding: 30px;
+}
+</style>

@@ -20,7 +20,7 @@
 						</ul>
 					</div>
 					<div v-for="(country, index) in compareCountries" :key="index" class="compare__item">
-						<country-visas :country-id="country" :show-country="false" />
+						<country-visas :country-id="country" :show-country="false" :show-title="true" />
 					</div>
 				</div>
 			</div>
@@ -107,24 +107,41 @@ export default {
 			}
 		}
 	}
-
-	.country-visas__item {
-		display: block;
-		height: 3rem;
-		line-height: 3rem;
-		padding: 0 0.5rem;
-		&:nth-child(odd) {
-			// background-color: red;
-			// opacity: 0.5;
+	.country-visas {
+		&__item {
+			display: block;
+			height: 3rem;
+			line-height: 3rem;
+			padding: 0 0.5rem;
+			@media #{$small-only} {
+				width: 3rem;
+				.label {
+					font-size: 0;
+					display: block;
+					width: 1.5rem !important;
+					height: 1.5rem;
+					border-radius: 50%;
+					// padding: 0;
+				}
+			}
 		}
-	}
-	.country-visas__title {
-		position: absolute;
-		left: 0;
-		top: 0;
-		padding: 0.5rem 1rem;
-		transform: translateY(-100%);
-		font-weight: bold;
+		&__title {
+			position: absolute;
+			left: 0;
+			top: 0;
+			padding: 0.5rem 1rem;
+			transform: translateY(-100%);
+			font-weight: bold;
+			@media #{$small-only} {
+				transform: rotate(90deg);
+				transform-origin: 100% 0;
+				white-space: nowrap;
+				left: auto;
+				right: 0;
+				margin: 0;
+				line-height: 2rem;
+			}
+		}
 	}
 }
 </style>

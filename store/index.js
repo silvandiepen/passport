@@ -3,6 +3,7 @@ import api from './api';
 export const state = () => ({
 	countryList: {},
 	countries: {},
+	currentCountry: {},
 	compareCountries: [],
 	stats: {}
 });
@@ -16,6 +17,9 @@ export const mutations = {
 	},
 	setCountry(state, value) {
 		state.countries = Object.assign({}, state.countries, value);
+	},
+	setCurrentCountry(state, value) {
+		state.currentCountry = state.countries[value];
 	},
 	toggleCompare(state, value) {
 		if (state.compareCountries.includes(value)) {
@@ -35,6 +39,7 @@ export const actions = {
 			let countryData = {};
 			countryData[value] = data;
 			store.commit('setCountry', countryData);
+			store.commit('setCurrentCountry', countryData);
 		});
 	},
 	setCountries({ commit }) {
@@ -46,6 +51,9 @@ export const actions = {
 		api.getCountryStats().then(({ data }) => {
 			commit('setStats', data);
 		});
+	},
+	setCurrentCountry({ commit }, value) {
+		commit('setCurrentCountry', value);
 	},
 	getCountry: (store, value) => {
 		if (!store.state.countries[value]) {

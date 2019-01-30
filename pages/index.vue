@@ -9,51 +9,51 @@
 		</div>
 		<div class="content background--purple">
 			<h2>Overal Passport ranking</h2>
+			<h4 class="sub">
+				Scores
+			</h4>
+			<p>The scores are based on a way that visa free give 3 points, eta 2 and on arrival 1.</p>
+
 			<ol>
-				<li v-for="(stat, index) in sortProperty(stats)" :key="index">
+				<li v-for="(stat, index) in orderedStats" :key="index">
 					<h4>
 						<nuxt-link :to="'/country/' + stat.id">
 							{{ getTitle(stat.id) }}
 						</nuxt-link>
 						<span class="labels">
-							<span class="label visa-free" :data-width="`${Math.round((stat.free / stats.length) * 100)}`">
+							<span class="label visa-free" :data-width="`${Math.round((stat.free / orderedStats.length) * 100)}`">
 								{{ stat.free }}
 							</span>
-							<span class="label visa-eta" :data-width="`${Math.round((stat.eta / stats.length) * 100)}`">
+							<span class="label visa-eta" :data-width="`${Math.round((stat.eta / orderedStats.length) * 100)}`">
 								{{ stat.eta }}
 							</span>
-							<span class="label visa-on-arrival" :data-width="`${Math.round((stat.arrival / stats.length) * 100)}`">
+							<span class="label visa-on-arrival" :data-width="`${Math.round((stat.arrival / orderedStats.length) * 100)}`">
 								{{ stat.arrival }}
 							</span>
-							<span class="label visa-required" :data-width="`${Math.round((stat.required / stats.length) * 100)}`">
+							<span class="label visa-required" :data-width="`${Math.round((stat.required / orderedStats.length) * 100)}`">
 								{{ stat.required }}
 							</span>
 						</span>
 					</h4>
 				</li>
 			</ol>
-			<h3>Scores</h3>
-			<p>The scores are based on a way that visa free give 3 points, eta 2 and on arrival 1.</p>
 		</div>
 	</main>
 </template>
 
 <script>
 // import axios from 'axios';
+import { orderBy } from 'lodash';
 export default {
 	computed: {
-		stats() {
-			return this.$store.state.stats;
+		orderedStats() {
+			return orderBy(this.$store.state.stats, 'total', 'desc');
 		}
 	},
 	created() {
 		this.$store.dispatch('setStats');
 	},
 	methods: {
-		sortProperty(obj) {
-			console.log(obj);
-			return obj;
-		},
 		getTitle(ID = '') {
 			if (ID == '') {
 				ID = this.countryId;
@@ -78,6 +78,11 @@ export default {
 ol li {
 	& + li {
 		margin-top: 40px;
+	}
+	li {
+		&:before {
+			border: 1px solid red;
+		}
 	}
 }
 .labels {

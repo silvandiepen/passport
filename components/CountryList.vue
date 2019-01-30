@@ -1,7 +1,7 @@
 <template>
 	<div class="countries">
 		<div class="input-field input-search">
-			<input v-model="searchTerm" type="search" placeholder="Search.."  >
+			<input v-model="searchTerm" type="search" placeholder="Search.." >
 		</div>
 		<div class="countries__container">
 			<ul v-if="countries" class="countries__list">

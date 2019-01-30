@@ -2,14 +2,17 @@
 	<div class="page">
 		<div class="content">
 			<div class="row">
-				<div class="column small-full medium-half">
+				<div class="column small-full">
 					<h2>{{ getTitle() }}</h2>
+				</div>
+			</div>
+			<div class="row reverse-mobile">
+				<div class="column small-full medium-half">
 					<country-visas :country-id="countryID" :show-title="false" />
 				</div>
 				<div class="column small-full medium-half">
 					<country-map />
-					<country-stats :country-id="countryID" />
-					<div class="country__stats"></div>
+					<country-stats />
 				</div>
 			</div>
 		</div>
@@ -19,18 +22,23 @@
 <script>
 const CountryVisas = () => import('@/components/CountryVisas.vue');
 const CountryMap = () => import('@/components/CountryMap.vue');
+const CountryStats = () => import('@/components/CountryStats.vue');
 export default {
 	components: {
 		CountryMap,
-		CountryVisas
+		CountryVisas,
+		CountryStats
 	},
 	data() {
 		return {
 			countryID: this.$route.params.id,
 			title: this.getTitle(),
-			countryData: null,
-			orderType: null
+			countryData: null
 		};
+	},
+	created() {
+		this.$store.dispatch('getCountry', this.$route.params.id);
+		this.$store.dispatch('setCurrentCountry', this.$route.params.id);
 	},
 	methods: {
 		getTitle(ID = '') {
@@ -67,6 +75,11 @@ export default {
 				}
 			}
 		}
+	}
+}
+.reverse-mobile {
+	@media #{$small-only} {
+		flex-direction: column-reverse;
 	}
 }
 

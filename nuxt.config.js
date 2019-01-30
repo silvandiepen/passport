@@ -1,6 +1,7 @@
 import pkg from './package';
 import config from './config/latest';
 import axios from 'axios';
+import webpack from 'webpack';
 
 if (config.env === 'development') {
 	process.env.DEBUG = 'nuxt:*';
@@ -84,7 +85,11 @@ module.exports = {
 		/*
 		 ** Build plugins
 		 */
-		// plugins: ['~plugins/mixins.js'],
+		plugins: [
+			new webpack.ProvidePlugin({
+				_: 'lodash'
+			})
+		],
 
 		// babel: {
 		// 	babelrc: true,

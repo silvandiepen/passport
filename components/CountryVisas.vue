@@ -50,7 +50,6 @@ export default {
 	},
 
 	created() {
-		console.log(this.$props);
 		let _this = this;
 		_this.$store.dispatch('getCountry', _this.countryId);
 		if (_this.$store.state.countries[_this.countryId]) {

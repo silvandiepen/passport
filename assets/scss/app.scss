@@ -7,6 +7,7 @@ $form-border-radius: 0;
 // Define output settings for project
 $output: set-output(css, true);
 $output: set-output(form, true);
+$output: set-output(table, true);
 
 // Output the whole framework
 @import '~henris';
