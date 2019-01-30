@@ -48,6 +48,9 @@ export default {
 	position: fixed;
 	top: 0;
 	right: grid(1);
+	@media #{$small-only} {
+		right: 0;
+	}
 	z-index: 10;
 }
 .navigation {

@@ -62,5 +62,5 @@ export const actions = {
 };
 
 export const getters = {
-	countryName: (state) => (index) => Object.keys(state.countryList)[index]
+	countryName: (store) => (index) => Object.keys(store.state.countryList)[index]
 };

@@ -38,6 +38,9 @@ body {
 		max-height: 100vh;
 		overflow: scroll;
 	}
+	@media #{$small-only}{
+		overflow-x: scroll;
+	}
 	width: 100%;
 	position: relative;
 }

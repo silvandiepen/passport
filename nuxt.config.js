@@ -36,7 +36,7 @@ module.exports = {
 	/*
 	 ** Plugins to load before mounting the App
 	 */
-	plugins: [],
+	plugins: ['~plugins/mixins.js'],
 
 	/*
 	 ** Nuxt.js modules
@@ -84,7 +84,7 @@ module.exports = {
 		/*
 		 ** Build plugins
 		 */
-		plugins: [],
+		// plugins: ['~plugins/mixins.js'],
 
 		// babel: {
 		// 	babelrc: true,

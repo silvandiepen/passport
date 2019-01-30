@@ -1,7 +1,7 @@
 <template>
 	<div class="countries">
 		<div class="input-field input-search">
-			<input v-model="searchTerm" type="search" placeholder="Search.."/>
+			<input v-model="searchTerm" type="search" placeholder="Search.." >
 		</div>
 		<div class="countries__container">
 			<ul v-if="countries" class="countries__list">
@@ -12,9 +12,7 @@
 						</span>
 					</nuxt-link>
 					<span class="to-compare" :class="{ 'is-in-compare': checkCompare(country.id) }" @click="compareThis(country.id)">
-						<span v-if="checkCompare(country.id)">
-							check
-						</span>
+						<span v-if="checkCompare(country.id)"></span>
 						<span v-else>
 							Add to compare
 						</span>
@@ -72,6 +70,7 @@ export default {
 
 <style lang="scss">
 @import '~tools';
+@import '~silicons';
 .countries {
 	background-color: color(Black);
 	color: color(White);
@@ -123,8 +122,11 @@ export default {
 		display: block;
 		font-size: 10px;
 		&.is-in-compare {
-			background-color: color(Green);
+			color: color(Green);
+			position: relative;
+			--stroke: 0.2em;
 		}
 	}
+	@include silicon-check('.to-compare.is-in-compare span');
 }
 </style>

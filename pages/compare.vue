@@ -7,11 +7,10 @@
 				</div>
 			</div>
 		</div>
-		<div v-if="compareCountries" class="background--offwhite">
+		<div v-if="compareCountries.length > 0" class="background--offwhite">
 			<div class="compare__container">
 				<div class="compare__list">
 					<div class="compare__item">
-						<h4>&nbsp;</h4>
 						<ul class="compare-country__list">
 							<li v-for="(country, index) in countryList" :key="index" class="compare-country__item">
 								<span class="country-name">
@@ -24,6 +23,12 @@
 						<country-visas :country-id="country" :show-title="false" />
 					</div>
 				</div>
+			</div>
+		</div>
+		<div v-else class="background--offwhite">
+			<div class="content">
+				<h3>There are no countries selected (yet)</h3>
+				<p>Please add countries from the country list by clicking on "add to compare"</p>
 			</div>
 		</div>
 	</div>
@@ -58,7 +63,7 @@ export default {
 .compare {
 	&__container {
 		width: 100%;
-		overflow-x: scroll;
+		// overflow-x: scroll;
 		@media #{$small-only} {
 			width: 100vw;
 		}
@@ -112,6 +117,14 @@ export default {
 			// background-color: red;
 			// opacity: 0.5;
 		}
+	}
+	.country-visas__title {
+		position: absolute;
+		left: 0;
+		top: 0;
+		padding: 0.5rem 1rem;
+		transform: translateY(-100%);
+		font-weight: bold;
 	}
 }
 </style>

@@ -1,6 +1,8 @@
 <template>
 	<div class="country-visas">
-		<h4>{{ getTitle() }}</h4>
+		<span class="country-visas__title">
+			{{ getTitle() }}
+		</span>
 		<ul class="country-visas__list">
 			<li v-for="(value, key) in countryData" :key="key" class="country-visas__item">
 				<span v-if="showTitle" class="country-name">
@@ -39,10 +41,10 @@ export default {
 	},
 	data() {
 		return {
-			title: this.getTitle(),
 			countryData: null
 		};
 	},
+
 	created() {
 		console.log(this.$props);
 		let _this = this;
@@ -78,6 +80,7 @@ export default {
 @import '~tools';
 
 .country-visas {
+	position: relative;
 	width: 100%;
 	&__list {
 		width: 100%;
