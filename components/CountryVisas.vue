@@ -1,7 +1,7 @@
 <template>
 	<div class="country-visas">
 		<span v-if="showTitle" class="country-visas__title">
-			{{ getTitle(countryId) }}
+			{{ currentCountry.title }}
 		</span>
 		<div v-if="showOrder" class="input-field">
 			<select v-model="order">

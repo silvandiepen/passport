@@ -8,11 +8,11 @@
 			</div>
 			<div class="row reverse-mobile">
 				<div class="column small-full medium-half">
-					<!-- <country-visas :country-id="countryId" :show-title="false" /> -->
+					<country-visas :country-id="countryId" :show-title="false" />
 				</div>
 				<div class="column small-full medium-half">
 					<country-map />
-					<!-- <country-stats /> -->
+					<country-stats :current-country="currentCountry" />
 				</div>
 			</div>
 		</div>
@@ -20,14 +20,14 @@
 </template>
 
 <script>
-// import CountryVisas from '@/components/CountryVisas.vue';
+import CountryVisas from '@/components/CountryVisas.vue';
 import CountryMap from '@/components/CountryMap.vue';
-// import CountryStats from '@/components/CountryStats.vue';
+import CountryStats from '@/components/CountryStats.vue';
 export default {
 	components: {
-		CountryMap
-		// CountryVisas,
-		// CountryStats
+		CountryVisas,
+		CountryMap,
+		CountryStats
 	},
 	data() {
 		return {
@@ -38,12 +38,12 @@ export default {
 	computed: {
 		currentCountry: {
 			get() {
-				return this.$store.getters.getCurrentCountry;
+				return this.$store.getters['getCurrentCountry'];
 			}
 		}
 	},
 	created() {
-		this.$store.dispatch('passport/setCurrentCountry', this.$route.params.id);
+		this.$store.dispatch('passport/setCurrentCountry', this.$route.params.id).then(() => {});
 	},
 	mounted() {
 		this.mounted = true;

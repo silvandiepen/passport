@@ -52,11 +52,3 @@ export const actions = {
 		commit('resetCompare');
 	}
 };
-
-export const getters = {
-	getCurrentCountry(state) {
-		return state.countryList.find((item) => {
-			return item.id === state.currentCountry;
-		});
-	}
-};
