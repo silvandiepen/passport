@@ -43,17 +43,17 @@ export default {
 	computed: {
 		compareCountries: {
 			get() {
-				return this.$store.state.compareCountries;
+				return this.$store.state.passport.compareCountries;
 			}
 		},
 		countryList: {
 			get() {
-				return this.$store.state.countryList;
+				return this.$store.state.passport.countryList;
 			}
 		}
 	},
 	created() {
-		console.log(this.$store.state);
+		console.log(this.$store.state.passport);
 	}
 };
 </script>

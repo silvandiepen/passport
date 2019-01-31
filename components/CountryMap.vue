@@ -1,6 +1,6 @@
 <template>
 	<div v-if="mounted" class="country-map">
-		<svg enable_background="new 0 0 2000 1001" version="1.1" viewBox="0 0 2000 1001">
+		<!-- <svg enable_background="new 0 0 2000 1001" version="1.1" viewBox="0 0 2000 1001">
 			<path
 				v-for="(country, index) in world"
 				:id="country.id"
@@ -8,7 +8,7 @@
 				:d="country.path"
 				:class="getCountryStatus(country.id)"
 			></path>
-		</svg>
+		</svg> -->
 	</div>
 </template>
 
@@ -22,31 +22,27 @@ export default {
 		};
 	},
 	computed: {
-		currentCountry: {
-			get() {
-				return this.$store.state.currentCountry;
-			}
+		currentCountry() {
+			return this.$store.getters.passport.getCurrentCountry;
 		}
 	},
 	mounted() {
 		this.mounted = true;
-		// console.log(this.$store.state);
 	},
 	/* eslint-disable */
 	methods: {
 		getCountryStatus(ID) {
-			if (this.currentCountry) {
-				// console.log(this.currentCountry[ID]);
-				let code = this.$store.state.currentCountry[ID];
-				if(code === undefined){
-					code = 4;
-				} else if(code ==  -1){
-					code = 'current';
-				}
-				return 'status-' + code;
-			} else {
+			// if (this.currentCountry) {
+			// 	let code = this.currentCountry.data[ID];
+			// 	if(code === undefined){
+			// 		code = 4;
+			// 	} else if(code ==  -1){
+			// 		code = 'current';
+			// 	}
+			// 	return 'status-' + code;
+			// } else {
 				return 'fucked';
-			}
+			// }
 		}
 	}
 };

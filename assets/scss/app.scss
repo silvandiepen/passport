@@ -21,11 +21,12 @@ $output: set-output(table, true);
 
 body {
 	.input-field {
-		--border-width: 0;
-		--form-body: color(Dark);
-		--form-text-color: color(White);
-		--form-accent-color: color(Purple);
-		--form-body-focus: color(Blue);
+		--form-body: black;
+		--form-border-color: white; 
+		--form-border-width: 0px;
+		--form-text-color: #{color(White)};
+		--form-accent-color: #{color(Purple)};
+		--form-body-hover: #{mix(color(Purple), color(Black), 50%)};
 	}
 	-webkit-overflow-scrolling: touch;
 }

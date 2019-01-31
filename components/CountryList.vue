@@ -1,7 +1,7 @@
 <template>
 	<div class="countries">
 		<div class="input-field input-search">
-			<input v-model="searchTerm" type="search" placeholder="Search.." >
+			<input v-model="searchTerm" type="search" placeholder="Search.."/>
 		</div>
 		<div class="countries__container">
 			<ul v-if="countries" class="countries__list">
@@ -20,7 +20,7 @@
 						<span v-else></span>
 					</span>
 				</li>
-				<li class="countries__item">
+				<li class="countries__item countries__item--reset">
 					<a class="countries__link" @click="resetCompare">
 						<span class="countries__text">
 							Reset Compare
@@ -42,12 +42,13 @@ export default {
 	computed: {
 		countries: {
 			get() {
-				return this.filterCountries(this.$store.state.countryList);
+				return this.filterCountries(this.$store.state.passport.countryList);
 			}
 		}
 	},
 	created() {
-		this.$store.dispatch('getCountries');
+		this.$store.dispatch('passport/getCountryList');
+		console.log(this.countries);
 	},
 	methods: {
 		filterCountries(list) {
@@ -64,13 +65,13 @@ export default {
 			}
 		},
 		compareThis(id) {
-			this.$store.commit('toggleCompare', id);
+			this.$store.commit('passport/toggleCompare', id);
 		},
 		resetCompare() {
-			this.$store.dispatch('resetCompare');
+			this.$store.dispatch('passport/resetCompare');
 		},
 		checkCompare(id) {
-			if (this.$store.state.compareCountries.includes(id)) {
+			if (this.$store.state.passport.compareCountries.includes(id)) {
 				return true;
 			} else {
 				return false;
@@ -88,12 +89,20 @@ export default {
 	color: color(White);
 	height: 100vh;
 	@media #{$small-only} {
+		height: auto;
 		max-height: 100vw;
+		// overflow: scroll;
 	}
 
 	&__container {
 		height: calc(100% - 3rem);
 		overflow: scroll;
+
+		@media #{$small-only} {
+			height: auto;
+			max-height: 100vw;
+			overflow: scroll;
+		}
 	}
 	&__list {
 		width: 100%;
@@ -103,6 +112,9 @@ export default {
 		display: block;
 		&:hover {
 			background-color: color(Blue, 0.25);
+		}
+		&--reset {
+			background-color: color(Orange);
 		}
 	}
 	&__link {

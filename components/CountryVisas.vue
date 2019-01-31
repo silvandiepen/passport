@@ -1,10 +1,20 @@
 <template>
 	<div class="country-visas">
 		<span v-if="showTitle" class="country-visas__title">
-			{{ getTitle() }}
+			{{ getTitle(countryId) }}
 		</span>
+		<div v-if="showOrder" class="input-field">
+			<select v-model="order">
+				<option value="title">
+					Country name
+				</option>
+				<option value="visa">
+					Visa status
+				</option>
+			</select>
+		</div>
 		<ul class="country-visas__list">
-			<li v-for="(value, key) in countryData" :key="key" class="country-visas__item">
+			<li v-for="(value, key) in orderedCountriesData" :key="key" class="country-visas__item">
 				<span v-if="showCountry" class="country-name">
 					{{ getTitle(key) }}
 				</span>
@@ -28,6 +38,7 @@
 </template>
 
 <script>
+import { orderBy } from 'lodash';
 export default {
 	props: {
 		countryId: {
@@ -41,39 +52,52 @@ export default {
 		showCountry: {
 			type: Boolean,
 			default: true
+		},
+		showOrder: {
+			type: Boolean,
+			default: false
+		},
+		isSingle: {
+			type: Boolean,
+			default: false
 		}
 	},
 	data() {
 		return {
+			order: 'title',
 			countryData: null
 		};
 	},
 
-	created() {
-		let _this = this;
-		_this.$store.dispatch('getCountry', _this.countryId);
-		if (_this.$store.state.countries[_this.countryId]) {
-			_this.countryData = this.$store.state.countries[_this.countryId];
-		} else {
-			setTimeout(() => {
-				_this.countryData = _this.$store.state.countries[_this.countryId];
-			}, 500);
+	computed: {
+		currentCountry() {
+			if (this.$props.countryId) {
+				this.$store.dispatch('passport/getCountry', this.$props.countryId);
+				return this.$store.state.passport.countryList.find((o) => o.id === this.$props.countryId).data;
+			} else {
+				return this.$store.getters.getCurrentCountry.data;
+			}
+		},
+		orderedCountriesData() {
+			return this.orderCountries();
 		}
 	},
+
+	created() {
+		this.$store.dispatch('passport/getCountry', this.countryId);
+	},
 	methods: {
-		getTitle(ID = '') {
-			if (ID == '') {
-				ID = this.countryId;
+		orderCountries() {
+			return orderBy(this.currentCountry, this.order);
+		},
+		getTitle(ID = 1) {
+			if (isNaN(ID) && ID.length == 2) {
+				return this.$store.getters.getCountry(ID).title;
+			} else if (!isNaN(ID)) {
+				return this.$store.state.passport.countryList[ID].title;
+			} else {
+				return 'Not Set';
 			}
-			let countryName = '';
-			let countryList = this.$store.state.countryList;
-			Object.keys(countryList).forEach(function(country) {
-				if (countryList[country].id === ID) {
-					// console.log(countryList[country].title);
-					countryName = countryList[country].title;
-				}
-			});
-			return countryName;
 		}
 	}
 };

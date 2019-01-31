@@ -34,13 +34,18 @@ export default {
 				required: this.getVisa(0)
 			};
 		}
+		// currentCountry() {
+		// 	return this.$store.state.countryList.find((o) => o.id === this.$store.state.currentCountry).data;
+		// }
 	},
+
 	methods: {
 		getVisa(visa) {
-			if (this.$store.state.currentCountry) {
-				return Object.keys(this.$store.state.currentCountry).filter((x) => this.$store.state.currentCountry[x] === visa)
-					.length;
-			}
+			return '-' + visa;
+			// console.log(this.currentCountry);
+			// if (this.currentCountry) {
+			// 	return Object.keys(this.currentCountry).filter((x) => this.currentCountry[x] === visa).length;
+			// }
 		}
 	}
 };

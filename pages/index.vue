@@ -14,24 +14,64 @@
 			</h4>
 			<p>The scores are based on a way that visa free give 3 points, eta 2 and on arrival 1.</p>
 
+			<div class="input-field input-select">
+				<select v-model="order.type">
+					<option value="score.total">
+						Score
+					</option>
+					<option value="score.title">
+						Country Name
+					</option>
+					<option value="score.free">
+						Visa Free
+					</option>
+					<option value="score.required">
+						Visa Required
+					</option>
+				</select>
+			</div>
+			<div class="input-field input-select">
+				<select v-model="order.direction">
+					<option value="asc">
+						Low to high
+					</option>
+					<option value="desc">
+						High to low
+					</option>
+				</select>
+			</div>
+		</div>
+		<div class="content background--dark">
+			<!-- <ol class="total-list"> -->
 			<ol>
-				<li v-for="(stat, index) in orderedStats" :key="index">
-					<h4>
-						<nuxt-link :to="'/country/' + stat.id">
-							{{ getTitle(stat.id) }}
+				<!-- <li v-for="(country, index) in orderedStats" :key="index" class="total-list__item"> -->
+				<li v-for="(country, index) in orderedStats" :key="index" class="total-list__item">
+					<!-- {{  country.title  }} -->
+					<h4 :data-score="country.total">
+						<span v-show="order !== ['title', 'desc']" class="total-list__rank">
+							<!-- {{ setRank(country.score.total, index) }} -->
+						</span>
+						<nuxt-link :to="'/country/' + country.id">
+							{{ country.title }}
 						</nuxt-link>
 						<span class="labels">
-							<span class="label visa-free" :data-width="`${Math.round((stat.free / orderedStats.length) * 100)}`">
-								{{ stat.free }}
+							<span class="label visa-free" :data-width="`${Math.round((country.score.free / orderedStats.length) * 100)}`">
+								{{ country.score.free }}
 							</span>
-							<span class="label visa-eta" :data-width="`${Math.round((stat.eta / orderedStats.length) * 100)}`">
-								{{ stat.eta }}
+							<span class="label visa-eta" :data-width="`${Math.round((country.score.eta / orderedStats.length) * 100)}`">
+								{{ country.score.eta }}
 							</span>
-							<span class="label visa-on-arrival" :data-width="`${Math.round((stat.arrival / orderedStats.length) * 100)}`">
-								{{ stat.arrival }}
+							<span
+								class="label visa-on-arrival"
+								:data-width="`${Math.round((country.score.arrival / orderedStats.length) * 100)}`"
+							>
+								{{ country.score.arrival }}
 							</span>
-							<span class="label visa-required" :data-width="`${Math.round((stat.required / orderedStats.length) * 100)}`">
-								{{ stat.required }}
+							<span
+								class="label visa-required"
+								:data-width="`${Math.round((country.score.required / orderedStats.length) * 100)}`"
+							>
+								{{ country.score.required }}
 							</span>
 						</span>
 					</h4>
@@ -45,28 +85,42 @@
 // import axios from 'axios';
 import { orderBy } from 'lodash';
 export default {
+	data() {
+		return {
+			countryId: 'NL',
+			order: {
+				type: 'score.total',
+				direction: 'desc'
+			},
+			rank: {
+				number: 1,
+				current: -1
+			}
+		};
+	},
 	computed: {
 		orderedStats() {
-			return orderBy(this.$store.state.stats, 'total', 'desc');
+			return orderBy(this.$store.state.passport.countryList, this.order.type, this.order.direction);
+		},
+		countryList: {
+			get() {
+				return this.$store.state.passport.countryList;
+			}
 		}
 	},
-	created() {
-		this.$store.dispatch('setStats');
-	},
 	methods: {
-		getTitle(ID = '') {
-			if (ID == '') {
-				ID = this.countryId;
+		setRank(total, index) {
+			if (index == 0) {
+				this.rank.number = 0;
 			}
-			let countryName = '';
-			let countryList = this.$store.state.countryList;
-			Object.keys(countryList).forEach(function(country) {
-				if (countryList[country].id === ID) {
-					// console.log(countryList[country].title);
-					countryName = countryList[country].title;
-				}
-			});
-			return countryName;
+			if (parseInt(total) !== this.rank.current) {
+				this.rank.number++;
+				this.rank.current = parseInt(total);
+				// console.log(this.rank.number);
+				return this.rank.number;
+			} else {
+				return '';
+			}
 		}
 	}
 };
@@ -75,14 +129,20 @@ export default {
 <style lang="scss">
 @import '~tools';
 
-ol li {
-	& + li {
-		margin-top: 40px;
-	}
-	li {
-		&:before {
-			border: 1px solid red;
+.total-list {
+	&__item {
+		position: relative;
+		width: 100%;
+		& + & {
+			margin-top: 40px;
 		}
+	}
+	&__rank {
+		position: absolute;
+		right: 100%;
+		top: 0;
+		padding: 0 1rem;
+		opacity: 0.5;
 	}
 }
 .labels {

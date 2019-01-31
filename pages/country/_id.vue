@@ -1,18 +1,18 @@
 <template>
 	<div class="page">
-		<div class="content">
+		<div v-if="mounted" class="content">
 			<div class="row">
 				<div class="column small-full">
-					<h2>{{ getTitle() }}</h2>
+					<h2>{{ currentCountry.title }}</h2>
 				</div>
 			</div>
 			<div class="row reverse-mobile">
 				<div class="column small-full medium-half">
-					<country-visas :country-id="countryID" :show-title="false" />
+					<!-- <country-visas :country-id="countryId" :show-title="false" /> -->
 				</div>
 				<div class="column small-full medium-half">
 					<country-map />
-					<country-stats />
+					<!-- <country-stats /> -->
 				</div>
 			</div>
 		</div>
@@ -20,41 +20,33 @@
 </template>
 
 <script>
-const CountryVisas = () => import('@/components/CountryVisas.vue');
-const CountryMap = () => import('@/components/CountryMap.vue');
-const CountryStats = () => import('@/components/CountryStats.vue');
+// import CountryVisas from '@/components/CountryVisas.vue';
+import CountryMap from '@/components/CountryMap.vue';
+// import CountryStats from '@/components/CountryStats.vue';
 export default {
 	components: {
-		CountryMap,
-		CountryVisas,
-		CountryStats
+		CountryMap
+		// CountryVisas,
+		// CountryStats
 	},
 	data() {
 		return {
-			countryID: this.$route.params.id,
-			title: this.getTitle(),
-			countryData: null
+			countryId: this.$route.params.id,
+			mounted: false
 		};
 	},
-	created() {
-		this.$store.dispatch('getCountry', this.$route.params.id);
-		this.$store.dispatch('setCurrentCountry', this.$route.params.id);
-	},
-	methods: {
-		getTitle(ID = '') {
-			if (ID == '') {
-				ID = this.$route.params.id;
+	computed: {
+		currentCountry: {
+			get() {
+				return this.$store.getters.getCurrentCountry;
 			}
-			let countryName = '';
-			let countryList = this.$store.state.countryList;
-			Object.keys(countryList).forEach(function(country) {
-				if (countryList[country].id === ID) {
-					// console.log(countryList[country].title);
-					countryName = countryList[country].title;
-				}
-			});
-			return countryName;
 		}
+	},
+	created() {
+		this.$store.dispatch('passport/setCurrentCountry', this.$route.params.id);
+	},
+	mounted() {
+		this.mounted = true;
 	}
 };
 </script>

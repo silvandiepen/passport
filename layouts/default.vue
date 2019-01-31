@@ -23,6 +23,9 @@ export default {
 		LayoutHeader,
 		LayoutFooter,
 		CountryList
+	},
+	created() {
+		this.$store.dispatch('passport/getCountryList');
 	}
 };
 </script>
