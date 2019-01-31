@@ -21,14 +21,17 @@
 								{{ compareCountries.length }}
 							</span>
 						</span>
-						<div v-if="compareCountries.length > 0" class="compare-list">
-							<ul class="compare-list__list">
-								<li v-for="(country, index) in compareCountries" :key="index" class="compare-list__item">
-									{{ getTitle(country) }}
-								</li>
-							</ul>
-						</div>
 					</nuxt-link>
+					<span v-if="compareCountries.length > 0" class="compare-list">
+						<ul class="compare-list__list">
+							<li v-for="(country, index) in compareCountries" :key="index" class="compare-list__item">
+								<a class="compare-list__link" @click="removeCountry(country, $event)">
+									{{ getTitle(country) }}
+									<span class="icon"></span>
+								</a>
+							</li>
+						</ul>
+					</span>
 				</li>
 			</ul>
 		</nav>
@@ -53,6 +56,10 @@ export default {
 			} else {
 				return 'Not Set';
 			}
+		},
+		removeCountry(ID, e) {
+			e.preventDefault();
+			this.$store.dispatch('passport/removeFromCompare', ID);
 		}
 	}
 };
@@ -60,6 +67,7 @@ export default {
 
 <style lang="scss">
 @import '~tools';
+@import '~silicons';
 
 .header {
 	// Header styles
@@ -79,6 +87,11 @@ export default {
 	&__item {
 		position: relative;
 		display: block;
+		&:hover {
+			.compare-list {
+				clip-path: inset(0 0 0 0);
+			}
+		}
 	}
 	&__link {
 		display: block;
@@ -120,14 +133,30 @@ export default {
 	left: 0;
 	width: 100%;
 	top: 100%;
+	clip-path: inset(0 0 100% 0);
+	transition: clip-path 0.3s ease-in-out;
 	&__list {
-		border: 1px solid red;
+		width: 100%;
 	}
 	&__item {
-		background-color: color(Black);
-		color: white;
+		position: relative;
+		background-color: darken(Purple, 20%);
+		color: color(White);
 		display: block;
-		padding: 0.25rem;
+		font-weight: bold;
+		padding: 0.75rem 1rem;
+		font-size: 12px;
+	}
+	&__link {
+		@include silicon-math-times('.icon');
+		.icon {
+			--stroke: 2px;
+			color: color(Red);
+			position: absolute;
+			top: 50%;
+			right: 0.5rem;
+			transform: translateY(-50%) rotate(45deg);
+		}
 	}
 }
 </style>

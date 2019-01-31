@@ -23,6 +23,9 @@ export const mutations = {
 			state.compareCountries.push(value);
 		}
 	},
+	removeFromCompare(state, value) {
+		state.compareCountries.splice(state.compareCountries.indexOf(value), 1);
+	},
 	resetCompare(state) {
 		state.compareCountries = [];
 	}
@@ -34,6 +37,7 @@ export const actions = {
 	},
 	setCountryList({ state, commit }) {
 		// Populate the CountryList if its not done already.
+		console.log('total length of countryList', Object.keys(state.countryList).length);
 		if (Object.keys(state.countryList).length < 1) {
 			api.getCountryList().then(({ data }) => {
 				commit('setCountryList', data);
@@ -47,6 +51,9 @@ export const actions = {
 		if (Object.keys(store.state.countryList).length < 1) {
 			store.dispatch('setCountryList');
 		}
+	},
+	removeFromCompare({ commit }, value) {
+		commit('removeFromCompare', value);
 	},
 	resetCompare({ commit }) {
 		commit('resetCompare');

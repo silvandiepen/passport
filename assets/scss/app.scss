@@ -22,7 +22,7 @@ $output: set-output(table, true);
 body {
 	.input-field {
 		--form-body: black;
-		--form-border-color: white; 
+		--form-border-color: white;
 		--form-border-width: 0px;
 		--form-text-color: #{color(White)};
 		--form-accent-color: #{color(Purple)};
@@ -33,14 +33,16 @@ body {
 
 .content {
 	padding: grid(2);
-	@media #{$small-only}{padding: 4rem 2rem;}
+	@media #{$small-only} {
+		padding: 4rem 2rem;
+	}
 }
 .page {
 	@media #{$medium-up} {
 		max-height: 100vh;
 		overflow: scroll;
 	}
-	@media #{$small-only}{
+	@media #{$small-only} {
 		overflow-x: scroll;
 	}
 	width: 100%;
@@ -53,19 +55,77 @@ body {
 	font-weight: bold;
 	display: inline-block;
 	padding: 0.25rem 0.5rem;
+	border-width: 1px;
+	border-style: solid;
+	@media #{$small-only} {
+		width: 1.5rem;
+		height: 1.5rem;
+		border-radius: 50%;
+	}
+	
+	&.visa-3,
 	&.visa-free {
-		background-color: color(Green);
+		background-color: color(Green,.75);
+		border-color: color(Green,1);
+		&:before {
+			content: 'Visa free';
+			@media #{$medium-only} {
+				content: "free";
+			}
+			@media #{$small-only} {
+				content: none;
+			}
+		}
 	}
+	&.visa-2,
 	&.visa-eta {
-		background-color: mix(color(Green), color(Yellow), 50%);
+		background-color: mix(color(Green,.75), color(Yellow,.75), 50%);
+		border-color: mix(color(Green), color(Yellow), 50%);
+		&:before {
+			content: 'Visa ETA';
+			@media #{$medium-only} {
+				content: "ETA";
+			}
+			@media #{$small-only} {
+				content: none;
+			}
+		}
 	}
+	&.visa-1,
 	&.visa-on-arrival {
-		background-color: color(Yellow);
+		background-color: color(Yellow,.75);
+		border-color: color(Yellow,1);
+		&:before {
+			content: 'Visa on arrival';
+			@media #{$medium-only} {
+				content: "on Arrival";
+			}
+			@media #{$small-only} {
+				content: none;
+			}
+		}
 	}
+	&.visa-0,
 	&.visa-required {
-		background-color: color(Orange);
+		background-color: color(Orange,.75);
+		border-color: color(Orange,1);
+		&:before {
+			content: 'Visa Required';
+			@media #{$medium-only} {
+				content: "Required";
+			}
+			@media #{$small-only} {
+				content: none;
+			}
+		}
 	}
 	&.banned {
 		background-color: color(Red);
+		&:before {
+			content: 'Banned';
+			@media #{$small-only} {
+				content: none;
+			}
+		}
 	}
 }

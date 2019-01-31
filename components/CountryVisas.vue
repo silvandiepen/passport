@@ -1,9 +1,6 @@
 <template>
 	<div class="country-visas">
-		<span v-if="showTitle" class="country-visas__title">
-			{{ currentCountry.title }}
-		</span>
-		<div v-if="showOrder" class="input-field">
+		<div class="input-field">
 			<select v-model="order">
 				<option value="title">
 					Country name
@@ -15,7 +12,7 @@
 		</div>
 		<ul class="country-visas__list">
 			<li v-for="(value, key) in orderedCountriesData" :key="key" class="country-visas__item">
-				<span v-if="showCountry" class="country-name">
+				<span class="country-name">
 					{{ getTitle(key) }}
 				</span>
 				<span class="country-visas__labels">
@@ -72,7 +69,6 @@ export default {
 	computed: {
 		currentCountry() {
 			if (this.$props.countryId) {
-				this.$store.dispatch('passport/getCountry', this.$props.countryId);
 				return this.$store.state.passport.countryList.find((o) => o.id === this.$props.countryId).data;
 			} else {
 				return this.$store.getters.getCurrentCountry.data;
@@ -81,10 +77,6 @@ export default {
 		orderedCountriesData() {
 			return this.orderCountries();
 		}
-	},
-
-	created() {
-		this.$store.dispatch('passport/getCountry', this.countryId);
 	},
 	methods: {
 		orderCountries() {

@@ -1,14 +1,15 @@
 <template>
 	<div class="page compare">
-		<div class="content">
+		<!-- <div class="content">
 			<div class="row">
 				<div class="column small-full medium-half">
 					<h3>Compare</h3>
 				</div>
 			</div>
-		</div>
-		<div v-if="compareCountries.length > 0" class="background--offwhite">
-			<div class="compare__container">
+		</div> -->
+		<div v-if="compareCountries.length > 0">
+			<compare-visas />
+			<!-- <div class="compare__container">
 				<div class="compare__list">
 					<div class="compare__item">
 						<ul class="compare-country__list">
@@ -23,7 +24,7 @@
 						<country-visas :country-id="country" :show-country="false" :show-title="true" />
 					</div>
 				</div>
-			</div>
+			</div> -->
 		</div>
 		<div v-else class="background--offwhite">
 			<div class="content">
@@ -35,10 +36,10 @@
 </template>
 
 <script>
-const CountryVisas = () => import('@/components/CountryVisas.vue');
+const CompareVisas = () => import('@/components/CompareVisas.vue');
 export default {
 	components: {
-		CountryVisas
+		CompareVisas
 	},
 	computed: {
 		compareCountries: {
@@ -51,9 +52,6 @@ export default {
 				return this.$store.state.passport.countryList;
 			}
 		}
-	},
-	created() {
-		console.log(this.$store.state.passport);
 	}
 };
 </script>
