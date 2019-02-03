@@ -1,8 +1,8 @@
 <template>
 	<div class="countries">
-		<div class="input-field input-search">
+		<!-- <div class="input-field input-search">
 			<input v-model="searchTerm" type="search" placeholder="Search.."/>
-		</div>
+		</div> -->
 		<div class="countries__container">
 			<ul v-if="countries" class="countries__list">
 				<li v-for="(country, index) in countries" :key="index" class="countries__item">
@@ -84,6 +84,7 @@ export default {
 @import '~tools';
 @import '~silicons';
 .countries {
+	position: relative;
 	background-color: color(Black);
 	color: color(White);
 	height: 100vh;
@@ -92,8 +93,25 @@ export default {
 		max-height: 100vw;
 		// overflow: scroll;
 	}
+	&:before {
+		content: '';
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		top: 0;
+		background-image: linear-gradient(
+			to bottom,
+			color(Black, 1),
+			color(Black, 0) 3rem,
+			color(Black, 0) calc(100% - 3rem),
+			color(Black, 1)
+		);
+		pointer-events: none;
+		z-index: 3;
+	}
 
 	&__container {
+		position: relative;
 		height: calc(100% - 3rem);
 		overflow: scroll;
 
@@ -105,6 +123,8 @@ export default {
 	}
 	&__list {
 		width: 100%;
+		padding: 3rem 0;
+		// overflow: scroll;
 	}
 	&__item {
 		position: relative;
