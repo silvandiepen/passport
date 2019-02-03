@@ -108,6 +108,9 @@ export default {
 			}
 		}
 	},
+	created() {
+		this.$store.dispatch('passport/getCountryList');
+	},
 	methods: {
 		setRank(total, index) {
 			if (index == 0) {

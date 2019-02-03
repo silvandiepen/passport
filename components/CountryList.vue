@@ -1,7 +1,7 @@
 <template>
 	<div class="countries">
 		<div class="input-field input-search">
-			<input v-model="searchTerm" type="search" placeholder="Search.." >
+			<input v-model="searchTerm" type="search" placeholder="Search.."/>
 		</div>
 		<div class="countries__container">
 			<ul v-if="countries" class="countries__list">
@@ -48,7 +48,6 @@ export default {
 	},
 	created() {
 		this.$store.dispatch('passport/getCountryList');
-		console.log(this.countries);
 	},
 	methods: {
 		filterCountries(list) {

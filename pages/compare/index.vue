@@ -1,30 +1,7 @@
 <template>
 	<div class="page compare">
-		<!-- <div class="content">
-			<div class="row">
-				<div class="column small-full medium-half">
-					<h3>Compare</h3>
-				</div>
-			</div>
-		</div> -->
 		<div v-if="compareCountries.length > 0">
 			<compare-visas />
-			<!-- <div class="compare__container">
-				<div class="compare__list">
-					<div class="compare__item">
-						<ul class="compare-country__list">
-							<li v-for="(country, index) in countryList" :key="index" class="compare-country__item">
-								<span class="country-name">
-									{{ country.title }}
-								</span>
-							</li>
-						</ul>
-					</div>
-					<div v-for="(country, index) in compareCountries" :key="index" class="compare__item">
-						<country-visas :country-id="country" :show-country="false" :show-title="true" />
-					</div>
-				</div>
-			</div> -->
 		</div>
 		<div v-else class="background--offwhite">
 			<div class="content">
@@ -52,6 +29,9 @@ export default {
 				return this.$store.state.passport.countryList;
 			}
 		}
+	},
+	created() {
+		this.$store.dispatch('passport/getCountryList');
 	}
 };
 </script>

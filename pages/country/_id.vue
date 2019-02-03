@@ -43,6 +43,7 @@ export default {
 		}
 	},
 	created() {
+		this.$store.dispatch('passport/getCountryList');
 		this.$store.dispatch('passport/setCurrentCountry', this.$route.params.id).then(() => {});
 	},
 	mounted() {

@@ -37,7 +37,7 @@ export const actions = {
 	},
 	setCountryList({ state, commit }) {
 		// Populate the CountryList if its not done already.
-		console.log('total length of countryList', Object.keys(state.countryList).length);
+		// console.log('total length of countryList', Object.keys(state.countryList).length);
 		if (Object.keys(state.countryList).length < 1) {
 			api.getCountryList().then(({ data }) => {
 				commit('setCountryList', data);

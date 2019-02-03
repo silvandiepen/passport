@@ -51,6 +51,9 @@ export default {
 			return this.createCompareData();
 		}
 	},
+	created() {
+		this.$store.dispatch('passport/getCountryList');
+	},
 	methods: {
 		createCompareData() {
 			let data = [];
