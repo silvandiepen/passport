@@ -42,11 +42,40 @@
 			</div>
 		</div>
 		<div class="content background--dark">
-			<!-- <ol class="total-list"> -->
+			<div v-if="order.type === 'score.title'">
+				<h3>All countries</h3>
+				<h5 class="sub">
+					Ordered by name
+				</h5>
+			</div>
+			<div v-else-if="order.type === 'score.total'">
+				<h3>Highest scoring countries</h3>
+				<h5 v-if="order.direction === 'desc'" class="sub">
+					Ordered from best to worst
+				</h5>
+				<h5 v-else class="sub">
+					Ordered from worst to best
+				</h5>
+			</div>
+			<div v-else-if="order.type === 'score.free'">
+				<h3 v-if="order.direction === 'desc'">
+					Passport with the most visa free countries.
+				</h3>
+				<h3 v-if="order.direction === 'asc'">
+					Passport with the least visa free countries.
+				</h3>
+			</div>
+			<div v-else-if="order.type === 'score.required'">
+				<h3 v-if="order.direction === 'desc'">
+					Passport with the most visa required countries.
+				</h3>
+				<h3 v-if="order.direction === 'asc'">
+					Passport with the least visa required countries.
+				</h3>
+			</div>
+			<hr >
 			<ol>
-				<!-- <li v-for="(country, index) in orderedStats" :key="index" class="total-list__item"> -->
 				<li v-for="(country, index) in orderedStats" :key="index" class="total-list__item">
-					<!-- {{  country.title  }} -->
 					<h4 :data-score="country.total">
 						<span v-show="order !== ['title', 'desc']" class="total-list__rank">
 							<!-- {{ setRank(country.score.total, index) }} -->
@@ -138,6 +167,11 @@ export default {
 		width: 100%;
 		& + & {
 			margin-top: 40px;
+		}
+		.label {
+			&:before {
+				content: none;
+			}
 		}
 	}
 	&__rank {
