@@ -42,19 +42,15 @@ module.exports = {
 	/*
 	 ** Nuxt.js modules
 	 */
-	modules: [
-		'nuxt-rfg-icon',
-		// '@nuxtjs/google-analytics',
-		'@nuxtjs/axios'
-	],
+	modules: ['nuxt-rfg-icon', '@nuxtjs/google-analytics', '@nuxtjs/axios', '@nuxtjs/pwa'],
 
 	/*
 	 ** GoogleAnalytics module configuration
 	 */
-	// 'google-analytics': {
-	// 	id: 'UA-xxxxxxxx-xx',
-	// 	disabled: false
-	// },
+	'google-analytics': {
+		id: 'UA-456653-7',
+		disabled: false
+	},
 
 	/*
 	 ** Axios module configuration
