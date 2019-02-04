@@ -6,7 +6,7 @@
 		<div class="countries__container">
 			<ul v-if="countries" class="countries__list">
 				<li v-for="(country, index) in countries" :key="index" class="countries__item">
-					<nuxt-link :to="'/country/' + country.id + '#country-' + country.id" class="countries__link">
+					<nuxt-link :to="'/country/' + country.id" class="countries__link">
 						<span class="countries__text">
 							<small>{{ country.id }}</small> {{ country.title }}
 						</span>
