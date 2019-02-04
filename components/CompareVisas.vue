@@ -3,8 +3,11 @@
 		<div class="country-row__tools">
 			<div class="input-field input-switch">
 				<input id="show-difference" v-model="differences" type="checkbox" >
-				<label for="show-difference">
-					Differences Only
+				<label v-if="differences" for="show-difference">
+					Showing differences
+				</label>
+				<label v-else for="show-difference">
+					Showing all
 				</label>
 			</div>
 		</div>
@@ -132,11 +135,19 @@ export default {
 @import '~henris';
 .country-row {
 	&__tools {
+		--form-border-color: #{color(Dark)};
+		--form-accent: #{color(Yellow)};
 		position: absolute;
 		top: left;
 		top: 0;
 		padding: 3rem;
 		z-index: 1;
+		@media #{$small-only} {
+			color: white;
+			padding: 1rem 2rem;
+			width: 100%;
+			background-color: color(Dark);
+		}
 	}
 	// border: 1px solid red;
 	&__container {
@@ -145,6 +156,7 @@ export default {
 			padding: grid(1);
 			@media #{$small-only} {
 				padding: 2rem;
+				padding-top: 5rem;
 			}
 			position: absolute;
 			width: 100%;
