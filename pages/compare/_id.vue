@@ -36,9 +36,10 @@ export default {
 		}
 	},
 	created() {
-		console.log(this.$route.params);
 		if (this.$route.params.id.length > -1) {
+			console.log(this.$route);
 			this.countries = this.$route.params.id.split('-');
+			console.log(this.countries);
 		}
 		this.$store.dispatch('passport/getCountryList');
 	}
