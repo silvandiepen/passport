@@ -37,6 +37,9 @@ export default {
 	},
 	created() {
 		if (this.$route.params.id.length > -1) {
+			console.log(this.$el);
+			console.log(this.$el.indexOf('404'));
+			console.log(this.$el.classList);
 			if (this.$el.classList.contains('404')) {
 				this.$route.push({ name: 'compare', params: { id: this.$route.params.id } });
 			}
