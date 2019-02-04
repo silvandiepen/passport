@@ -32,6 +32,7 @@ export default {
 	},
 	created() {
 		this.$store.dispatch('passport/getCountryList');
+		// this.$router.push({ name: 'compare', params: { id: cr } })
 	}
 };
 </script>
