@@ -11,7 +11,7 @@
 								{{ wikiData }}
 							</div>
 							<label for="expand-data" class="expand-data__button">
-								Show more
+								Read more
 								<span></span>
 							</label>
 						</div>
@@ -129,7 +129,12 @@ export default {
 				overflow: scroll;
 			}
 			& ~ .expand-data__button {
-				@include silicon-arrow-basic-up('span');
+				span {
+					transform: translateY(-50%) rotate(-90deg) !important;
+				}
+				&::before {
+					height: 10px;
+				}
 			}
 		}
 	}
@@ -138,6 +143,10 @@ export default {
 		width: 100%;
 		text-align: center;
 		position: relative;
+		color: color(Dark, 0.25);
+		text-transform: uppercase;
+		font-weight: bold;
+		font-size: 14px;
 		&:before {
 			content: '';
 			width: 100%;
@@ -147,12 +156,13 @@ export default {
 			position: absolute;
 			bottom: 100%;
 			left: 0;
+			transition: height 0.3s;
 			background-image: linear-gradient(to bottom, color(White, 0), color(White, 1));
 		}
 		span {
 			display: inline-block !important;
 			--stroke: 2px;
-			font-size: 14px;
+			transform: translateY(-50%) rotate(90deg) !important;
 		}
 		@include silicon-arrow-basic-down('span');
 	}
