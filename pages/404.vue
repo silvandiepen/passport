@@ -1,5 +1,5 @@
 <template>
-	<div class="container">
+	<div class="container 404">
 		<nuxt-link :to="'/compare/' + routeId">
 			Home page
 		</nuxt-link>

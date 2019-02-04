@@ -37,10 +37,10 @@ export default {
 	},
 	created() {
 		if (this.$route.params.id.length > -1) {
-			console.log(this);
-			console.log(this.$route);
+			if (this.$el.classList.contains('404')) {
+				this.$route.push({ name: 'compare', params: { id: this.$route.params.id } });
+			}
 			this.countries = this.$route.params.id.split('-');
-			console.log(this.countries);
 		}
 		this.$store.dispatch('passport/getCountryList');
 	}
