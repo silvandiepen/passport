@@ -54,7 +54,7 @@ export default {
 			let _this = this;
 			if (_this.searchTerm.length > 1) {
 				return Object.keys(list)
-					.filter((item) => list[item].title.toLowerCase().indexOf(_this.searchTerm.toLowerCase()) > 0)
+					.filter((item) => list[item].title.indexOf(_this.searchTerm) > 0)
 					.reduce((obj, key) => {
 						obj[key] = list[key];
 						return obj;

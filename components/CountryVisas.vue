@@ -5,27 +5,32 @@
 				<option value="title">
 					Country name
 				</option>
-				<option value="visa">
+				<option value="value">
 					Visa status
 				</option>
 			</select>
 		</div>
 		<ul class="country-visas__list">
-			<li v-for="(value, key) in orderedCountriesData" :key="key" class="country-visas__item">
+			<li
+				v-for="(country, key) in orderedCountriesData"
+				v-show="country.id !== countryId"
+				:key="key"
+				class="country-visas__item"
+			>
 				<span class="country-name">
-					{{ getTitle(key) }}
+					{{ country.title }}
 				</span>
 				<span class="country-visas__labels">
-					<span v-if="value === 3" class="label visa-free">
+					<span v-if="country.value === 3" class="label visa-free">
 						Visa free
 					</span>
-					<span v-if="value === 2" class="label visa-eta">
+					<span v-if="country.value === 2" class="label visa-eta">
 						ETA required
 					</span>
-					<span v-if="value === 1" class="label visa-on-arrival">
+					<span v-if="country.value === 1" class="label visa-on-arrival">
 						Visa on arrival
 					</span>
-					<span v-if="value === 0" class="label visa-required">
+					<span v-if="country.value === 0" class="label visa-required">
 						Visa required
 					</span>
 				</span>
@@ -65,7 +70,6 @@ export default {
 			countryData: null
 		};
 	},
-
 	computed: {
 		currentCountry() {
 			if (this.$store.state.passport.countryList) {
@@ -83,12 +87,29 @@ export default {
 			}
 		},
 		orderedCountriesData() {
-			return this.orderCountries();
+			let ordered = [];
+			Object.keys(this.currentCountry.data).forEach((item) => {
+				ordered.push({
+					title: this.getTitle(item),
+					id: item,
+					value: this.currentCountry.data[item]
+				});
+			});
+			// console.log(typeof this.orderCountries().data, this.orderCountries().data);
+			// return this.orderCountries().data;
+			return orderBy(ordered, this.order);
 		}
+	},
+	created() {
+		this.$store.dispatch('passport/setCountryList');
+		// console.log(this.$store.state.passport.countryList);
 	},
 	methods: {
 		orderCountries() {
-			return orderBy(this.currentCountry, this.order);
+			return this.currentCountry;
+			// return this.currentCountry.data.sort;
+			// console.log(orderBy(this.currentCountry, this.order));
+			// return orderBy(this.currentCountry, this.order);
 		},
 		getTitle(ID = 1) {
 			if (isNaN(ID) && ID.length == 2) {
@@ -116,6 +137,7 @@ export default {
 		width: 100%;
 		display: flex;
 		justify-content: space-between;
+		padding: 0.25rem 0;
 	}
 	&__labels {
 		&:only-child {

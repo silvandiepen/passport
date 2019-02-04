@@ -66,7 +66,7 @@ export default {
 		}
 	},
 	created() {
-		this.$store.dispatch('passport/getCountryList');
+		this.$store.dispatch('passport/setCountryList');
 	},
 	methods: {
 		blacklistFilter(data, onlyData = false) {

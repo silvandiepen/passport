@@ -31,7 +31,7 @@ export default {
 	},
 	data() {
 		return {
-			countryId: this.$route.params.id.toLowerCase(),
+			countryId: this.$route.params.id,
 			mounted: false
 		};
 	},
@@ -46,7 +46,7 @@ export default {
 	},
 	created() {
 		this.$store.dispatch('passport/getCountryList');
-		this.$store.dispatch('passport/setCurrentCountry', this.$route.params.id.toLowerCase()).then(() => {});
+		this.$store.dispatch('passport/setCurrentCountry', this.$route.params.id).then(() => {});
 	},
 	mounted() {
 		this.mounted = true;

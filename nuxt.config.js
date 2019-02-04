@@ -68,7 +68,7 @@ module.exports = {
 				.get('https://raw.githubusercontent.com/silvandiepen/passport-data/master/country-names.json')
 				.then((res) => {
 					return res.data.map((country) => {
-						return '/country/' + country.id.toLowerCase();
+						return '/country/' + country.id;
 					});
 				});
 		}
