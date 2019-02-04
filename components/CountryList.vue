@@ -20,13 +20,13 @@
 						<span v-else></span>
 					</span>
 				</li>
-				<li class="countries__item countries__item--reset">
+				<!-- <li class="countries__item countries__item--reset">
 					<a class="countries__link" @click="resetCompare">
 						<span class="countries__text">
 							Reset Compare
 						</span>
 					</a>
-				</li>
+				</li> -->
 			</ul>
 		</div>
 	</div>

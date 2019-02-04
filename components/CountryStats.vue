@@ -28,7 +28,9 @@ export default {
 	computed: {
 		currentCountry: {
 			get() {
-				return this.$store.getters['getCurrentCountry'];
+				return this.$store.state.passport.countryList.find((item) => {
+					return item.id === this.$store.state.passport.currentCountry;
+				});
 			}
 		}
 	}

@@ -50,30 +50,29 @@
 			</div>
 			<div v-else-if="order.type === 'score.total'">
 				<h3>Highest scoring countries</h3>
-				<h5 v-if="order.direction === 'desc'" class="sub">
+				<h5 v-show="order.direction === 'desc'" class="sub">
 					Ordered from best to worst
 				</h5>
-				<h5 v-else class="sub">
+				<h5 v-show="order.direction === 'asc'" class="sub">
 					Ordered from worst to best
 				</h5>
 			</div>
 			<div v-else-if="order.type === 'score.free'">
-				<h3 v-if="order.direction === 'desc'">
+				<h3 v-show="order.direction === 'desc'">
 					Passport with the most visa free countries.
 				</h3>
-				<h3 v-if="order.direction === 'asc'">
+				<h3 v-show="order.direction === 'asc'">
 					Passport with the least visa free countries.
 				</h3>
 			</div>
 			<div v-else-if="order.type === 'score.required'">
-				<h3 v-if="order.direction === 'desc'">
+				<h3 v-show="order.direction === 'desc'">
 					Passport with the most visa required countries.
 				</h3>
-				<h3 v-if="order.direction === 'asc'">
+				<h3 v-show="order.direction === 'asc'">
 					Passport with the least visa required countries.
 				</h3>
 			</div>
-			<hr >
 			<ol>
 				<li v-for="(country, index) in orderedStats" :key="index" class="total-list__item">
 					<h4 :data-score="country.total">

@@ -22,24 +22,29 @@
 							</span>
 						</span>
 					</nuxt-link>
-					<span v-if="compareCountries.length > 0" class="compare-list">
-						<ul class="compare-list__list">
-							<li v-for="(country, index) in compareCountries" :key="index" class="compare-list__item">
-								<a class="compare-list__link" @click="removeCountry(country, $event)">
-									{{ getTitle(country) }}
-									<span class="icon"></span>
-								</a>
-							</li>
-						</ul>
-					</span>
 				</li>
 			</ul>
 		</nav>
+		<div v-if="hasCompareCountries" class="compare-list">
+			<ul class="compare-list__list">
+				<li v-for="(country, index) in compareCountries" :key="index" class="compare-list__item">
+					<a class="compare-list__link" @click="removeCountry(country, $event)">
+						<span class="compare-list__text">
+							{{ getTitle(country) }}
+						</span>
+						<span class="icon"></span>
+					</a>
+				</li>
+			</ul>
+		</div>
 	</header>
 </template>
 
 <script>
 export default {
+	data() {
+		return {};
+	},
 	computed: {
 		compareCountries: {
 			get() {
@@ -60,6 +65,13 @@ export default {
 		removeCountry(ID, e) {
 			e.preventDefault();
 			this.$store.dispatch('passport/removeFromCompare', ID);
+		},
+		hasCompareCountries() {
+			if (this.compareCountries.length > 0) {
+				return true;
+			} else {
+				return false;
+			}
 		}
 	}
 };

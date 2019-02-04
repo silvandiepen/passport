@@ -68,10 +68,18 @@ export default {
 
 	computed: {
 		currentCountry() {
-			if (this.$props.countryId) {
-				return this.$store.state.passport.countryList.find((o) => o.id === this.$props.countryId).data;
+			if (this.$store.state.passport.countryList) {
+				if (this.$props.countryId) {
+					return this.$store.state.passport.countryList.find((item) => {
+						return item.id === this.$props.countryId;
+					});
+				} else {
+					return this.$store.state.passport.countryList.find((item) => {
+						return item.id === this.$store.state.passport.currentCountry;
+					});
+				}
 			} else {
-				return this.$store.getters.getCurrentCountry.data;
+				return '';
 			}
 		},
 		orderedCountriesData() {
