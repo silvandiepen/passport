@@ -37,6 +37,7 @@ export default {
 	},
 	created() {
 		if (this.$route.params.id.length > -1) {
+			console.log(this);
 			console.log(this.$route);
 			this.countries = this.$route.params.id.split('-');
 			console.log(this.countries);
