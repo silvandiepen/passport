@@ -1,7 +1,7 @@
 <template>
 	<div class="page compare">
 		<div v-if="compareCountries.length > 0">
-			<compare-visas />
+			<compare-visas :countries="countries" />
 		</div>
 		<div v-else class="background--offwhite">
 			<div class="content">
@@ -18,6 +18,11 @@ export default {
 	components: {
 		CompareVisas
 	},
+	data() {
+		return {
+			countries: []
+		};
+	},
 	computed: {
 		compareCountries: {
 			get() {
@@ -31,6 +36,10 @@ export default {
 		}
 	},
 	created() {
+		console.log(this.$route.params);
+		if (this.$route.params.id.length > -1) {
+			this.countries = this.$route.params.id.split('-');
+		}
 		this.$store.dispatch('passport/getCountryList');
 	}
 };

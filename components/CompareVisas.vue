@@ -2,7 +2,7 @@
 	<div class="country-row">
 		<div class="country-row__tools">
 			<div class="input-field input-switch">
-				<input id="show-difference" v-model="differences" type="checkbox" >
+				<input id="show-difference" v-model="differences" type="checkbox"/>
 				<label v-if="differences" for="show-difference">
 					Showing differences
 				</label>
@@ -47,6 +47,12 @@
 
 <script>
 export default {
+	props: {
+		countries: {
+			type: Array,
+			default: () => []
+		}
+	},
 	data() {
 		return {
 			blacklist: [],
@@ -99,9 +105,15 @@ export default {
 		createCompareData() {
 			let data = [];
 
-			this.compareCountries.forEach((country) => {
-				data.push(this.$store.state.passport.countryList.find((o) => o.id === country));
-			});
+			if (this.$props.countries) {
+				this.$props.countries.forEach((country) => {
+					data.push(this.$store.state.passport.countryList.find((o) => o.id === country));
+				});
+			} else {
+				this.compareCountries.forEach((country) => {
+					data.push(this.$store.state.passport.countryList.find((o) => o.id === country));
+				});
+			}
 			this.createBlacklist(data);
 			return data;
 		},
@@ -116,7 +128,6 @@ export default {
 					} else {
 						Object.keys(country.data).forEach((item) => {
 							if (country.data[item] !== _this.blacklist[item]) {
-								console.log(item, country.data[item], _this.blacklist[item]);
 								delete _this.blacklist[item];
 							}
 						});
