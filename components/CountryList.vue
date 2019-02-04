@@ -112,7 +112,8 @@ export default {
 
 	&__container {
 		position: relative;
-		height: calc(100% - 3rem);
+		// height: calc(100% - 3rem);
+		height: 100%;
 		overflow: scroll;
 
 		@media #{$small-only} {

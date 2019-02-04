@@ -20,18 +20,18 @@
 				<span class="country-name">
 					{{ country.title }}
 				</span>
-				<span class="country-visas__labels">
+				<span class="country-visas__label">
 					<span v-if="country.value === 3" class="label visa-free">
-						Visa free
+						<span> Visa free</span>
 					</span>
 					<span v-if="country.value === 2" class="label visa-eta">
-						ETA required
+						<span> ETA required</span>
 					</span>
 					<span v-if="country.value === 1" class="label visa-on-arrival">
-						Visa on arrival
+						<span> Visa on arrival</span>
 					</span>
 					<span v-if="country.value === 0" class="label visa-required">
-						Visa required
+						<span>Visa required</span>
 					</span>
 				</span>
 			</li>
@@ -139,15 +139,18 @@ export default {
 		justify-content: space-between;
 		padding: 0.25rem 0;
 	}
-	&__labels {
-		&:only-child {
+	&__label {
+		.label {
+			line-height: 1rem;
+			display: inline-block;
+			white-space: nowrap;
 			width: 100%;
-			.label {
-				line-height: 1rem;
-				display: inline-block;
-				white-space: nowrap;
-				width: 100%;
-				text-align: center;
+			text-align: center;
+			border-radius: 1rem;
+			span {
+				@media #{$medium-up} {
+					display: none;
+				}
 			}
 		}
 	}
