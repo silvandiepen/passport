@@ -61,17 +61,26 @@ module.exports = {
 		},
 		baseURL: config.api
 	},
-
-	generate: {
-		routes: function() {
-			return axios
-				.get('https://raw.githubusercontent.com/silvandiepen/passport-data/master/country-names.json')
-				.then((res) => {
-					return res.data.map((country) => {
-						return '/country/' + country.id;
-					});
-				});
+	router: {
+		extendRoutes(routes, resolve) {
+			routes.push({
+				name: 'custom',
+				path: '*',
+				component: resolve(__dirname, 'pages/404.vue')
+			});
 		}
+	},
+	generate: {
+		routes: ['404']
+		// routes: function() {
+		// 	return axios
+		// 		.get('https://raw.githubusercontent.com/silvandiepen/passport-data/master/country-names.json')
+		// 		.then((res) => {
+		// 			return res.data.map((country) => {
+		// 				return '/country/' + country.id;
+		// 			});
+		// 		});
+		// }
 	},
 
 	/*

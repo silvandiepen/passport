@@ -20,14 +20,8 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 
 For detailed explanation on henris, checkout [Henris docs](https://henris.style).
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/6dc1ce2b-3437-484a-bf8e-9b98f754e10c/deploy-status)](https://app.netlify.com/sites/passport-compare/deploys)
 
-### Wordpress
-
-| Env | Url | Codeship |  
-| ---- | ---- | ---- |
-| develop | https://dev.api.url.nl | [ ![Codeship Status for MatiseAms/projectname](https://app.codeship.com/projects/fixme-fixme/status?branch=develop)](https://app.codeship.com/projects/projectid) |
-| staging | https://staging.api.url.nl | [ ![Codeship Status for MatiseAms/projectname](https://app.codeship.com/projects/fixme-fixme/status?branch=staging)](https://app.codeship.com/projects/projectid) |
-| production | TBD | [ ![Codeship Status for MatiseAms/projectname](https://app.codeship.com/projects/fixme-fixme/status?branch=master)](https://app.codeship.com/projects/projectid) |
 
 ### Nuxt
 
