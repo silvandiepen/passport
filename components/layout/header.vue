@@ -15,28 +15,25 @@
 						to="/compare"
 						:class="{ 'navigation__link--total': compareCountries.length > 0 }"
 					>
-						<span class="navigation__text">
+						<span class="navigation__text" :data-count="compareCountries.length">
 							Compare
-							<span class="total" :class="{ 'total--active': compareCountries.length > 0 }">
-								{{ compareCountries.length }}
-							</span>
 						</span>
 					</nuxt-link>
+					<div v-if="hasCompareCountries" class="compare-list">
+						<ul class="compare-list__list">
+							<li v-for="(country, index) in compareCountries" :key="index" class="compare-list__item">
+								<a class="compare-list__link" @click="removeCountry(country, $event)">
+									<span class="compare-list__text">
+										{{ getTitle(country) }}
+									</span>
+									<span class="icon"></span>
+								</a>
+							</li>
+						</ul>
+					</div>
 				</li>
 			</ul>
 		</nav>
-		<div v-if="hasCompareCountries" class="compare-list">
-			<ul class="compare-list__list">
-				<li v-for="(country, index) in compareCountries" :key="index" class="compare-list__item">
-					<a class="compare-list__link" @click="removeCountry(country, $event)">
-						<span class="compare-list__text">
-							{{ getTitle(country) }}
-						</span>
-						<span class="icon"></span>
-					</a>
-				</li>
-			</ul>
-		</div>
 	</header>
 </template>
 
@@ -108,6 +105,7 @@ export default {
 	&__link {
 		display: block;
 		padding: 1rem;
+		text-decoration: none;
 		&.nuxt-link-exact-active {
 			background-color: color(Purple);
 		}
@@ -117,26 +115,29 @@ export default {
 	}
 	&__text {
 		color: color(White);
-	}
-	.total {
-		display: inline-block;
-		position: absolute;
-		right: 1rem;
-		top: 50%;
-		transform: scale(0) translateY(-50%);
-		font-size: 12px;
-		font-weight: bold;
-		box-shadow: 0 0 0 2px color(White, 0.5);
-		color: color(White);
-		border-radius: 1rem;
-		padding: 0 0.25rem;
-		text-align: center;
-		line-height: 1.5rem;
-		text-decoration: none;
-		height: 1.5rem;
-		min-width: 1.5rem;
-		&--active {
+
+		&[data-count]::before {
+			content: attr(data-count);
+			display: inline-block;
+			position: absolute;
+			right: 1rem;
+			top: 50%;
+			// transform: scale(0) translateY(-50%);
+			font-size: 12px;
+			font-weight: bold;
+			box-shadow: 0 0 0 2px color(White, 0.5);
+			color: color(White);
+			border-radius: 1rem;
+			padding: 0 0.25rem;
+			text-align: center;
+			line-height: 1.5rem;
+			text-decoration: none;
+			height: 1.5rem;
+			min-width: 1rem;
 			transform: scale(1) translateY(-50%);
+		}
+		&[data-count='0']::before {
+			transform: scale(0) translateY(-50%);
 		}
 	}
 }
