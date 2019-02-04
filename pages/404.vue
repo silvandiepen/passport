@@ -1,11 +1,5 @@
 <template>
 	<div class="container">
-		<!-- <h1 v-if="error.statusCode === 404">
-			Page not found
-		</h1>
-		<h1 v-else>
-			An error occurred
-		</h1> -->
 		<nuxt-link to="/">
 			Home page
 		</nuxt-link>
@@ -16,6 +10,13 @@
 export default {
 	props: ['error'],
 	created() {
+		if (this.$route.id) {
+			if (this.$route.id.split('-').length > 0) {
+				// this.$route.push('compare', { id: this.$route.id });
+				this.$router.push({ name: 'compare', query: { id: this.$route.id } });
+			}
+		}
+		this.$store.dispatch('passport/setCountryList');
 		console.log('created-route', this.$route);
 		console.log('created-props', this.$props);
 	},
