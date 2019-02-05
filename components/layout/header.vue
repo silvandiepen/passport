@@ -33,7 +33,7 @@
 					</div>
 				</li>
 				<li class="navigation__item">
-					<button class="navigation__link" :class="{ 'is-folded': foldList }" @click="foldList">
+					<button class="navigation__link" :class="[foldList ? 'is-not-folded' : 'is-folded']" @click="foldList">
 						<span class="navigation__text icon--list"></span>
 					</button>
 				</li>

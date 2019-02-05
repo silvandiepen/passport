@@ -1,10 +1,10 @@
 <template>
 	<div class="layout layout-default">
 		<div class="row">
-			<div class="column small-full medium-third large-fifth">
+			<div class="column small-full" :class="[folded ? 'medium-0 medium-third' : 'medium-third large-fifth']">
 				<country-list />
 			</div>
-			<div class="column small-full medium-two-third large-four-fifth">
+			<div class="column small-full" :class="[folded ? 'medium-full' : 'medium-two-third large-four-fifth']">
 				<layout-header />
 				<nuxt />
 			</div>
@@ -24,8 +24,28 @@ export default {
 		LayoutFooter,
 		CountryList
 	},
+	computed: {
+		folded: {
+			get() {
+				return this.$store.state.foldedList;
+			}
+		}
+	},
 	created() {
 		this.$store.dispatch('passport/getCountryList');
 	}
 };
 </script>
+
+<style lang="scss">
+@import '~henris';
+.medium-0 {
+	@media #{$medium-up} {
+		width: 0px !important;
+		overflow: hidden;
+	}
+}
+.column {
+	transition: width 0.5s;
+}
+</style>
