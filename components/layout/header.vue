@@ -32,6 +32,11 @@
 						</ul>
 					</div>
 				</li>
+				<li class="navigation__item">
+					<button class="navigation__link" :class="{ 'is-folded': foldList }" @click="foldList">
+						<span class="navigation__text icon--list"></span>
+					</button>
+				</li>
 			</ul>
 		</nav>
 	</header>
@@ -43,6 +48,11 @@ export default {
 		return {};
 	},
 	computed: {
+		folded: {
+			get() {
+				return this.$store.state.foldList;
+			}
+		},
 		compareCountries: {
 			get() {
 				return this.$store.state.passport.compareCountries;
@@ -50,6 +60,9 @@ export default {
 		}
 	},
 	methods: {
+		foldList() {
+			this.$store.dispatch('toggleList');
+		},
 		getTitle(ID = 1) {
 			if (isNaN(ID) && ID.length == 2) {
 				return this.$store.getters.getCountry(ID).title;
@@ -103,14 +116,27 @@ export default {
 		}
 	}
 	&__link {
+		background-color: transparent;
+		border: none;
 		display: block;
 		padding: 1rem;
 		text-decoration: none;
+
+		button:focus {
+			outline: none !important;
+			box-shadow: none !important;
+		}
 		&.nuxt-link-exact-active {
 			background-color: color(Purple);
 		}
 		&--total {
 			padding-right: 3rem;
+		}
+		&.is-not-folded {
+			@include silicon-burger('.icon--list');
+		}
+		&.is-folded {
+			@include silicon-math-times('.icon--list');
 		}
 	}
 	&__text {

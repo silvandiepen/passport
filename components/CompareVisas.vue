@@ -1,17 +1,23 @@
 <template>
 	<div class="country-row">
 		<div class="country-row__tools">
-			<div class="input-field input-switch">
-				<input id="show-difference" v-model="differences" type="checkbox"  >
+			<div class="input-field input-switch input-switch--differences">
+				<input id="show-difference" v-model="differences" type="checkbox" >
 				<label v-if="differences" for="show-difference">
-					Showing differences
+					<span class="hide-for-small-only">
+						Showing
+					</span>
+					<span>differences</span>
 				</label>
 				<label v-else for="show-difference">
-					Showing all
+					<span class="hide-for-small-only">
+						Showing
+					</span>
+					<span>all</span>
 				</label>
 			</div>
 		</div>
-		<div class="country-row__container country-row__container--titles">
+		<div ref="list" class="country-row__container country-row__container--titles">
 			<ul class="country-cols country-cols--titles">
 				<li class="country-cols__column country-cols__column--title">
 					<h4></h4>
@@ -78,6 +84,9 @@ export default {
 		this.$store.dispatch('passport/setCountryList');
 	},
 	methods: {
+		foldList() {
+			this.$store.commit('toggleList');
+		},
 		blacklistFilter(data, onlyData = false) {
 			// console.log(data);
 			let _this = this;
@@ -146,6 +155,15 @@ export default {
 
 <style lang="scss">
 @import '~henris';
+@import '~silicons';
+.hide-for-small-only {
+	@media #{$small-only} {
+		display: none;
+	}
+}
+.button--scroll {
+	@include silicon-go-up('span');
+}
 .country-row {
 	&__tools {
 		--form-border-color: #{color(Dark)};

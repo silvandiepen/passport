@@ -8,7 +8,7 @@
 							{{ currentCountry.title }}
 						</h2>
 						<div v-if="wikiData" class="expand-data" :class="{ 'expand-data--loaded': wikiData }">
-							<input id="expand-data" type="checkbox" class="expand-data__toggle" >
+							<input id="expand-data" type="checkbox" class="expand-data__toggle"  >
 							<div class="expand-data__content">
 								{{ wikiData }}
 							</div>
@@ -93,6 +93,28 @@ export default {
 <style lang="scss">
 @import '~tools';
 @import '~silicons';
+
+.page-enter-active,
+.page-leave {
+	opacity: 1;
+	transform: translate(0, 0);
+	transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+}
+.page-enter {
+	opacity: 0;
+	transform: translate(0, #{grid(1)});
+	@media #{$small-only} {
+		transform: translateX(50%, 0);
+	}
+}
+.page-leave-active {
+	opacity: 0;
+	transform: translate(0, #{grid(1)});
+	@media #{$small-only} {
+		transform: translateX(-50%, 0);
+	}
+}
+
 .country__stats {
 	table {
 		width: 100%;

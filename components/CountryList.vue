@@ -1,8 +1,8 @@
 <template>
-	<div class="countries">
-		<!-- <div class="input-field input-search">
+	<div class="countries" :class="{ 'is-folded': folded }">
+		<div class="input-field input-search">
 			<input v-model="searchTerm" type="search" placeholder="Search.."/>
-		</div> -->
+		</div>
 		<div class="countries__container">
 			<ul v-if="countries" class="countries__list">
 				<li v-for="(country, index) in countries" :key="index" class="countries__item">
@@ -47,6 +47,19 @@ export default {
 	// 		}
 	// 	}
 	// },
+	computed: {
+		folded: {
+			get() {
+				return this.$store.state.foldedList;
+			}
+		}
+	},
+	watch: {
+		$route() {
+			console.log('changed routed');
+			this.$store.dispatch('setFoldList', false);
+		}
+	},
 	async created() {
 		await this.$store.dispatch('passport/getCountryList');
 		this.countries = this.$store.state.passport.countryList;
@@ -90,10 +103,22 @@ export default {
 	background-color: color(Black);
 	color: color(White);
 	height: 100vh;
+	clip-path: inset(0 0 0% 0);
+	transition: clip-path 0.5s ease-in-out;
+	&.is-folded {
+		clip-path: inset(0 100% 0 0);
+	}
 	@media #{$small-only} {
-		height: auto;
-		max-height: 100vw;
-		// overflow: scroll;
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100vw;
+		clip-path: inset(0 0 0% 0);
+		transition: clip-path 0.5s ease-in-out;
+		z-index: 10;
+		&.is-folded {
+			clip-path: inset(0 100% 0 0);
+		}
 	}
 	&:before {
 		content: '';
@@ -119,8 +144,7 @@ export default {
 		overflow: scroll;
 
 		@media #{$small-only} {
-			height: auto;
-			max-height: 100vw;
+			height: 100vh;
 			overflow: scroll;
 		}
 	}
