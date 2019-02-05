@@ -1,7 +1,7 @@
 <template>
 	<div class="countries" :class="{ 'is-folded': folded }">
 		<div class="input-field input-search">
-			<input v-model="searchTerm" type="search" placeholder="Search.."/>
+			<input v-model="searchTerm" type="search" placeholder="Search.."  >
 		</div>
 		<div class="countries__container">
 			<ul v-if="countries" class="countries__list">
@@ -56,7 +56,6 @@ export default {
 	},
 	watch: {
 		$route() {
-			console.log('changed routed');
 			this.$store.dispatch('setFoldList', false);
 		}
 	},

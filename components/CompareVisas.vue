@@ -2,7 +2,7 @@
 	<div class="country-row">
 		<div class="country-row__tools">
 			<div class="input-field input-switch input-switch--differences">
-				<input id="show-difference" v-model="differences" type="checkbox" >
+				<input id="show-difference" v-model="differences" type="checkbox"/>
 				<label v-if="differences" for="show-difference">
 					<span class="hide-for-small-only">
 						Showing
@@ -84,9 +84,6 @@ export default {
 		this.$store.dispatch('passport/setCountryList');
 	},
 	methods: {
-		foldList() {
-			this.$store.commit('toggleList');
-		},
 		blacklistFilter(data, onlyData = false) {
 			// console.log(data);
 			let _this = this;
