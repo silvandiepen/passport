@@ -36,18 +36,20 @@
 export default {
 	data() {
 		return {
-			searchTerm: ''
+			searchTerm: '',
+			countries: []
 		};
 	},
-	computed: {
-		countries: {
-			get() {
-				return this.filterCountries(this.$store.state.passport.countryList);
-			}
-		}
-	},
-	created() {
-		this.$store.dispatch('passport/getCountryList');
+	// computed: {
+	// 	countries: {
+	// 		get() {
+	// 			return this.filterCountries(this.$store.state.passport.countryList);
+	// 		}
+	// 	}
+	// },
+	async created() {
+		await this.$store.dispatch('passport/getCountryList');
+		this.countries = this.$store.state.passport.countryList;
 	},
 	methods: {
 		filterCountries(list) {

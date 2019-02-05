@@ -4,9 +4,11 @@
 			<div class="row">
 				<div class="column small-full">
 					<div class="intro">
-						<h2>{{ currentCountry.title }}</h2>
-						<div class="expand-data">
-							<input id="expand-data" type="checkbox" class="expand-data__toggle"  >
+						<h2 v-if="currentCountry">
+							{{ currentCountry.title }}
+						</h2>
+						<div v-if="wikiData" class="expand-data" :class="{ 'expand-data--loaded': wikiData }">
+							<input id="expand-data" type="checkbox" class="expand-data__toggle" >
 							<div class="expand-data__content">
 								{{ wikiData }}
 							</div>
@@ -46,26 +48,20 @@ export default {
 		return {
 			countryId: this.$route.params.id,
 			mounted: false,
-			wikiData: ''
+			currentCountry: null,
+			wikiData: null
 		};
 	},
-	computed: {
-		currentCountry: {
-			get() {
-				return this.$store.state.passport.countryList.find((item) => {
-					return item.id === this.$store.state.passport.currentCountry;
-				});
-			}
-		}
-	},
-	created() {
-		this.$store.dispatch('passport/getCountryList');
-		this.$store.dispatch('passport/setCurrentCountry', this.$route.params.id).then(() => {});
-		this.getWikiData();
-	},
-	mounted() {
-		this.mounted = true;
-		console.log(this.wikiData);
+	async mounted() {
+		const _this = this;
+		await this.$store.dispatch('passport/getCountryList');
+		_this.$store.dispatch('passport/setCurrentCountry', _this.$route.params.id).then(() => {
+			_this.currentCountry = _this.$store.state.passport.countryList.find((item) => {
+				return item.id === _this.$store.state.passport.currentCountry;
+			});
+		});
+		_this.getWikiData();
+		_this.mounted = true;
 	},
 	methods: {
 		getWikiData() {
@@ -114,6 +110,14 @@ export default {
 }
 .expand-data {
 	margin-top: 1rem;
+	max-height: 0;
+	overflow: hidden;
+	opacity: 0;
+	transition: max-height 1s ease-in-out, opacity 1.5s ease-in-out;
+	&--loaded {
+		max-height: 2000px;
+		opacity: 1;
+	}
 	&__content {
 		max-height: 200px;
 		overflow: hidden;
@@ -170,7 +174,9 @@ export default {
 
 .intro {
 	.wiki-data {
-		max-height: 200px;
+		&--loaded {
+			max-height: 200px;
+		}
 	}
 	h2 + .wiki-data {
 		margin-top: 2rem;

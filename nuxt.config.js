@@ -71,16 +71,16 @@ module.exports = {
 		}
 	},
 	generate: {
-		routes: ['404']
-		// routes: function() {
-		// 	return axios
-		// 		.get('https://raw.githubusercontent.com/silvandiepen/passport-data/master/country-names.json')
-		// 		.then((res) => {
-		// 			return res.data.map((country) => {
-		// 				return '/country/' + country.id;
-		// 			});
-		// 		});
-		// }
+		// routes: ['404']
+		routes: function() {
+			return axios
+				.get('https://raw.githubusercontent.com/silvandiepen/passport-data/master/country-names.json')
+				.then((res) => {
+					return res.data.map((country) => {
+						return '/country/' + country.id;
+					});
+				});
+		}
 	},
 
 	/*

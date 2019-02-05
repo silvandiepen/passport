@@ -4,6 +4,7 @@
 			Page not found
 		</h1>
 		<h1 v-else>
+			{{  error.statusCode  }}
 			An error occurred
 		</h1>
 		<nuxt-link to="/">

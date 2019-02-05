@@ -9,12 +9,15 @@ export const state = () => ({
 export const mutations = {
 	setCountryList(state, value) {
 		state.countryList = value;
+		return true;
 	},
 	setCountry(state, value) {
 		state.countryList.find((o) => o.id === value.id).data = value.data;
+		return true;
 	},
 	setCurrentCountry(state, name) {
 		state.currentCountry = name;
+		return true;
 	},
 	toggleCompare(state, value) {
 		if (state.compareCountries.includes(value)) {
@@ -26,12 +29,19 @@ export const mutations = {
 				alert("8 is enough, don't you think?");
 			}
 		}
+		return true;
+	},
+	setCompareCountries(state, value) {
+		state.compareCountries = value;
+		return true;
 	},
 	removeFromCompare(state, value) {
 		state.compareCountries.splice(state.compareCountries.indexOf(value), 1);
+		return true;
 	},
 	resetCompare(state) {
 		state.compareCountries = [];
+		return true;
 	}
 };
 
@@ -41,19 +51,25 @@ export const actions = {
 	},
 	setCountryList({ state, commit }) {
 		// Populate the CountryList if its not done already.
-		// console.log('total length of countryList', Object.keys(state.countryList).length);
 		if (Object.keys(state.countryList).length < 1) {
 			api.getCountryList().then(({ data }) => {
 				commit('setCountryList', data);
 			});
+		} else {
+			return true;
 		}
 	},
 	setCurrentCountry({ commit }, value) {
 		commit('setCurrentCountry', value);
 	},
+	setCompareCountries({ commit }, value) {
+		commit('setCompareCountries', value);
+	},
 	getCountryList: (store) => {
 		if (Object.keys(store.state.countryList).length < 1) {
-			store.dispatch('setCountryList');
+			store.dispatch('setCountryList').then(() => {
+				return true;
+			});
 		}
 	},
 	removeFromCompare({ commit }, value) {
