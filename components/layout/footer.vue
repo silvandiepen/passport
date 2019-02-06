@@ -1,5 +1,7 @@
 <template>
-	<footer id="footer" class="footer"></footer>
+	<footer id="footer" class="footer background--purple">
+		passport
+	</footer>
 </template>
 
 <script>
@@ -11,6 +13,6 @@ export default {};
 
 // Footer styles
 .footer {
-	display: none;
+	padding: grid(2);
 }
 </style>

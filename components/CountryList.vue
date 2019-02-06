@@ -1,7 +1,7 @@
 <template>
 	<div class="countries" :class="{ 'is-folded': folded }">
 		<div class="input-field input-search">
-			<input v-model="searchTerm" type="search" placeholder="Search.."  >
+			<input v-model="searchTerm" type="search" placeholder="Search.." >
 		</div>
 		<div class="countries__container">
 			<ul v-if="countries" class="countries__list">
@@ -56,7 +56,10 @@ export default {
 	},
 	watch: {
 		$route() {
-			this.$store.dispatch('setFoldList', false);
+			console.log('trigger setFoldList');
+			if (window.outerWidth < 750) {
+				this.$store.dispatch('setFoldList', true);
+			}
 		}
 	},
 	async created() {
@@ -155,7 +158,12 @@ export default {
 	&__item {
 		position: relative;
 		display: block;
-		&:hover {
+		@media (hover: hover) {
+			&:hover {
+				background-color: color(Blue, 0.25);
+			}
+		}
+		&:active {
 			background-color: color(Blue, 0.25);
 		}
 		&--reset {
@@ -195,13 +203,17 @@ export default {
 		}
 		&.is-in-compare {
 			color: color(Green);
-			&:hover {
-				color: color(Red);
+			@media (hover: hover) {
+				&:hover {
+					color: color(Red);
+				}
 			}
 		}
 	}
 	@include silicon-math-minus('.to-compare.not-in-compare span');
 	@include silicon-check('.to-compare.is-in-compare span');
-	@include silicon-math-times('.to-compare.is-in-compare:hover span');
+	@media (hover: hover) {
+		@include silicon-math-times('.to-compare.is-in-compare:hover span');
+	}
 }
 </style>

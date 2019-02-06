@@ -109,9 +109,11 @@ export default {
 	&__item {
 		position: relative;
 		display: block;
-		&:hover {
-			.compare-list {
-				clip-path: inset(0 0 0 0);
+		@media (hover: hover) {
+			&:hover {
+				.compare-list {
+					clip-path: inset(0 0 0 0);
+				}
 			}
 		}
 	}
@@ -133,10 +135,17 @@ export default {
 			padding-right: 3rem;
 		}
 		&.is-not-folded {
-			@include silicon-burger('.icon--list');
+			span {
+				@include menu();
+			}
+			background-color: color(Green);
+			// @include silicon-burger('.icon--list');
 		}
 		&.is-folded {
-			@include silicon-math-times('.icon--list');
+			span {
+				@include menu-close();
+			}
+			// @include silicon-math-times('.icon--list');
 		}
 	}
 	&__text {

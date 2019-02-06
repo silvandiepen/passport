@@ -7,12 +7,13 @@ export const mutations = {
 		state.foldedList = !state.foldedList;
 	},
 	setFoldList(state, value) {
+		console.log('mutation', value);
 		state.foldedList = value;
 	}
 };
 export const actions = {
 	setFoldList({ commit }, value) {
-		console.log(value);
+		console.log('action', value);
 		commit('setFoldList', value);
 	},
 	toggleList({ commit }) {

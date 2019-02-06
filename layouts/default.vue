@@ -1,14 +1,10 @@
 <template>
-	<div class="layout layout-default">
-		<div class="row">
-			<div class="column small-full" :class="[folded ? 'medium-0 medium-third' : 'medium-third large-fifth']">
-				<country-list />
-			</div>
-			<div class="column small-full" :class="[folded ? 'medium-full' : 'medium-two-third large-four-fifth']">
-				<layout-header />
-				<nuxt />
-			</div>
-		</div>
+	<div class="layout layout-default" :class="{ 'is-folded': folded }">
+		<country-list class="panel--left" />
+		<layout-header />
+		<main class="page panel--main">
+			<nuxt />
+		</main>
 		<layout-footer />
 	</div>
 </template>
@@ -43,6 +39,37 @@ export default {
 	@media #{$medium-up} {
 		width: 0px !important;
 		overflow: hidden;
+	}
+}
+.panel {
+	&--left {
+		width: grid(4);
+		@include min-('width', 4, 240);
+		position: absolute;
+		left: 0;
+		top: 0;
+		height: 100%;
+	}
+	&--main {
+		width: calc(100vw - #{grid(4)});
+		position: absolute;
+		left: grid(4);
+		top: 0;
+		height: 100%;
+		transition: width 0.3s ease-in-out, left 0.3s ease-in-out;
+		.is-folded & {
+			left: 0;
+			width: 100vw;
+		}
+		@include min-('left', 4, 240) {
+			left: 240px;
+			width: calc(100vw - 240px);
+		}
+		@media #{$small-only} {
+			position: relative;
+			width: 100vw;
+			left: 0;
+		}
 	}
 }
 .column {
