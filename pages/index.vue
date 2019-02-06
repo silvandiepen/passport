@@ -80,7 +80,7 @@
 							<!-- {{ setRank(country.score.total, index) }} -->
 						</span>
 						<nuxt-link :to="'/country/' + country.id">
-							{{ country.title }}
+							{{ country.title }} <small>({{ country.score.total }})</small>
 						</nuxt-link>
 						<span class="labels">
 							<span class="label visa-free" :data-width="`${Math.round((country.score.free / orderedStats.length) * 100)}`">

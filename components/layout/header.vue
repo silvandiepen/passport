@@ -32,8 +32,8 @@
 						</ul>
 					</div>
 				</li>
-				<li class="navigation__item">
-					<button class="navigation__link" :class="[foldList ? 'is-not-folded' : 'is-folded']" @click="foldList">
+				<li class="navigation__item navigation__item--listtrigger">
+					<button class="navigation__link" :class="[folded ? 'is-not-folded' : 'is-folded']" @click="foldList">
 						<span class="navigation__text icon--list"></span>
 					</button>
 				</li>
@@ -50,7 +50,7 @@ export default {
 	computed: {
 		folded: {
 			get() {
-				return this.$store.state.foldList;
+				return this.$store.state.foldedList;
 			}
 		},
 		compareCountries: {
@@ -116,6 +116,21 @@ export default {
 				}
 			}
 		}
+		&--listtrigger {
+			width: 3rem;
+			height: 3rem;
+			.is-not-folded {
+				span {
+					@include menu();
+				}
+			}
+			.is-folded {
+				span {
+					@include menu();
+					@include menu-close();
+				}
+			}
+		}
 	}
 	&__link {
 		background-color: transparent;
@@ -133,19 +148,6 @@ export default {
 		}
 		&--total {
 			padding-right: 3rem;
-		}
-		&.is-not-folded {
-			span {
-				@include menu();
-			}
-			background-color: color(Green);
-			// @include silicon-burger('.icon--list');
-		}
-		&.is-folded {
-			span {
-				@include menu-close();
-			}
-			// @include silicon-math-times('.icon--list');
 		}
 	}
 	&__text {
