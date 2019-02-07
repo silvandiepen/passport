@@ -1,6 +1,6 @@
 <template>
 	<main class="page page--home">
-		<div class="content">
+		<div class="content background--white">
 			<h1>Where can you go, with your passport?</h1>
 			<h3 class="sub">
 				And where will you need a visa?

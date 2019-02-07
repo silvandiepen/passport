@@ -32,7 +32,7 @@ export default {
 			default: null
 		},
 		typeNumber: {
-			type: String,
+			type: Number,
 			default: null
 		},
 		width: {
