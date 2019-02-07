@@ -8,7 +8,7 @@
 				</label>
 			</div>
 			<div class="input-field input-switch input-switch--merged">
-				<input id="show-merged" v-model="showMerged" type="checkbox"  >
+				<input id="show-merged" v-model="showMerged" type="checkbox" >
 				<label for="show-merged">
 					<span>merged</span>
 				</label>
@@ -56,7 +56,7 @@
 				<li v-for="(country, index) in compareData" :key="index" class="country-cols__column">
 					<ul class="country-cols__list">
 						<li v-for="(c, i) in blacklistFilter(country.data, true)" :key="i" class="country-cols__item">
-							<visa-label :type="c" />
+							<visa-label :type-number="c" />
 						</li>
 					</ul>
 				</li>
@@ -69,7 +69,7 @@
 				>
 					<ul class="country-cols__list">
 						<li v-for="(c, i) in blacklistFilter(mergedData.data, true)" :key="i" class="country-cols__item">
-							<visa-label :type="c" />
+							<visa-label :type-number="c" />
 						</li>
 					</ul>
 				</li>
@@ -219,20 +219,22 @@ export default {
 							// merged.data.push([key, countryData.data[key]]);
 							merged.data[key] = countryData.data[key];
 						}
-						merged.score.total = merged.score.total + merged.data[key];
-						switch (merged.data[key]) {
-							case 3:
-								merged.score.free++;
-								break;
-							case 2:
-								merged.score.eta++;
-								break;
-							case 1:
-								merged.score.arrival++;
-								break;
-							case 0:
-								merged.score.required++;
-								break;
+						if (index == data.length - 1) {
+							merged.score.total = merged.score.total + merged.data[key];
+							switch (merged.data[key]) {
+								case 3:
+									merged.score.free++;
+									break;
+								case 2:
+									merged.score.eta++;
+									break;
+								case 1:
+									merged.score.arrival++;
+									break;
+								case 0:
+									merged.score.required++;
+									break;
+							}
 						}
 					}
 				}

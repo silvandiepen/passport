@@ -1,15 +1,15 @@
 <template>
-	<span class="visa-label" :class="['visa-' + type]" :style="elementWidth">
-		<span v-if="(type == 3 || type == 'free') && showText == true" class="visa-label__text">
+	<span class="visa-label" :class="['visa-' + visaType]" :style="elementWidth">
+		<span v-if="(visaType == 3 || visaType == 'free') && showText == true" class="visa-label__text">
 			Free
 		</span>
-		<span v-if="(type == 2 || type == 'eta') && showText == true" class="visa-label__text">
+		<span v-if="(visaType == 2 || visaType == 'eta') && showText == true" class="visa-label__text">
 			ETA
 		</span>
-		<span v-if="(type == 1 || type == 'arrival') && showText == true" class="visa-label__text">
+		<span v-if="(visaType == 1 || visaType == 'arrival') && showText == true" class="visa-label__text">
 			on Arrival
 		</span>
-		<span v-if="(type == 0 || type == 'required') && showText == true" class="visa-label__text">
+		<span v-if="(visaType == 0 || visaType == 'required') && showText == true" class="visa-label__text">
 			Required
 		</span>
 		{{ count }}
@@ -31,6 +31,10 @@ export default {
 			type: String,
 			default: null
 		},
+		typeNumber: {
+			type: String,
+			default: null
+		},
 		width: {
 			type: Number,
 			default: null
@@ -38,12 +42,18 @@ export default {
 	},
 	data() {
 		return {
-			elementWidth: null
+			elementWidth: null,
+			visaType: null
 		};
 	},
 	created() {
 		if (this.$props.width) {
 			this.elementWidth = { width: Math.round((this.$props.width[0] / this.$props.width[1]) * 100) + '%' };
+		}
+		if (this.$props.type) {
+			this.visaType = this.$props.type;
+		} else {
+			this.visaType = this.$props.typeNumber;
 		}
 	}
 };
