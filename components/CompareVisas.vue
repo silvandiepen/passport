@@ -2,32 +2,14 @@
 	<div class="country-row">
 		<div class="country-row__tools">
 			<div class="input-field input-switch input-switch--differences">
-				<input id="show-difference" v-model="differences" type="checkbox" >
-				<label v-if="differences" for="show-difference">
-					<span class="hide-for-small-only">
-						Showing
-					</span>
+				<input id="show-difference" v-model="differences" type="checkbox"/>
+				<label for="show-difference">
 					<span>differences</span>
-				</label>
-				<label v-else for="show-difference">
-					<span class="hide-for-small-only">
-						Showing
-					</span>
-					<span>all</span>
 				</label>
 			</div>
 			<div class="input-field input-switch input-switch--merged">
-				<input id="show-merged" v-model="showMerged" type="checkbox" >
-				<label v-if="showMerged" for="show-merged">
-					<span class="hide-for-small-only">
-						Showing
-					</span>
-					<span>merged</span>
-				</label>
-				<label v-else for="show-merged">
-					<span class="hide-for-small-only">
-						Show
-					</span>
+				<input id="show-merged" v-model="showMerged" type="checkbox"  >
+				<label for="show-merged">
 					<span>merged</span>
 				</label>
 			</div>
@@ -48,8 +30,14 @@
 				>
 					<h4>
 						{{ mergedData.title.join(' + ') }}
-						<!-- <small>({{ mergedData.data.reduce(getSum) }})</small> -->
+						<small>({{ mergedData.score.total }})</small>
 					</h4>
+					<div class="labels">
+						<visa-label type="free" show-text="false" :count="mergedData.score.free" />
+						<visa-label type="eta" show-text="false" :count="mergedData.score.eta" />
+						<visa-label type="arrival" show-text="false" :count="mergedData.score.arrival" />
+						<visa-label type="required" show-text="false" :count="mergedData.score.required" />
+					</div>
 				</li>
 			</ul>
 		</div>
@@ -68,7 +56,7 @@
 				<li v-for="(country, index) in compareData" :key="index" class="country-cols__column">
 					<ul class="country-cols__list">
 						<li v-for="(c, i) in blacklistFilter(country.data, true)" :key="i" class="country-cols__item">
-							<span class="label" :class="[`visa-${c}`]"></span>
+							<visa-label :type="c" />
 						</li>
 					</ul>
 				</li>
@@ -81,7 +69,7 @@
 				>
 					<ul class="country-cols__list">
 						<li v-for="(c, i) in blacklistFilter(mergedData.data, true)" :key="i" class="country-cols__item">
-							<span class="label" :class="[`visa-${c}`]"></span>
+							<visa-label :type="c" />
 						</li>
 					</ul>
 				</li>
@@ -102,7 +90,7 @@ export default {
 		return {
 			blacklist: [],
 			differences: true,
-			showMerged: true,
+			showMerged: false,
 			mergedData: null
 		};
 	},
@@ -139,7 +127,9 @@ export default {
 	},
 	methods: {
 		getSum(total, num) {
-			return total + num;
+			console.log(total, num);
+			// return total + num;
+			return total;
 		},
 		blacklistFilter(data, onlyData = false) {
 			// console.log(data);
@@ -206,7 +196,14 @@ export default {
 		mergeData(data) {
 			let merged = {
 				title: [],
-				data: []
+				data: [],
+				score: {
+					total: 0,
+					free: 0,
+					required: 0,
+					arrival: 0,
+					eta: 0
+				}
 			};
 
 			data.forEach((countryData, index) => {
@@ -221,6 +218,21 @@ export default {
 						if (countryData.data[key] > merged.data[key]) {
 							// merged.data.push([key, countryData.data[key]]);
 							merged.data[key] = countryData.data[key];
+						}
+						merged.score.total = merged.score.total + merged.data[key];
+						switch (merged.data[key]) {
+							case 3:
+								merged.score.free++;
+								break;
+							case 2:
+								merged.score.eta++;
+								break;
+							case 1:
+								merged.score.arrival++;
+								break;
+							case 0:
+								merged.score.required++;
+								break;
 						}
 					}
 				}
@@ -244,9 +256,6 @@ export default {
 	@include silicon-go-up('span');
 }
 .country-row {
-	// border: 2px solid red;
-	height: 80vh;
-	overflow: scroll;
 	&__tools {
 		--form-border-color: #{color(Dark)};
 		--form-accent: #{color(Yellow)};
@@ -255,38 +264,19 @@ export default {
 		top: 0;
 		padding: 3rem;
 		z-index: 1;
-		// @media #{$small-only} {
-		// 	color: white;
-		// 	padding: 1rem 2rem;
-		// 	width: 100%;
-		// 	background-color: color(Dark);
-		// }
 		display: flex;
 		flex-direction: column;
+		@media #{$small-only} {
+			padding: 1rem;
+		}
 	}
-	// border: 1px solid red;
 	&__container {
-		// padding: grid(0 1);
 		&--titles {
-			// padding: grid(1);
-			// padding-bottom: 0;
-			// @media #{$small-only} {
-			// 	padding: 2rem;
-			// 	padding-top: 5rem;
-			// 	padding-bottom: 0;
-			// }
-			// position: absolute;
 			width: 100%;
 			background-image: linear-gradient(to bottom, color(White) 50%, color(Offwhite, 0));
 		}
 		&--visas {
-			// padding: grid(5 1 1 1);
-			// @media #{$small-only} {
-			// 	padding: grid(10) 2rem 2rem 2rem;
-			// }
 			background-color: color(Offwhite);
-			// height: 100vh;
-			// overflow: scroll;
 		}
 	}
 }
@@ -294,7 +284,7 @@ export default {
 	display: flex;
 	align-content: stretch;
 	&__column {
-		// border: 1px solid red;
+		border-right: 1px solid color(Black, 0.1);
 		width: grid(2);
 		flex-grow: 1;
 		h4 {
@@ -312,8 +302,20 @@ export default {
 			flex-grow: 0;
 		}
 		&--merged {
+			position: relative;
 			background-color: color(Black);
 			color: color(White);
+			.country-cols__item {
+				&:nth-child(even) {
+					background-color: color(White, 0.1);
+				}
+			}
+			// .labels {
+			// 	border: 1px solid red;
+			// 	position: absolute;
+			// 	right: 0;
+			// 	top: 0;
+			// }
 		}
 	}
 	&--countries {
@@ -323,15 +325,31 @@ export default {
 			padding: 0.5rem;
 		}
 	}
+	&__list {
+		// border-right: 1px solid color(Black, 0.1);
+		width: 100%;
+	}
 	&__item {
 		display: block;
 		width: 100%;
 		height: grid(1);
+		line-height: grid(0.75);
+		&:nth-child(even) {
+			background-color: color(White, 1);
+		}
 		@media #{$small-only} {
-			// height: grid(2.5);
+			height: grid(2.5);
+			line-height: grid(2);
 		}
 		.label {
-			// border: 1px solid red;
+			line-height: 1;
+		}
+		h5 {
+			line-height: grid(1);
+			@media #{$small-only} {
+				font-size: 14px;
+				line-height: 1;
+			}
 		}
 	}
 }
@@ -339,6 +357,10 @@ export default {
 	width: grid(4);
 	@media #{$small-only} {
 		width: grid(8);
+	}
+	.country-cols__item {
+		padding-left: grid(1);
+		@include min-('padding-left', 1, 30);
 	}
 }
 </style>

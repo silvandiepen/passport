@@ -60,89 +60,36 @@ body {
 		
 	}
 }
-.label {
-	color: color(White);
-	border-radius: 3px;
-	font-size: 12px;
-	font-weight: bold;
-	display: inline-block;
-	padding: 0.25rem 0.5rem;
-	border-width: 1px;
-	border-style: solid;
-	@media #{$small-only} {
-		width: 1.5rem;
-		height: 1.5rem;
-		border-radius: 50%;
-	}
-	
-	&.visa-3,
-	&.visa-free {
-		background-color: color(Green,.75);
-		border-color: color(Green,1);
-		&:before {
-			content: 'Visa free';
-			@media #{$medium-only} {
-				content: "free";
-			}
-			@media #{$small-only} {
-				content: none;
-			}
-		}
-	}
-	&.visa-2,
-	&.visa-eta {
-		background-color: mix(color(Green,.75), color(Yellow,.75), 50%);
-		border-color: mix(color(Green), color(Yellow), 50%);
-		&:before {
-			content: 'Visa ETA';
-			@media #{$medium-only} {
-				content: "ETA";
-			}
-			@media #{$small-only} {
-				content: none;
-			}
-		}
-	}
-	&.visa-1,
-	&.visa-on-arrival {
-		background-color: color(Yellow,.75);
-		border-color: color(Yellow,1);
-		&:before {
-			content: 'Visa on arrival';
-			@media #{$medium-only} {
-				content: "on Arrival";
-			}
-			@media #{$small-only} {
-				content: none;
-			}
-		}
-	}
-	&.visa-0,
-	&.visa-required {
-		background-color: color(Orange,.75);
-		border-color: color(Orange,1);
-		&:before {
-			content: 'Visa Required';
-			@media #{$medium-only} {
-				content: "Required";
-			}
-			@media #{$small-only} {
-				content: none;
-			}
-		}
-	}
-	&.banned {
-		background-color: color(Red);
-		&:before {
-			content: 'Banned';
-			@media #{$small-only} {
-				content: none;
-			}
-		}
-	}
-}
+
 button{
 	&:focus{
 		outline: none; box-shadow: none;
+	}
+}
+
+.labels {
+	width: 50%;
+	@media #{$small-only} {
+		width: 100%;
+	}
+	font-size: 0;
+	display: flex;
+	float: right;
+	.visa-label {
+		display: block;
+			border-radius: 0;
+		text-shadow: 1px 1px 0 color(Black, 0.25);
+		&:first-child {
+			border-radius: 1rem 0 0 1rem;
+		}
+		&:last-child {
+			border-radius: 0 1rem 1rem 0;
+			&:first-child {
+				border-radius: 1rem;
+			}
+		}
+		& + .label {
+			margin: 0;
+		}
 	}
 }

@@ -83,24 +83,30 @@
 							{{ country.title }} <small>({{ country.score.total }})</small>
 						</nuxt-link>
 						<span class="labels">
-							<span class="label visa-free" :data-width="`${Math.round((country.score.free / orderedStats.length) * 100)}`">
-								{{ country.score.free }}
-							</span>
-							<span class="label visa-eta" :data-width="`${Math.round((country.score.eta / orderedStats.length) * 100)}`">
-								{{ country.score.eta }}
-							</span>
-							<span
-								class="label visa-on-arrival"
-								:data-width="`${Math.round((country.score.arrival / orderedStats.length) * 100)}`"
-							>
-								{{ country.score.arrival }}
-							</span>
-							<span
-								class="label visa-required"
-								:data-width="`${Math.round((country.score.required / orderedStats.length) * 100)}`"
-							>
-								{{ country.score.required }}
-							</span>
+							<visa-label
+								type="free"
+								show-text="false"
+								:width="[country.score.free, orderedStats.length]"
+								:count="country.score.free"
+							/>
+							<visa-label
+								type="eta"
+								show-text="false"
+								:width="[country.score.eta, orderedStats.length]"
+								:count="country.score.eta"
+							/>
+							<visa-label
+								type="arrival"
+								show-text="false"
+								:width="[country.score.arrival, orderedStats.length]"
+								:count="country.score.arrival"
+							/>
+							<visa-label
+								type="required"
+								show-text="false"
+								:width="[country.score.required, orderedStats.length]"
+								:count="country.score.required"
+							/>
 						</span>
 					</h4>
 				</li>
@@ -181,37 +187,7 @@ export default {
 		opacity: 0.5;
 	}
 }
-.labels {
-	width: 40vw;
-	@media #{$small-only} {
-		width: 100%;
-	}
-	font-size: 0;
-	display: flex;
-	float: right;
-	.label {
-		display: block;
-		@for $i from 1 through 100 {
-			&[data-width='#{$i}'] {
-				width: #{percentage($i)};
-			}
-		}
-		border-radius: 0;
-		text-shadow: 1px 1px 0 color(Black, 0.25);
-		&:first-child {
-			border-radius: 1rem 0 0 1rem;
-		}
-		&:last-child {
-			border-radius: 0 1rem 1rem 0;
-			&:first-child {
-				border-radius: 1rem;
-			}
-		}
-		& + .label {
-			margin: 0;
-		}
-	}
-}
+
 h4 {
 	a {
 		text-decoration: none;

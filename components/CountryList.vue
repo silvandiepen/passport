@@ -1,8 +1,8 @@
 <template>
 	<div class="countries" :class="{ 'is-folded': folded }">
-		<div class="input-field input-search">
+		<!-- <div class="input-field input-search">
 			<input v-model="searchTerm" type="search" placeholder="Search.." >
-		</div>
+		</div> -->
 		<div class="countries__container">
 			<ul v-if="countries" class="countries__list">
 				<li v-for="(country, index) in countries" :key="index" class="countries__item">

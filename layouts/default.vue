@@ -55,7 +55,7 @@ export default {
 		position: absolute;
 		left: grid(4);
 		top: 0;
-		height: 100%;
+		min-height: 100%;
 		transition: width 0.3s ease-in-out, left 0.3s ease-in-out;
 		.is-folded & {
 			left: 0;
