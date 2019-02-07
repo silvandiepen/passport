@@ -21,18 +21,7 @@
 					{{ country.title }}
 				</span>
 				<span class="country-visas__label">
-					<span v-if="country.value === 3" class="label visa-free">
-						<span> Visa free</span>
-					</span>
-					<span v-if="country.value === 2" class="label visa-eta">
-						<span> ETA required</span>
-					</span>
-					<span v-if="country.value === 1" class="label visa-on-arrival">
-						<span> Visa on arrival</span>
-					</span>
-					<span v-if="country.value === 0" class="label visa-required">
-						<span>Visa required</span>
-					</span>
+					<visa-label :type-number="country.value" />
 				</span>
 			</li>
 		</ul>
