@@ -30,10 +30,7 @@
 					>
 						<span class="navigation__text">
 							Compare
-							<span v-if="count > 0" ref="count" :class="countPopClass"
-class="count" >
-								{{ count }}
-							</span>
+							<span ref="count" :class="countPopClass" class="count" v-html="count"></span>
 						</span>
 					</nuxt-link>
 					<div v-if="hasCompareCountries" class="compare-list">
@@ -163,18 +160,30 @@ export default {
 				}
 			}
 		}
-		&--listtrigger {background-color: color(Blue);
+		&--listtrigger {
+			background-color: color(Blue);
 			width: 3rem;
 			height: 3rem;
-			.is-not-folded {
-				span {
-					@include menu();
+			span {
+				@include menu();
+				@include menu-body() {
+					box-shadow: 0 2px 0 0 darken(Blue, 20%);
 				}
 			}
+
 			.is-folded {
 				span {
-					@include menu();
 					@include menu-close();
+					// @include menu-body() {
+					// 	box-shadow: 2px 2px 0 0 color(Black, 0.25);
+					// }
+					box-shadow: none;
+					&:before {
+						box-shadow: 2px 2px 0 0 darken(Blue, 20%);
+					}
+					&:after {
+						box-shadow: -2px 2px 0 0 darken(Blue, 20%);
+					}
 				}
 			}
 		}

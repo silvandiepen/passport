@@ -43,7 +43,7 @@ export default {
 }
 .panel {
 	&--left {
-		position: absolute;
+		position: fixed;
 		top: 0;
 		left: 0;
 		width: grid(4);
@@ -52,6 +52,9 @@ export default {
 		@include min-('width', 4, 240);
 		.is-folded & {
 			pointer-events: none;
+		}
+		@media #{$small-only}{
+			width: 100vw;
 		}
 	}
 	&--main {

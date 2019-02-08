@@ -7,7 +7,6 @@ export const mutations = {
 		state.foldedList = !state.foldedList;
 	},
 	setFoldList(state, value) {
-		console.log('mutation', value);
 		state.foldedList = value;
 	}
 };

@@ -122,5 +122,10 @@ export default {
 		background-color: color(Black, 0.75);
 		color: color(White);
 	}
+	&.visa--1 {
+		border-color: color(White, .25);
+		background-color: color(White, 0.1);
+		color: color(White);
+	}
 }
 </style>

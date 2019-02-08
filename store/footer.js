@@ -25,8 +25,6 @@ export const actions = {
 		}
 		if (Object.keys(state.packages).length < 1) {
 			api.getFooterPackages().then(({ data }) => {
-				
-		console.log(data);
 				commit('setPackages', data);
 			});
 		} else {

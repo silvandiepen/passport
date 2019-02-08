@@ -36,7 +36,19 @@ body {
 .content {
 	padding: grid(2);
 	@media #{$small-only} {
-		padding: 4rem 2rem;
+		padding: 2rem;
+	}
+}
+main {
+	section.content {
+		.row {
+			max-width: 960px;
+		}
+		&:nth-child(1) {
+			@media #{$small-only} {
+				padding-top: 5rem;
+			}
+		}
 	}
 }
 .page {

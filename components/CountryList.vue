@@ -11,14 +11,13 @@
 							<small>{{ country.id }}</small> {{ country.title }}
 						</span>
 					</nuxt-link>
-					<span
+					<button
 						class="to-compare"
 						:class="[checkCompare(country.id) ? 'is-in-compare' : 'not-in-compare']"
 						@click="compareThis(country.id)"
 					>
-						<span v-if="checkCompare(country.id)"></span>
-						<span v-else></span>
-					</span>
+						<span> </span>
+					</button>
 				</li>
 				<!-- <li class="countries__item countries__item--reset">
 					<a class="countries__link" @click="resetCompare">
@@ -169,6 +168,10 @@ export default {
 		&--reset {
 			background-color: color(Orange);
 		}
+		&:nth-child(odd) {
+			// background-color: color(White, 0.05);
+			background-image: linear-gradient(to left, color(Black), color(White, 0.025));
+		}
 	}
 	&__link {
 		position: relative;
@@ -193,15 +196,20 @@ export default {
 	.to-compare {
 		position: absolute;
 		top: 50%;
-		right: 1rem;
+		right: 0;
 		display: block;
+		border: none;
+		height: 100%;
+		width: 3rem;
 		color: color(White);
+		background-color: color(White, 0.05);
 		font-size: 10px;
 		transform: translateY(-50%);
 		span {
 			--stroke: 0.2em;
 		}
 		&.is-in-compare {
+			background-color: color(Blue, 0.25);
 			color: color(Green);
 			@media (hover: hover) {
 				&:hover {

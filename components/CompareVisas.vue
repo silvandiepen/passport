@@ -2,13 +2,13 @@
 	<div class="country-row">
 		<div class="country-row__tools">
 			<div class="input-field input-switch input-switch--differences">
-				<input id="show-difference" v-model="differences" type="checkbox"/>
+				<input id="show-difference" v-model="differences" type="checkbox"  >
 				<label for="show-difference">
 					<span>differences</span>
 				</label>
 			</div>
 			<div class="input-field input-switch input-switch--merged">
-				<input id="show-merged" v-model="showMerged" type="checkbox"  >
+				<input id="show-merged" v-model="showMerged" type="checkbox" >
 				<label for="show-merged">
 					<span>merged</span>
 				</label>
@@ -21,6 +21,9 @@
 				</li>
 				<li v-for="(country, index) in compareData" :key="index" class="country-cols__column">
 					<h4>
+						<span class="icon remove" @click="removeCountry(country.id)">
+							remove
+						</span>
 						{{ country.title }}
 					</h4>
 					<div class="labels">
@@ -48,11 +51,12 @@
 				</li>
 			</ul>
 		</div>
+
 		<div class="country-row__container country-row__container--visas">
 			<ul class="country-cols country-cols--countries">
 				<li class="country-cols__column country-cols__column--title">
 					<ul class="country-cols__list">
-						<li v-for="(c, i) in blacklistFilter(countryList)" :key="i" class="country-cols__item">
+						<li v-for="(c, i) in blacklistFilter(countryList, false, 'titles')" :key="i" class="country-cols__item">
 							<h5 class="sub">
 								{{ c.title }}
 							</h5>
@@ -62,7 +66,7 @@
 
 				<li v-for="(country, index) in compareData" :key="index" class="country-cols__column">
 					<ul class="country-cols__list">
-						<li v-for="(c, i) in blacklistFilter(country.data, true)" :key="i" class="country-cols__item">
+						<li v-for="(c, i) in blacklistFilter(country.data, true, 'list')" :key="i" class="country-cols__item">
 							<visa-label :type-number="c" />
 						</li>
 					</ul>
@@ -75,7 +79,7 @@
 					class="country-cols__column country-cols__column--merged"
 				>
 					<ul class="country-cols__list">
-						<li v-for="(c, i) in blacklistFilter(mergedData.data, true)" :key="i" class="country-cols__item">
+						<li v-for="(c, i) in blacklistFilter(mergedData.data, true, 'merged')" :key="i" class="country-cols__item">
 							<visa-label :type-number="c" />
 						</li>
 					</ul>
@@ -127,20 +131,18 @@ export default {
 	},
 	created() {
 		this.$store.dispatch('passport/setCountryList');
-		console.log(this.$refs['list']);
 	},
 
 	mounted() {
-		console.log(this.mergedData);
+		// console.log(this.mergedData);
 	},
 	methods: {
-		getSum(total, num) {
-			console.log(total, num);
-			// return total + num;
-			return total;
+		removeCountry(ID) {
+			this.$store.dispatch('passport/removeFromCompare', ID);
 		},
-		blacklistFilter(data, onlyData = false) {
-			// console.log(data);
+		blacklistFilter(data, onlyData = false, extra = null) {
+			console.log(extra);
+			// console.log(extra, data);
 			let _this = this;
 			let blacklisted = [];
 
@@ -160,6 +162,7 @@ export default {
 				}
 				return blacklisted;
 			} else {
+				console.log(extra, data);
 				return data;
 			}
 		},
@@ -247,7 +250,6 @@ export default {
 					}
 				}
 			});
-			console.log(merged);
 			return merged;
 		}
 	}
@@ -257,6 +259,22 @@ export default {
 <style lang="scss">
 @import '~henris';
 @import '~silicons';
+
+@include silicon-math-minus('.icon.remove');
+.icon.remove {
+	color: red;
+	font-size: 1rem;
+	text-indent: -999em;
+	position: absolute;
+	left: 50%;
+	top: 0;
+	transition: transform .3s ease-in-out;
+	transform: translate(-50%, -50%) rotate(-45deg) scale(0.5);
+	&:hover {
+		transform: translate(-50%, -50%) rotate(-45deg) scale(1);
+	}
+}
+
 .hide-for-small-only {
 	@media #{$small-only} {
 		display: none;
@@ -297,14 +315,24 @@ export default {
 	&__container {
 		&--titles {
 			position: relative;
-			z-index: 2; 
+			z-index: 2;
 			// min-height: grid(6);
 			width: 100%;
 			background-image: linear-gradient(to bottom, color(White) 50%, color(Offwhite, 0));
+
+			.country-cols__column {
+				padding-top: 4rem;
+			}
 		}
-		&--visas { 
+		&--visas {
 			overflow: scroll;
-			background-color: color(Offwhite);
+			color: color(White);
+			background-color: color(Black);
+			.country-cols__column {
+				&--merged {
+					background-color: darken(Blue, 10%);
+				}
+			}
 		}
 	}
 }
@@ -318,10 +346,12 @@ export default {
 		width: grid(2);
 		border-right: 1px solid color(Black, 0.1);
 		h4 {
+			position: relative;
 			height: 20rem;
 			writing-mode: vertical-rl;
-			padding: 4rem 0.5rem 3rem 0.5rem;
+			padding: 1rem 0.5rem 1rem 0.5rem;
 			margin-left: 2rem;
+			white-space: nowrap;
 		}
 		.labels {
 			position: absolute;
@@ -342,7 +372,7 @@ export default {
 			width: 300px;
 		}
 		&--merged {
-			background-color: color(Black);
+			background-color: color(Blue);
 			color: color(White);
 			.country-cols__item {
 				&:nth-child(even) {
@@ -368,7 +398,7 @@ export default {
 		height: grid(1);
 		line-height: grid(0.75);
 		&:nth-child(even) {
-			background-color: color(White, 1);
+			background-color: color(White, 0.05);
 		}
 		@media #{$small-only} {
 			height: grid(2.5);
