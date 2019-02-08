@@ -3,7 +3,7 @@
 		<nav class="navigation">
 			<ul class="navigation__list">
 				<li class="navigation__item">
-					<nuxt-link class="navigation__link" to="/">
+					<nuxt-link class="navigation__link" to="/" @click="setFoldList">
 						<span class="navigation__text">
 							Ranking
 						</span>
@@ -14,6 +14,7 @@
 						class="navigation__link"
 						to="/compare"
 						:class="{ 'navigation__link--total': compareCountries.length > 0 }"
+						@click="setFoldList"
 					>
 						<span class="navigation__text" :data-count="compareCountries.length">
 							Compare
@@ -59,7 +60,25 @@ export default {
 			}
 		}
 	},
+	mounted() {
+		const _this = this;
+		_this.setFoldList();
+		window.addEventListener('resize', function() {
+			_this.setFoldList();
+		});
+	},
 	methods: {
+		setFoldList() {
+			if (window.innerWidth < 750) {
+				if (!this.$store.state.foldList) {
+					this.$store.dispatch('setFoldList', true);
+				}
+			} else {
+				if (this.$store.state.foldList) {
+					this.$store.dispatch('setFoldList', false);
+				}
+			}
+		},
 		foldList() {
 			this.$store.dispatch('toggleList');
 		},

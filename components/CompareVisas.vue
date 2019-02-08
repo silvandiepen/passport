@@ -8,7 +8,7 @@
 				</label>
 			</div>
 			<div class="input-field input-switch input-switch--merged">
-				<input id="show-merged" v-model="showMerged" type="checkbox" >
+				<input id="show-merged" v-model="showMerged" type="checkbox"  >
 				<label for="show-merged">
 					<span>merged</span>
 				</label>
@@ -21,8 +21,15 @@
 				</li>
 				<li v-for="(country, index) in compareData" :key="index" class="country-cols__column">
 					<h4>
-						{{ country.title }} <small>({{ country.score.total }})</small>
+						{{ country.title }}
 					</h4>
+					<div class="labels">
+						<visa-label type="total" :show-text="false" :count="country.score.total" />
+						<visa-label type="free" :show-text="false" :count="country.score.free" />
+						<visa-label type="eta" :show-text="false" :count="country.score.eta" />
+						<visa-label type="arrival" :show-text="false" :count="country.score.arrival" />
+						<visa-label type="required" :show-text="false" :count="country.score.required" />
+					</div>
 				</li>
 				<li
 					v-if="mergedData && showMerged && compareData.length > 1"
@@ -30,13 +37,13 @@
 				>
 					<h4>
 						{{ mergedData.title.join(' + ') }}
-						<small>({{ mergedData.score.total }})</small>
 					</h4>
 					<div class="labels">
-						<visa-label type="free" show-text="false" :count="mergedData.score.free" />
-						<visa-label type="eta" show-text="false" :count="mergedData.score.eta" />
-						<visa-label type="arrival" show-text="false" :count="mergedData.score.arrival" />
-						<visa-label type="required" show-text="false" :count="mergedData.score.required" />
+						<visa-label type="total" :show-text="false" :count="mergedData.score.total" />
+						<visa-label type="free" :show-text="false" :count="mergedData.score.free" />
+						<visa-label type="eta" :show-text="false" :count="mergedData.score.eta" />
+						<visa-label type="arrival" :show-text="false" :count="mergedData.score.arrival" />
+						<visa-label type="required" :show-text="false" :count="mergedData.score.required" />
 					</div>
 				</li>
 			</ul>
@@ -120,6 +127,7 @@ export default {
 	},
 	created() {
 		this.$store.dispatch('passport/setCountryList');
+		console.log(this.$refs['list']);
 	},
 
 	mounted() {
@@ -260,16 +268,28 @@ export default {
 .country-row {
 	&__tools {
 		--form-border-color: #{color(Dark)};
-		--form-accent: #{color(Yellow)};
+		--form-body: #{color(Offwhite)};
+		--form-accent: #{color(Green)};
 		position: absolute;
 		top: left;
 		top: 0;
-		padding: 3rem;
+		padding: 4rem 0 0 grid(1);
 		z-index: 1;
 		display: flex;
 		flex-direction: column;
 		@media #{$small-only} {
-			padding: 1rem;
+			padding: 30px;
+			top: 4rem;
+		}
+		.input-field.input-switch {
+			@media #{$small-only} {
+				label {
+					padding-left: 3rem;
+					span {
+						font-size: 12px;
+					}
+				}
+			}
 		}
 	}
 	&__container {
@@ -285,7 +305,9 @@ export default {
 .country-cols {
 	display: flex;
 	align-content: stretch;
+	flex-wrap: nowrap;
 	&__column {
+		position: relative;
 		border-right: 1px solid color(Black, 0.1);
 		width: grid(2);
 		flex-grow: 1;
@@ -293,10 +315,20 @@ export default {
 			padding: 4rem 0.5rem 1rem 0.5rem;
 			writing-mode: vertical-rl;
 			max-height: 20rem;
-			small {
-				display: block;
-				font-size: 1rem;
-				opacity: 0.5;
+			margin-left: 2rem;
+		}
+		.labels {
+			position: absolute;
+			left: 0.5rem;
+			top: 4rem;
+			transform-origin: 0 0;
+			transform: rotate(90deg) translateY(-100%);
+		}
+		&--title {
+			.country-cols__item {
+				@media #{$small-only} {
+					text-align: left;
+				}
 			}
 		}
 		&--titles {
@@ -304,7 +336,6 @@ export default {
 			flex-grow: 0;
 		}
 		&--merged {
-			position: relative;
 			background-color: color(Black);
 			color: color(White);
 			.country-cols__item {
@@ -312,12 +343,6 @@ export default {
 					background-color: color(White, 0.1);
 				}
 			}
-			// .labels {
-			// 	border: 1px solid red;
-			// 	position: absolute;
-			// 	right: 0;
-			// 	top: 0;
-			// }
 		}
 	}
 	&--countries {
@@ -342,6 +367,7 @@ export default {
 		@media #{$small-only} {
 			height: grid(2.5);
 			line-height: grid(2);
+			text-align: center;
 		}
 		.label {
 			line-height: 1;

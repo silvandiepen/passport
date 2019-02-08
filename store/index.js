@@ -13,7 +13,6 @@ export const mutations = {
 };
 export const actions = {
 	setFoldList({ commit }, value) {
-		console.log('action', value);
 		commit('setFoldList', value);
 	},
 	toggleList({ commit }) {

@@ -36,7 +36,7 @@ export default {
 			default: null
 		},
 		width: {
-			type: Number,
+			type: Array,
 			default: null
 		}
 	},
@@ -75,6 +75,9 @@ export default {
 		width: 1.5rem;
 		height: 1.5rem;
 		border-radius: 50%;
+		.labels & {
+			width: auto;
+		}
 	}
 	&__text {
 		line-height: 1;
@@ -108,6 +111,11 @@ export default {
 	&.visa-required {
 		background-color: color(Orange, 0.75);
 		border-color: color(Orange, 1);
+	}
+	&.visa-total {
+		background-color: color(Black, 0.75);
+		border-color: color(Black, 1);
+		color: color(White);
 	}
 }
 </style>

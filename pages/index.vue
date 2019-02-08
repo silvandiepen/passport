@@ -73,6 +73,7 @@
 					Passport with the least visa required countries.
 				</h3>
 			</div>
+			<hr >
 			<ol>
 				<li v-for="(country, index) in orderedStats" :key="index" class="total-list__item">
 					<h4 :data-score="country.total">
@@ -85,25 +86,25 @@
 						<span class="labels">
 							<visa-label
 								type="free"
-								show-text="false"
+								:show-text="false"
 								:width="[country.score.free, orderedStats.length]"
 								:count="country.score.free"
 							/>
 							<visa-label
 								type="eta"
-								show-text="false"
+								:show-text="false"
 								:width="[country.score.eta, orderedStats.length]"
 								:count="country.score.eta"
 							/>
 							<visa-label
 								type="arrival"
-								show-text="false"
+								:show-text="false"
 								:width="[country.score.arrival, orderedStats.length]"
 								:count="country.score.arrival"
 							/>
 							<visa-label
 								type="required"
-								show-text="false"
+								:show-text="false"
 								:width="[country.score.required, orderedStats.length]"
 								:count="country.score.required"
 							/>

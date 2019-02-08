@@ -57,7 +57,7 @@ export default {
 	watch: {
 		$route() {
 			console.log('trigger setFoldList');
-			if (window.outerWidth < 750) {
+			if (window.innerWidth < 750) {
 				this.$store.dispatch('setFoldList', true);
 			}
 		}
