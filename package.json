@@ -26,6 +26,7 @@
 		"stylelint-logical-order": "0.0.4",
 		"stylelint-order": "^2.0.0",
 		"terser": "^3.14.1",
+		"vue-markdown": "^2.2.4",
 		"vuex-persist": "^2.0.0"
 	},
 	"devDependencies": {

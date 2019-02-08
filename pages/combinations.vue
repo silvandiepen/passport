@@ -1,24 +1,39 @@
 <template>
 	<main class="page page--home">
-		<div class="content">
-			<div>
-				<div class="input-field input-select">
-					<select v-model="currentCountry">
-						<option v-for="(country, index) in countryList" :key="index" :value="country">
-							{{ country.title }}
-						</option>
-					</select>
-				</div>
+		<section class="content">
+			<h3>Combinations</h3>
+			<p>
+				Combining passports can be interesting, see which passports you can combine with your passport to get the highest
+				score.
+			</p>
+		</section>
+		<section class="content background--purple">
+			<h4>Your country</h4>
+			<p>Every country you select below will add all posibilities of that country.</p>
+			<div class="input-field input-select">
+				<select v-model="currentCountry">
+					<option v-for="(country, index) in countryList" :key="index" :value="country">
+						{{ country.title }}
+					</option>
+				</select>
 			</div>
+			<button class="button" @click="reset" v-if="combinations.length > 0">
+				Reset
+				<span class="icon reset"></span>
+			</button>
+		</section>
+		<section class="content">
 			<div v-if="combinations">
-				<ul v-for="(country, index) in orderByTotal(combinations)" :key="index" class="list">
-					<li v-if="index <= showMax - 1" class="item">
+				<ol>
+					<li v-for="(country, index) in orderByTotal(combinations)" :key="index">
 						<nuxt-link :to="{ name: 'compare', params: { id: `${country.ids[0]}-${country.ids[1]}` } }">
-							<span>{{ country.score }}</span>
 							<strong>{{ country.id }}</strong>
 						</nuxt-link>
+						<div class="labels">
+							<visa-label type="total" :count="country.score.total" />
+						</div>
 					</li>
-				</ul>
+				</ol>
 			</div>
 			<!--
 			<div v-for="(c, i) in restrictedCountryList" :key="i">
@@ -29,7 +44,7 @@
 					</li>
 				</ul>
 			</div> -->
-		</div>
+		</section>
 	</main>
 </template>
 
@@ -76,7 +91,7 @@ export default {
 			}
 		},
 		orderByTotal(data) {
-			return orderBy(data, 'score', 'desc');
+			return orderBy(data, 'score.total', 'desc');
 		},
 		getCombination(country) {
 			return this.createCombinations(country);
@@ -105,8 +120,13 @@ export default {
 				return [];
 			}
 		},
+		reset() {
+			this.combinations = [];
+		},
 		makeScore(c1, c2) {
-			let score = 0;
+			let score = {
+				total: 0
+			};
 			let scores = [];
 
 			// First build the first Array;
@@ -121,11 +141,25 @@ export default {
 						if (c2[Object.keys(c2)[sIndex]] > scores[sIndex]) {
 							scores[sIndex] = c2[Object.keys(c2)[sIndex]];
 						}
+						switch (scores[sIndex]) {
+							case 3:
+								score.free = parseInt(score.free) + 1;
+								break;
+							case 2:
+								score.eta = parseInt(score.eta) + 1;
+								break;
+							// 	case 1:
+							// 		score.arrival++;
+							// 		break;
+							// 	case 0:
+							// 		score.required++;
+							// 		break;
+						}
 
 						if (sIndex === Object.keys(c2).length - 1) {
 							for (let s in scores) {
 								if (!isNaN(scores[s])) {
-									score = score + parseInt(scores[s]);
+									score.total = score.total + parseInt(scores[s]);
 								}
 							}
 						}
@@ -145,5 +179,8 @@ export default {
 	.item {
 		display: block;
 	}
+}
+.labels {
+	float: none;
 }
 </style>

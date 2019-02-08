@@ -48,7 +48,9 @@ export default {
 	},
 	created() {
 		if (this.$props.width) {
-			this.elementWidth = { width: Math.round((this.$props.width[0] / this.$props.width[1]) * 100) + '%' };
+			this.elementWidth = {
+				width: Math.round((this.$props.width[0] / this.$props.width[1]) * 100) + '%'
+			};
 		}
 		if (this.$props.type) {
 			this.visaType = this.$props.type;
@@ -76,7 +78,10 @@ export default {
 		height: 1.5rem;
 		border-radius: 50%;
 		.labels & {
+			height: auto;
 			width: auto;
+			padding: 0.1rem;
+			font-size: 10px;
 		}
 	}
 	&__text {

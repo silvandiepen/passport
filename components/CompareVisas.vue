@@ -266,6 +266,8 @@ export default {
 	@include silicon-go-up('span');
 }
 .country-row {
+	display: grid;
+	height: 100vh;
 	&__tools {
 		--form-border-color: #{color(Dark)};
 		--form-body: #{color(Offwhite)};
@@ -274,7 +276,7 @@ export default {
 		top: left;
 		top: 0;
 		padding: 4rem 0 0 grid(1);
-		z-index: 1;
+		z-index: 3;
 		display: flex;
 		flex-direction: column;
 		@media #{$small-only} {
@@ -294,10 +296,14 @@ export default {
 	}
 	&__container {
 		&--titles {
+			position: relative;
+			z-index: 2; 
+			// min-height: grid(6);
 			width: 100%;
 			background-image: linear-gradient(to bottom, color(White) 50%, color(Offwhite, 0));
 		}
-		&--visas {
+		&--visas { 
+			overflow: scroll;
 			background-color: color(Offwhite);
 		}
 	}
@@ -312,9 +318,9 @@ export default {
 		width: grid(2);
 		border-right: 1px solid color(Black, 0.1);
 		h4 {
-			max-height: 20rem;
+			height: 20rem;
 			writing-mode: vertical-rl;
-			padding: 4rem 0.5rem 1rem 0.5rem;
+			padding: 4rem 0.5rem 3rem 0.5rem;
 			margin-left: 2rem;
 		}
 		.labels {

@@ -1,6 +1,7 @@
 // Basics
 @import 'tools/pre';
 @import 'typography/embed';
+@import '~silicons';
 
 $form-border-radius: 0;
 
@@ -8,6 +9,7 @@ $form-border-radius: 0;
 $output: set-output(css, true);
 $output: set-output(form, true);
 $output: set-output(table, true);
+$output: set-output(button, true);
 
 // Output the whole framework
 @import '~henris';

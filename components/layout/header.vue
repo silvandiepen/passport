@@ -2,6 +2,11 @@
 	<header id="header" class="header">
 		<nav class="navigation">
 			<ul class="navigation__list">
+				<li class="navigation__item navigation__item--listtrigger">
+					<button class="navigation__link" :class="[folded ? 'is-not-folded' : 'is-folded']" @click="foldList">
+						<span class="navigation__text icon--list"></span>
+					</button>
+				</li>
 				<li class="navigation__item">
 					<nuxt-link class="navigation__link" to="/" @click="setFoldList">
 						<span class="navigation__text">
@@ -10,33 +15,39 @@
 					</nuxt-link>
 				</li>
 				<li class="navigation__item">
+					<nuxt-link class="navigation__link" to="/combinations" @click="setFoldList">
+						<span class="navigation__text">
+							Combinations
+						</span>
+					</nuxt-link>
+				</li>
+				<li class="navigation__item">
 					<nuxt-link
 						class="navigation__link"
 						to="/compare"
-						:class="{ 'navigation__link--total': compareCountries.length > 0 }"
+						:class="{ 'navigation__link--total': count > 0 }"
 						@click="setFoldList"
 					>
-						<span class="navigation__text" :data-count="compareCountries.length">
+						<span class="navigation__text">
 							Compare
+							<span v-if="count > 0" ref="count" :class="countPopClass"
+class="count" >
+								{{ count }}
+							</span>
 						</span>
 					</nuxt-link>
 					<div v-if="hasCompareCountries" class="compare-list">
 						<ul class="compare-list__list">
 							<li v-for="(country, index) in compareCountries" :key="index" class="compare-list__item">
-								<a class="compare-list__link" @click="removeCountry(country, $event)">
+								<a class="compare-list__link">
 									<span class="compare-list__text">
 										{{ getTitle(country) }}
 									</span>
-									<span class="icon"></span>
+									<span class="icon" @click="removeCountry(country, $event)"></span>
 								</a>
 							</li>
 						</ul>
 					</div>
-				</li>
-				<li class="navigation__item navigation__item--listtrigger">
-					<button class="navigation__link" :class="[folded ? 'is-not-folded' : 'is-folded']" @click="foldList">
-						<span class="navigation__text icon--list"></span>
-					</button>
 				</li>
 			</ul>
 		</nav>
@@ -46,7 +57,10 @@
 <script>
 export default {
 	data() {
-		return {};
+		return {
+			count: 1,
+			countPopClass: ''
+		};
 	},
 	computed: {
 		folded: {
@@ -58,6 +72,16 @@ export default {
 			get() {
 				return this.$store.state.passport.compareCountries;
 			}
+		}
+	},
+	watch: {
+		compareCountries: {
+			handler() {
+				this.countPop();
+				this.count = this.$store.state.passport.compareCountries.length;
+			},
+			deep: true,
+			immediate: true
 		}
 	},
 	mounted() {
@@ -101,6 +125,13 @@ export default {
 			} else {
 				return false;
 			}
+		},
+		countPop() {
+			const _this = this;
+			_this.countPopClass = 'is-active';
+			setTimeout(() => {
+				_this.countPopClass = '';
+			}, 1000);
 		}
 	}
 };
@@ -114,10 +145,7 @@ export default {
 	// Header styles
 	position: fixed;
 	top: 0;
-	right: grid(1);
-	@media #{$small-only} {
-		right: 0;
-	}
+	left: 0;
 	z-index: 10;
 }
 .navigation {
@@ -135,7 +163,7 @@ export default {
 				}
 			}
 		}
-		&--listtrigger {
+		&--listtrigger {background-color: color(Blue);
 			width: 3rem;
 			height: 3rem;
 			.is-not-folded {
@@ -172,13 +200,12 @@ export default {
 	&__text {
 		color: color(White);
 
-		&[data-count]::before {
-			content: attr(data-count);
+		span.count {
 			position: absolute;
 			top: 50%;
 			right: 1rem;
 			display: inline-block;
-			min-width: 1rem;
+			min-width: 1.5rem;
 			height: 1.5rem;
 			box-shadow: 0 0 0 2px color(White, 0.5);
 			border-radius: 1rem;
@@ -189,11 +216,24 @@ export default {
 			line-height: 1.5rem;
 			text-align: center;
 			text-decoration: none;
-			transform: scale(1) translateY(-50%);
+			transform: translateY(-50%) scale(1);
 			padding: 0 0.25rem;
-		}
-		&[data-count='0']::before {
-			transform: scale(0) translateY(-50%);
+			&.is-active {
+				animation: popItlikeItsHot 0.3s ease-in-out forwards;
+				@at-root {
+					@keyframes popItlikeItsHot {
+						0%,
+						100% {
+							transform: translateY(-50%) scale(1);
+							box-shadow: 0 0 0 2px color(White, 0.5);
+						}
+						75% {
+							box-shadow: 0 0 0 2px color(Yellow, 1);
+							transform: translateY(-50%) scale(1.3);
+						}
+					}
+				}
+			}
 		}
 	}
 }

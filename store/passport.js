@@ -23,7 +23,7 @@ export const mutations = {
 		if (state.compareCountries.includes(value)) {
 			state.compareCountries.splice(state.compareCountries.indexOf(value), 1);
 		} else {
-			if (state.compareCountries.length < 9) {
+			if (state.compareCountries.length < 8) {
 				state.compareCountries.push(value);
 			} else {
 				alert("8 is enough, don't you think?");
