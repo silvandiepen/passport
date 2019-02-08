@@ -4,7 +4,6 @@
 			<div class="row">
 				<div class="column small-full medium-third">
 					<svg
-						id="Layer_1"
 						version="1.1"
 						xmlns="http://www.w3.org/2000/svg"
 						xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -52,12 +51,12 @@
 					</svg>
 				</div>
 				<div class="column small-full medium-third">
-					<div class="content">
+					<div v-if="projects" class="content">
 						<vue-markdown :source="projects" />
 					</div>
 				</div>
 				<div class="column small-full medium-third">
-					<div class="content">
+					<div v-if="packages" class="content">
 						<vue-markdown :source="packages" />
 					</div>
 				</div>
