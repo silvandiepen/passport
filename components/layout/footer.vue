@@ -67,7 +67,6 @@
 
 <script>
 import VueMarkdown from 'vue-markdown';
-import axios from 'axios';
 
 export default {
 	components: {
@@ -80,19 +79,13 @@ export default {
 		};
 	},
 	created() {
-		let _this = this;
-		axios
-			.get('https://gist.githubusercontent.com/silvandiepen/d7f712a2eeee1b68154611b2550e93bd/raw/projects')
-			.then(function(response) {
-				// handle success
-				_this.projects = response.data;
-			});
-		axios
-			.get('https://gist.githubusercontent.com/silvandiepen/d7f712a2eeee1b68154611b2550e93bd/raw/packages')
-			.then(function(response) {
-				// handle success
-				_this.packages = response.data;
-			});
+		
+		console.log(this.$store.state.footer);
+		
+		// this.$store.dispatch('footer/getData').then(() => {
+		// 	this.projects = this.$store.state.footer.projects;
+		// 	this.projects = this.$store.state.footer.packages;
+		// });
 	}
 };
 </script>
