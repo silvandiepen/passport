@@ -40,8 +40,8 @@
 				background-color: color(White);
 			}
 			.country-name {
-				line-height: 3rem;
 				display: block;
+				line-height: 3rem;
 			}
 		}
 	}
@@ -54,30 +54,30 @@
 			@media #{$small-only} {
 				width: 3rem;
 				.label {
-					font-size: 0;
 					display: block;
 					width: 1.5rem !important;
 					height: 1.5rem;
 					border-radius: 50%;
+					font-size: 0;
 					// padding: 0;
 				}
 			}
 		}
 		&__title {
 			position: absolute;
-			left: 0;
 			top: 0;
-			padding: 0.5rem 1rem;
-			transform: translateY(-100%);
+			left: 0;
 			font-weight: bold;
+			transform: translateY(-100%);
+			padding: 0.5rem 1rem;
 			@media #{$small-only} {
+				right: 0;
+				left: auto;
+				line-height: 2rem;
+				white-space: nowrap;
 				transform: rotate(90deg);
 				transform-origin: 100% 0;
-				white-space: nowrap;
-				left: auto;
-				right: 0;
 				margin: 0;
-				line-height: 2rem;
 			}
 		}
 	}

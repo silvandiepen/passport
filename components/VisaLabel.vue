@@ -62,15 +62,15 @@ export default {
 <style lang="scss">
 @import '~henris';
 .visa-label {
-	color: color(White);
-	border-radius: 3px;
-	font-size: 12px;
-	font-weight: bold;
 	display: inline-block;
-	padding: 0.25rem 0.5rem;
 	border-width: 1px;
 	border-style: solid;
+	border-radius: 3px;
+	color: color(White);
+	font-weight: bold;
+	font-size: 12px;
 	line-height: 1;
+	padding: 0.25rem 0.5rem;
 	@media #{$small-only} {
 		width: 1.5rem;
 		height: 1.5rem;
@@ -93,28 +93,28 @@ export default {
 	}
 	&.visa-3,
 	&.visa-free {
-		background-color: color(Green, 0.75);
 		border-color: color(Green, 1);
+		background-color: color(Green, 0.75);
 	}
 	&.visa-2,
 	&.visa-eta {
-		background-color: mix(color(Green, 0.75), color(Yellow, 0.75), 50%);
 		border-color: mix(color(Green), color(Yellow), 50%);
+		background-color: mix(color(Green, 0.75), color(Yellow, 0.75), 50%);
 	}
 	&.visa-1,
 	&.visa-arrival,
 	&.visa-on-arrival {
-		background-color: color(Yellow, 0.75);
 		border-color: color(Yellow, 1);
+		background-color: color(Yellow, 0.75);
 	}
 	&.visa-0,
 	&.visa-required {
-		background-color: color(Orange, 0.75);
 		border-color: color(Orange, 1);
+		background-color: color(Orange, 0.75);
 	}
 	&.visa-total {
-		background-color: color(Black, 0.75);
 		border-color: color(Black, 1);
+		background-color: color(Black, 0.75);
 		color: color(White);
 	}
 }

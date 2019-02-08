@@ -123,19 +123,19 @@ export default {
 		width: 100%;
 	}
 	&__item {
-		width: 100%;
 		display: flex;
 		justify-content: space-between;
+		width: 100%;
 		padding: 0.25rem 0;
 	}
 	&__label {
 		.label {
-			line-height: 1rem;
 			display: inline-block;
-			white-space: nowrap;
 			width: 100%;
-			text-align: center;
 			border-radius: 1rem;
+			line-height: 1rem;
+			white-space: nowrap;
+			text-align: center;
 			span {
 				@media #{$medium-up} {
 					display: none;

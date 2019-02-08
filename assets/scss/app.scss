@@ -20,6 +20,7 @@ $output: set-output(table, true);
 @import 'components/index';
 
 body {
+	-webkit-overflow-scrolling: touch;
 	.input-field {
 		--form-body: black;
 		--form-border-color: white;
@@ -28,7 +29,6 @@ body {
 		--form-accent-color: #{color(Purple)};
 		--form-body-hover: #{mix(color(Purple), color(Black), 50%)};
 	}
-	-webkit-overflow-scrolling: touch;
 }
 
 .content {
@@ -38,6 +38,8 @@ body {
 	}
 }
 .page {
+	position: relative;
+	width: 100%;
 	@media #{$medium-up} {
 		max-height: 100vh;
 		overflow: scroll;
@@ -45,8 +47,6 @@ body {
 	@media #{$small-only} {
 		overflow-x: scroll;
 	}
-	width: 100%;
-	position: relative;
 }
 
 .labels .label {
@@ -61,20 +61,16 @@ body {
 
 button {
 	&:focus {
-		outline: none;
 		box-shadow: none;
+		outline: none;
 	}
 }
 
 .labels {
-	width: 50%;
-	@media #{$small-only} {
-		width: 100%;
-		margin-top: 0.5rem;
-	}
-	font-size: 0;
 	display: flex;
 	float: right;
+	width: 50%;
+	font-size: 0;
 	.visa-label {
 		display: block;
 		border-radius: 0;
@@ -91,5 +87,9 @@ button {
 		& + .label {
 			margin: 0;
 		}
+	}
+	@media #{$small-only} {
+		width: 100%;
+		margin-top: 0.5rem;
 	}
 }

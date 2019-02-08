@@ -102,9 +102,9 @@ export default {
 @import '~silicons';
 .countries {
 	position: relative;
+	height: 100vh;
 	background-color: color(Black);
 	color: color(White);
-	height: 100vh;
 	clip-path: inset(0 0 0% 0);
 	transition: clip-path 0.5s ease-in-out;
 	&.is-folded {
@@ -114,20 +114,21 @@ export default {
 		position: absolute;
 		top: 0;
 		left: 0;
+		z-index: 10;
 		width: 100vw;
 		clip-path: inset(0 0 0% 0);
 		transition: clip-path 0.5s ease-in-out;
-		z-index: 10;
 		&.is-folded {
 			clip-path: inset(0 100% 0 0);
 		}
 	}
 	&:before {
 		content: '';
-		width: 100%;
-		height: 100%;
 		position: absolute;
 		top: 0;
+		z-index: 3;
+		width: 100%;
+		height: 100%;
 		background-image: linear-gradient(
 			to bottom,
 			color(Black, 1),
@@ -136,7 +137,6 @@ export default {
 			color(Black, 1)
 		);
 		pointer-events: none;
-		z-index: 3;
 	}
 
 	&__container {
@@ -171,19 +171,19 @@ export default {
 		}
 	}
 	&__link {
-		display: inline-block;
-		padding: 0.75rem 1rem 0.75rem 2rem;
-		text-decoration: none;
 		position: relative;
+		display: inline-block;
+		text-decoration: none;
+		padding: 0.75rem 1rem 0.75rem 2rem;
 	}
 	&__text {
-		display: block;
 		position: relative;
+		display: block;
 		small {
 			position: absolute;
 			right: calc(100% + 0.5rem);
-			opacity: 0.25;
 			font-weight: bold;
+			opacity: 0.25;
 		}
 	}
 	.input-field {
@@ -192,11 +192,11 @@ export default {
 	}
 	.to-compare {
 		position: absolute;
-		right: 1rem;
 		top: 50%;
+		right: 1rem;
 		display: block;
-		font-size: 10px;
 		color: color(White);
+		font-size: 10px;
 		transform: translateY(-50%);
 		span {
 			--stroke: 0.2em;

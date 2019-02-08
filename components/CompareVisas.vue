@@ -304,25 +304,25 @@ export default {
 }
 .country-cols {
 	display: flex;
-	align-content: stretch;
 	flex-wrap: nowrap;
+	align-content: stretch;
 	&__column {
 		position: relative;
-		border-right: 1px solid color(Black, 0.1);
-		width: grid(2);
 		flex-grow: 1;
+		width: grid(2);
+		border-right: 1px solid color(Black, 0.1);
 		h4 {
-			padding: 4rem 0.5rem 1rem 0.5rem;
-			writing-mode: vertical-rl;
 			max-height: 20rem;
+			writing-mode: vertical-rl;
+			padding: 4rem 0.5rem 1rem 0.5rem;
 			margin-left: 2rem;
 		}
 		.labels {
 			position: absolute;
-			left: 0.5rem;
 			top: 4rem;
-			transform-origin: 0 0;
+			left: 0.5rem;
 			transform: rotate(90deg) translateY(-100%);
+			transform-origin: 0 0;
 		}
 		&--title {
 			.country-cols__item {
@@ -332,8 +332,8 @@ export default {
 			}
 		}
 		&--titles {
-			width: 300px;
 			flex-grow: 0;
+			width: 300px;
 		}
 		&--merged {
 			background-color: color(Black);
@@ -347,8 +347,8 @@ export default {
 	}
 	&--countries {
 		.country-cols__item {
-			width: 100%;
 			display: block;
+			width: 100%;
 			padding: 0.5rem;
 		}
 	}

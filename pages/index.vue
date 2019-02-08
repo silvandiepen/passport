@@ -182,10 +182,10 @@ export default {
 	}
 	&__rank {
 		position: absolute;
-		right: 100%;
 		top: 0;
-		padding: 0 1rem;
+		right: 100%;
 		opacity: 0.5;
+		padding: 0 1rem;
 	}
 }
 

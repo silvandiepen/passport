@@ -152,15 +152,15 @@ export default {
 		}
 	}
 	&__link {
-		background-color: transparent;
-		border: none;
 		display: block;
-		padding: 1rem;
+		border: none;
+		background-color: transparent;
 		text-decoration: none;
+		padding: 1rem;
 
 		button:focus {
-			outline: none !important;
 			box-shadow: none !important;
+			outline: none !important;
 		}
 		&.nuxt-link-exact-active {
 			background-color: color(Purple);
@@ -174,23 +174,23 @@ export default {
 
 		&[data-count]::before {
 			content: attr(data-count);
-			display: inline-block;
 			position: absolute;
-			right: 1rem;
 			top: 50%;
+			right: 1rem;
+			display: inline-block;
+			min-width: 1rem;
+			height: 1.5rem;
+			box-shadow: 0 0 0 2px color(White, 0.5);
+			border-radius: 1rem;
+			color: color(White);
+			font-weight: bold;
 			// transform: scale(0) translateY(-50%);
 			font-size: 12px;
-			font-weight: bold;
-			box-shadow: 0 0 0 2px color(White, 0.5);
-			color: color(White);
-			border-radius: 1rem;
-			padding: 0 0.25rem;
-			text-align: center;
 			line-height: 1.5rem;
+			text-align: center;
 			text-decoration: none;
-			height: 1.5rem;
-			min-width: 1rem;
 			transform: scale(1) translateY(-50%);
+			padding: 0 0.25rem;
 		}
 		&[data-count='0']::before {
 			transform: scale(0) translateY(-50%);
@@ -199,9 +199,9 @@ export default {
 }
 .compare-list {
 	position: absolute;
+	top: 100%;
 	left: 0;
 	width: 100%;
-	top: 100%;
 	clip-path: inset(0 0 100% 0);
 	transition: clip-path 0.3s ease-in-out;
 	&__list {
@@ -209,21 +209,21 @@ export default {
 	}
 	&__item {
 		position: relative;
+		display: block;
 		background-color: darken(Purple, 20%);
 		color: color(White);
-		display: block;
 		font-weight: bold;
-		padding: 0.75rem 1rem;
 		font-size: 12px;
+		padding: 0.75rem 1rem;
 	}
 	&__link {
 		@include silicon-math-times('.icon');
 		.icon {
 			--stroke: 2px;
-			color: color(Red);
 			position: absolute;
 			top: 50%;
 			right: 0.5rem;
+			color: color(Red);
 			transform: translateY(-50%) rotate(45deg);
 		}
 	}

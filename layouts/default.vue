@@ -43,22 +43,22 @@ export default {
 }
 .panel {
 	&--left {
-		width: grid(4);
-		@include min-('width', 4, 240);
 		position: absolute;
-		left: 0;
 		top: 0;
+		left: 0;
+		width: grid(4);
 		height: 100%;
 		pointer-events: all;
+		@include min-('width', 4, 240);
 		.is-folded & {
 			pointer-events: none;
 		}
 	}
 	&--main {
-		width: calc(100vw - #{grid(4)});
 		position: absolute;
-		left: grid(4);
 		top: 0;
+		left: grid(4);
+		width: calc(100vw - #{grid(4)});
 		min-height: 100%;
 		transition: width 0.3s ease-in-out, left 0.3s ease-in-out;
 		.is-folded & {
@@ -71,8 +71,8 @@ export default {
 		}
 		@media #{$small-only} {
 			position: relative;
-			width: 100vw;
 			left: 0;
+			width: 100vw;
 		}
 	}
 }

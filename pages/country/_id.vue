@@ -96,20 +96,20 @@ export default {
 
 .page-enter-active,
 .page-leave {
-	opacity: 1;
 	transform: translate(0, 0);
+	opacity: 1;
 	transition: transform 0.5s ease-out, opacity 0.5s ease-out;
 }
 .page-enter {
-	opacity: 0;
 	transform: translate(0, #{grid(1)});
+	opacity: 0;
 	@media #{$small-only} {
 		transform: translateX(50%, 0);
 	}
 }
 .page-leave-active {
-	opacity: 0;
 	transform: translate(0, #{grid(1)});
+	opacity: 0;
 	@media #{$small-only} {
 		transform: translateX(-50%, 0);
 	}
@@ -165,29 +165,29 @@ export default {
 		}
 	}
 	&__button {
+		position: relative;
 		display: block;
 		width: 100%;
-		text-align: center;
-		position: relative;
 		color: color(Dark, 0.25);
-		text-transform: uppercase;
 		font-weight: bold;
 		font-size: 14px;
+		text-align: center;
+		text-transform: uppercase;
 		&:before {
 			content: '';
-			width: 100%;
-			height: grid(1);
-			@include min-('height', 1, 60);
-			display: block;
 			position: absolute;
 			bottom: 100%;
 			left: 0;
-			transition: height 0.3s;
+			display: block;
+			width: 100%;
+			height: grid(1);
 			background-image: linear-gradient(to bottom, color(White, 0), color(White, 1));
+			transition: height 0.3s;
+			@include min-('height', 1, 60);
 		}
 		span {
-			display: inline-block !important;
 			--stroke: 2px;
+			display: inline-block !important;
 			transform: translateY(-50%) rotate(90deg) !important;
 		}
 		@include silicon-arrow-basic-down('span');
