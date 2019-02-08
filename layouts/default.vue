@@ -49,6 +49,10 @@ export default {
 		left: 0;
 		top: 0;
 		height: 100%;
+		pointer-events: all;
+		.is-folded & {
+			pointer-events: none;
+		}
 	}
 	&--main {
 		width: calc(100vw - #{grid(4)});
