@@ -292,9 +292,9 @@ export default {
 	left: 50%;
 	top: 0;
 	transition: transform 0.3s ease-in-out;
-	transform: translate(-50%, -50%) rotate(-45deg) scale(0.5);
+	transform: translate(-50%, -100%) rotate(-45deg) scale(0.5);
 	&:hover {
-		transform: translate(-50%, -50%) rotate(-45deg) scale(1);
+		transform: translate(-50%, -100%) rotate(-45deg) scale(1);
 	}
 }
 
@@ -372,7 +372,7 @@ export default {
 			position: relative;
 			height: 20rem;
 			writing-mode: vertical-rl;
-			padding: 1rem 0.5rem 1rem 0.5rem;
+			padding: 0rem 0.5rem 1rem 0.5rem;
 			margin-left: 2rem;
 			white-space: nowrap;
 		}
@@ -432,7 +432,7 @@ export default {
 			line-height: 1;
 		}
 		h5 {
-			line-height: grid(1);
+			line-height: 1;
 			@media #{$small-only} {
 				font-size: 14px;
 				line-height: 1;
