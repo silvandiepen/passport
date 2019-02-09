@@ -1,90 +1,94 @@
 <template>
-	<div class="country-row">
-		<div v-if="compareData.length > 1" class="country-row__tools">
-			<div class="input-field input-switch input-switch--differences">
-				<input id="show-difference" v-model="differences" type="checkbox" >
-				<label for="show-difference">
-					<span>differences</span>
-				</label>
-			</div>
-			<div class="input-field input-switch input-switch--merged">
-				<input id="show-merged" v-model="showMerged" type="checkbox"/>
-				<label for="show-merged">
-					<span>merged</span>
-				</label>
-			</div>
-		</div>
-		<div ref="list" class="country-row__container country-row__container--titles">
-			<ul class="country-cols country-cols--titles">
-				<li class="country-cols__column country-cols__column--title">
-					<h4></h4>
-				</li>
-				<li v-for="(country, index) in compareData" :key="index" class="country-cols__column">
-					<h4>
-						<span class="icon remove" @click="removeCountry(country.id)">
-							remove
-						</span>
-						{{ country.title }}
-					</h4>
-					<div class="labels">
-						<visa-label type="total" :show-text="false" :count="country.score.total" />
-						<visa-label type="free" :show-text="false" :count="country.score.free" />
-						<visa-label type="eta" :show-text="false" :count="country.score.eta" />
-						<visa-label type="arrival" :show-text="false" :count="country.score.arrival" />
-						<visa-label type="required" :show-text="false" :count="country.score.required" />
+	<div class="compare-visas" :data-total="compareData.length">
+		<span v-if="compareData" v-show="compareData.length > 4" class="compare-visas__shadow"></span>
+		<div class="compare-visas__container">
+			<div class="country-row">
+				<div v-if="compareData.length > 1" class="country-row__tools">
+					<div class="input-field input-switch input-switch--differences">
+						<input id="show-difference" v-model="differences" type="checkbox"/>
+						<label for="show-difference">
+							<span>differences</span>
+						</label>
 					</div>
-				</li>
-				<li
-					v-if="mergedData && showMerged && compareData.length > 1"
-					class="country-cols__column country-cols__column--merged"
-				>
-					<h4>
-						{{ mergedData.title.join(' + ') }}
-					</h4>
-					<div class="labels">
-						<visa-label type="total" :show-text="false" :count="mergedData.score.total" />
-						<visa-label type="free" :show-text="false" :count="mergedData.score.free" />
-						<visa-label type="eta" :show-text="false" :count="mergedData.score.eta" />
-						<visa-label type="arrival" :show-text="false" :count="mergedData.score.arrival" />
-						<visa-label type="required" :show-text="false" :count="mergedData.score.required" />
+					<div class="input-field input-switch input-switch--merged">
+						<input id="show-merged" v-model="showMerged" type="checkbox" >
+						<label for="show-merged">
+							<span>merged</span>
+						</label>
 					</div>
-				</li>
-			</ul>
-		</div>
-
-		<div class="country-row__container country-row__container--visas">
-			<ul class="country-cols country-cols--countries">
-				<li class="country-cols__column country-cols__column--title">
-					<ul class="country-cols__list">
-						<li v-for="(c, i) in blacklistFilter(countryList, false, 'titles')" :key="i" class="country-cols__item">
-							<h5 class="sub">
-								{{ c.title }}
-							</h5>
+				</div>
+				<div ref="list" class="country-row__container country-row__container--titles">
+					<ul class="country-cols country-cols--titles">
+						<li class="country-cols__column country-cols__column--title">
+							<h4></h4>
+						</li>
+						<li v-for="(country, index) in compareData" :key="index" class="country-cols__column">
+							<h4>
+								<span class="icon remove" @click="removeCountry(country.id)">
+									remove
+								</span>
+								{{ country.title }}
+							</h4>
+							<div class="labels">
+								<visa-label type="total" :show-text="false" :count="country.score.total" />
+								<visa-label type="free" :show-text="false" :count="country.score.free" />
+								<visa-label type="eta" :show-text="false" :count="country.score.eta" />
+								<visa-label type="arrival" :show-text="false" :count="country.score.arrival" />
+								<visa-label type="required" :show-text="false" :count="country.score.required" />
+							</div>
+						</li>
+						<li
+							v-if="mergedData && showMerged && compareData.length > 1"
+							class="country-cols__column country-cols__column--merged"
+						>
+							<h4>
+								{{ mergedData.title.join(' + ') }}
+							</h4>
+							<div class="labels">
+								<visa-label type="total" :show-text="false" :count="mergedData.score.total" />
+								<visa-label type="free" :show-text="false" :count="mergedData.score.free" />
+								<visa-label type="eta" :show-text="false" :count="mergedData.score.eta" />
+								<visa-label type="arrival" :show-text="false" :count="mergedData.score.arrival" />
+								<visa-label type="required" :show-text="false" :count="mergedData.score.required" />
+							</div>
 						</li>
 					</ul>
-				</li>
+				</div>
 
-				<li v-for="(country, index) in compareData" :key="index" class="country-cols__column">
-					<ul class="country-cols__list">
-						<li v-for="(c, i) in blacklistFilter(country.data, true, 'list')" :key="i" class="country-cols__item">
-							<visa-label :type-number="c" />
+				<div class="country-row__container country-row__container--visas">
+					<ul class="country-cols country-cols--countries">
+						<li class="country-cols__column country-cols__column--title">
+							<ul class="country-cols__list">
+								<li v-for="(c, i) in blacklistFilter(countryList, false, 'titles')" :key="i" class="country-cols__item">
+									<h5 class="sub">
+										{{ c.title }}
+									</h5>
+								</li>
+							</ul>
+						</li>
+						<li v-for="(country, index) in compareData" :key="index" class="country-cols__column">
+							<ul class="country-cols__list">
+								<li v-for="(c, i) in blacklistFilter(country.data, true, 'list')" :key="i" class="country-cols__item">
+									<visa-label :type-number="c" />
+								</li>
+							</ul>
+						</li>
+
+						<!-- Merged Data -->
+
+						<li
+							v-if="mergedData && showMerged && compareData.length > 1"
+							class="country-cols__column country-cols__column--merged"
+						>
+							<ul class="country-cols__list">
+								<li v-for="(c, i) in blacklistFilter(mergedData.data, true, 'merged')" :key="i" class="country-cols__item">
+									<visa-label :type-number="c" />
+								</li>
+							</ul>
 						</li>
 					</ul>
-				</li>
-
-				<!-- Merged Data -->
-
-				<li
-					v-if="mergedData && showMerged && compareData.length > 1"
-					class="country-cols__column country-cols__column--merged"
-				>
-					<ul class="country-cols__list">
-						<li v-for="(c, i) in blacklistFilter(mergedData.data, true, 'merged')" :key="i" class="country-cols__item">
-							<visa-label :type-number="c" />
-						</li>
-					</ul>
-				</li>
-			</ul>
+				</div>
+			</div>
 		</div>
 	</div>
 </template>
@@ -306,6 +310,32 @@ export default {
 .button--scroll {
 	@include silicon-go-up('span');
 }
+
+.compare-visas {
+	position: relative;
+	width: 100%;
+	&__shadow {
+		display: none;
+		width: grid(4);
+		height: 100vh;
+		position: absolute;
+		right: 0;
+		top: 0;
+		background-image: linear-gradient(to right, color(Black, 0), color(Black, 1));
+		z-index: 5;
+		pointer-events: none;
+	}
+	@media #{$small-only} {
+		&__shadow {
+			display: block;
+		}
+	}
+	&__container {
+		width: 100%;
+		height: 100%;
+		overflow: scroll;
+	}
+}
 .country-row {
 	display: grid;
 	height: 100vh;
@@ -341,7 +371,8 @@ export default {
 			z-index: 2;
 			// min-height: grid(6);
 			width: 100%;
-			background-image: linear-gradient(to bottom, color(White) 50%, color(Offwhite, 0));
+			background-color: color(White);
+			// background-image: linear-gradient(to bottom, color(White) 50%, color(Offwhite, 0));
 
 			.country-cols__column {
 				padding-top: 4rem;
@@ -363,11 +394,24 @@ export default {
 	display: flex;
 	flex-wrap: nowrap;
 	align-content: stretch;
+	@media #{$small-only} {
+		align-content: flex-start;
+	}
 	&__column {
 		position: relative;
 		flex-grow: 1;
 		width: grid(2);
 		border-right: 1px solid color(Black, 0.1);
+
+		@media #{$small-only} {
+			width: grid(4);
+			[data-total='2'] & {
+				width: grid(8);
+			}
+			[data-total='3'] & {
+				width: grid(6);
+			}
+		}
 		h4 {
 			position: relative;
 			height: 20rem;
@@ -384,9 +428,11 @@ export default {
 			transform-origin: 0 0;
 		}
 		&--title {
+			.country-cols__list,
 			.country-cols__item {
 				@media #{$small-only} {
 					text-align: left;
+					width: 100% !important;
 				}
 			}
 		}
@@ -409,11 +455,30 @@ export default {
 			display: block;
 			width: 100%;
 			padding: 0.5rem;
+			@media #{$small-only} {
+				width: grid(4);
+				[data-total='2'] & {
+					width: grid(8);
+				}
+				[data-total='3'] & {
+					width: grid(6);
+				}
+			}
 		}
 	}
 	&__list {
 		// border-right: 1px solid color(Black, 0.1);
 		width: 100%;
+
+		@media #{$small-only} {
+			width: grid(4);
+			[data-total='2'] & {
+				width: grid(6);
+			}
+			[data-total='3'] & {
+				width: grid(5);
+			}
+		}
 	}
 	&__item {
 		display: block;
@@ -425,6 +490,7 @@ export default {
 		}
 		@media #{$small-only} {
 			height: grid(2.5);
+			width: grid(3);
 			line-height: grid(2);
 			text-align: center;
 		}

@@ -1,6 +1,6 @@
 <template>
 	<main class="page page--home">
-		<section class="content">
+		<section class="content background--white">
 			<div class="row">
 				<div class="column small-full">
 					<h3>Combinations</h3>
