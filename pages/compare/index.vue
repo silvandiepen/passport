@@ -1,14 +1,17 @@
 <template>
 	<div class="page compare">
-		<div v-if="compareCountries.length > 0">
+		<section v-if="compareCountries.length > 0">
 			<compare-visas />
-		</div>
-		<div v-else class="background--offwhite">
-			<div class="content">
+		</section>
+		<section v-else class="content background--offwhite">
+			<div class="row">
+				<div class="column small-full">
+					
 				<h3>There are no countries selected (yet)</h3>
 				<p>Please add countries from the country list by clicking on "add to compare"</p>
+				</div>
 			</div>
-		</div>
+		</section>
 	</div>
 </template>
 
