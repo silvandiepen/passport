@@ -5,13 +5,13 @@
 			<div class="country-row">
 				<div v-if="compareData.length > 1" class="country-row__tools">
 					<div class="input-field input-switch input-switch--differences">
-						<input id="show-difference" v-model="differences" type="checkbox"/>
+						<input id="show-difference" v-model="differences" type="checkbox"  >
 						<label for="show-difference">
 							<span>differences</span>
 						</label>
 					</div>
 					<div class="input-field input-switch input-switch--merged">
-						<input id="show-merged" v-model="showMerged" type="checkbox" >
+						<input id="show-merged" v-model="showMerged" type="checkbox"/>
 						<label for="show-merged">
 							<span>merged</span>
 						</label>
@@ -21,7 +21,8 @@
 					<ul class="country-cols country-cols--titles">
 						<li class="country-cols__column country-cols__column--title">
 							<h4></h4>
-						</li>	<li
+						</li>
+						<li
 							v-if="mergedData && showMerged && compareData.length > 1"
 							class="country-cols__column country-cols__column--merged"
 						>
@@ -51,7 +52,6 @@
 								<visa-label type="required" :show-text="false" :count="country.score.required" />
 							</div>
 						</li>
-					
 					</ul>
 				</div>
 
@@ -66,7 +66,7 @@
 								</li>
 							</ul>
 						</li>
-						
+
 						<li
 							v-if="mergedData && showMerged && compareData.length > 1"
 							class="country-cols__column country-cols__column--merged"
@@ -86,7 +86,6 @@
 						</li>
 
 						<!-- Merged Data -->
-
 					</ul>
 				</div>
 			</div>
@@ -380,9 +379,20 @@ export default {
 			}
 		}
 		&--visas {
-			overflow: scroll;
+			position: relative;
 			color: color(White);
 			background-color: color(Black);
+			&:before {
+				content: '';
+				width: 100%;
+				height: 3rem;
+				background-image: linear-gradient(to bottom, color(Black), color(Black, 0));
+				position: absolute;
+				left: 0;
+				top: 0;
+				z-index: 4;
+				pointer-events: none;
+			}
 			.country-cols__column {
 				&--merged {
 					background-color: darken(Blue, 10%);
@@ -420,6 +430,9 @@ export default {
 			padding: 0rem 0.5rem 1rem 0.5rem;
 			margin-left: 2rem;
 			white-space: nowrap;
+			@media #{$small-only}{
+				height: 10rem;
+			}
 		}
 		.labels {
 			position: absolute;
@@ -436,6 +449,10 @@ export default {
 					width: 100% !important;
 				}
 			}
+
+			// .country-cols__item{
+			// 	padding: 1rem 0;
+			// }
 		}
 		&--titles {
 			flex-grow: 0;
@@ -452,10 +469,12 @@ export default {
 		}
 	}
 	&--countries {
+		height: 100vh;
+		overflow: scroll;
 		.country-cols__item {
 			display: block;
 			width: 100%;
-			padding: 0.5rem;
+			padding: 1rem 0.5rem;
 			@media #{$small-only} {
 				width: grid(4);
 				[data-total='2'] & {
@@ -485,7 +504,7 @@ export default {
 		display: block;
 		width: 100%;
 		height: grid(1);
-		line-height: grid(0.75);
+		line-height: 1;
 		&:nth-child(even) {
 			background-color: color(White, 0.05);
 		}
