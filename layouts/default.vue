@@ -11,7 +11,7 @@
 
 <script>
 const LayoutHeader = () => import('~/components/layout/header.vue');
-const LayoutFooter = () => import('@/components/layout/footer.vue');
+const LayoutFooter = () => import('@/components/layout/temp-footer.vue');
 const CountryList = () => import('@/components/CountryList.vue');
 
 export default {
