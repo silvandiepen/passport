@@ -21,6 +21,20 @@
 					<ul class="country-cols country-cols--titles">
 						<li class="country-cols__column country-cols__column--title">
 							<h4></h4>
+						</li>	<li
+							v-if="mergedData && showMerged && compareData.length > 1"
+							class="country-cols__column country-cols__column--merged"
+						>
+							<h4>
+								{{ mergedData.title.join(' + ') }}
+							</h4>
+							<div class="labels">
+								<visa-label type="total" :show-text="false" :count="mergedData.score.total" />
+								<visa-label type="free" :show-text="false" :count="mergedData.score.free" />
+								<visa-label type="eta" :show-text="false" :count="mergedData.score.eta" />
+								<visa-label type="arrival" :show-text="false" :count="mergedData.score.arrival" />
+								<visa-label type="required" :show-text="false" :count="mergedData.score.required" />
+							</div>
 						</li>
 						<li v-for="(country, index) in compareData" :key="index" class="country-cols__column">
 							<h4>
@@ -37,21 +51,7 @@
 								<visa-label type="required" :show-text="false" :count="country.score.required" />
 							</div>
 						</li>
-						<li
-							v-if="mergedData && showMerged && compareData.length > 1"
-							class="country-cols__column country-cols__column--merged"
-						>
-							<h4>
-								{{ mergedData.title.join(' + ') }}
-							</h4>
-							<div class="labels">
-								<visa-label type="total" :show-text="false" :count="mergedData.score.total" />
-								<visa-label type="free" :show-text="false" :count="mergedData.score.free" />
-								<visa-label type="eta" :show-text="false" :count="mergedData.score.eta" />
-								<visa-label type="arrival" :show-text="false" :count="mergedData.score.arrival" />
-								<visa-label type="required" :show-text="false" :count="mergedData.score.required" />
-							</div>
-						</li>
+					
 					</ul>
 				</div>
 
@@ -66,16 +66,7 @@
 								</li>
 							</ul>
 						</li>
-						<li v-for="(country, index) in compareData" :key="index" class="country-cols__column">
-							<ul class="country-cols__list">
-								<li v-for="(c, i) in blacklistFilter(country.data, true, 'list')" :key="i" class="country-cols__item">
-									<visa-label :type-number="c" />
-								</li>
-							</ul>
-						</li>
-
-						<!-- Merged Data -->
-
+						
 						<li
 							v-if="mergedData && showMerged && compareData.length > 1"
 							class="country-cols__column country-cols__column--merged"
@@ -86,6 +77,16 @@
 								</li>
 							</ul>
 						</li>
+						<li v-for="(country, index) in compareData" :key="index" class="country-cols__column">
+							<ul class="country-cols__list">
+								<li v-for="(c, i) in blacklistFilter(country.data, true, 'list')" :key="i" class="country-cols__item">
+									<visa-label :type-number="c" />
+								</li>
+							</ul>
+						</li>
+
+						<!-- Merged Data -->
+
 					</ul>
 				</div>
 			</div>
