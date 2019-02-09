@@ -1,14 +1,14 @@
 <template>
 	<div class="country-row">
-		<div class="country-row__tools">
+		<div v-if="compareData.length > 1" class="country-row__tools">
 			<div class="input-field input-switch input-switch--differences">
-				<input id="show-difference" v-model="differences" type="checkbox"  >
+				<input id="show-difference" v-model="differences" type="checkbox" >
 				<label for="show-difference">
 					<span>differences</span>
 				</label>
 			</div>
 			<div class="input-field input-switch input-switch--merged">
-				<input id="show-merged" v-model="showMerged" type="checkbox" >
+				<input id="show-merged" v-model="showMerged" type="checkbox"/>
 				<label for="show-merged">
 					<span>merged</span>
 				</label>
@@ -126,6 +126,29 @@ export default {
 				this.mergedData = this.mergeData(this.compareData);
 			},
 			immediate: true,
+			deep: true
+		},
+		showMerged: {
+			handler() {
+				if (this.showMerged) {
+					this.differences = true;
+				}
+			}
+		},
+		differences: {
+			handler() {
+				if (!this.differences) {
+					this.showMerged = false;
+				}
+			}
+		},
+		mergedData: {
+			handler() {
+				if (this.mergedData.data.length < 2) {
+					this.differences = false;
+					this.showMerged = false;
+				}
+			},
 			deep: true
 		}
 	},
@@ -268,7 +291,7 @@ export default {
 	position: absolute;
 	left: 50%;
 	top: 0;
-	transition: transform .3s ease-in-out;
+	transition: transform 0.3s ease-in-out;
 	transform: translate(-50%, -50%) rotate(-45deg) scale(0.5);
 	&:hover {
 		transform: translate(-50%, -50%) rotate(-45deg) scale(1);

@@ -28,9 +28,9 @@
 						:class="{ 'navigation__link--total': count > 0 }"
 						@click="setFoldList"
 					>
-						<span class="navigation__text">
+						<span class="navigation__text" :class="{ 'has-count': count > 0 }">
 							Compare
-							<span ref="count" :class="countPopClass" class="count" v-html="count"></span>
+							<span ref="count" :class="countPopClass" class="count" v-html="count"							></span>
 						</span>
 					</nuxt-link>
 					<div v-if="hasCompareCountries" class="compare-list">
@@ -208,12 +208,17 @@ export default {
 	}
 	&__text {
 		color: color(White);
+		&.has-count{
+			span.count{
+				display: inline-block;
+			}
+		}
 
 		span.count {
 			position: absolute;
 			top: 50%;
 			right: 1rem;
-			display: inline-block;
+			display: none;
 			min-width: 1.5rem;
 			height: 1.5rem;
 			box-shadow: 0 0 0 2px color(White, 0.5);
