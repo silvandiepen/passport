@@ -429,7 +429,7 @@ export default {
 			writing-mode: vertical-rl;
 			padding: 0rem 0.5rem 1rem 0.5rem;
 			margin-left: 2rem;
-			white-space: nowrap;
+			// white-space: nowrap;
 			@media #{$small-only}{
 				height: 10rem;
 			}
