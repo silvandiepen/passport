@@ -7,7 +7,7 @@
 					<h3 class="sub">
 						And where will you need a visa?
 					</h3>
-					<p>Find out which passport is the most powerful, and which passport do do what you want.</p>
+					<p>Find out which passport is the most powerful, and which passport does do what you need.</p>
 				</div>
 			</div>
 		</section>
@@ -83,16 +83,16 @@
 							Passport with the least visa required countries.
 						</h3>
 					</div>
-					<hr >
-					<ol>
-						<li v-for="(country, index) in orderedStats" :key="index" class="total-list__item">
-							<h4 :data-score="country.total">
-								<span v-show="order !== ['title', 'desc']" class="total-list__rank">
-									<!-- {{ setRank(country.score.total, index) }} -->
-								</span>
-								<nuxt-link :to="'/country/' + country.id">
-									{{ country.title }} <small>({{ country.score.total }})</small>
+					<hr  >
+					<table width="100%">
+						<tr v-for="(country, index) in orderedStats" :key="index">
+							<td>{{ index + 1 }}</td>
+							<td>
+								<nuxt-link :to="{ name: 'compare', params: { id: country.id } }">
+									<strong>{{ country.title }}</strong>
 								</nuxt-link>
+							</td>
+							<td width="50%">
 								<span class="labels">
 									<visa-label
 										type="free"
@@ -119,9 +119,9 @@
 										:count="country.score.required"
 									/>
 								</span>
-							</h4>
-						</li>
-					</ol>
+							</td>
+						</tr>
+					</table>
 				</div>
 			</div>
 		</section>
@@ -204,6 +204,12 @@ export default {
 h4 {
 	a {
 		text-decoration: none;
+	}
+}
+table {
+	width: 100%;
+	.labels{
+		width: 100%;
 	}
 }
 </style>

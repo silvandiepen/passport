@@ -3,24 +3,23 @@
 		<span v-if="compareData" v-show="compareData.length > 4" class="compare-visas__shadow"></span>
 		<div class="compare-visas__container">
 			<div class="country-row">
-			
-				<div ref="list" class="country-row__container country-row__container--titles">
+<div ref="list" class="country-row__container country-row__container--titles">
 					<ul class="country-cols country-cols--titles">
 						<li class="country-cols__column country-cols__column--title">
-								<div v-if="compareData.length > 1" class="country-row__tools">
-					<div class="input-field input-switch input-switch--differences">
-						<input id="show-difference" v-model="differences" type="checkbox">
-						<label for="show-difference">
-							<span>differences</span>
-						</label>
-					</div>
-					<div class="input-field input-switch input-switch--merged">
-						<input id="show-merged" v-model="showMerged" type="checkbox" >
-						<label for="show-merged">
-							<span>merged</span>
-						</label>
-					</div>
-				</div>
+							<div v-if="compareData.length > 1" class="country-row__tools">
+								<div class="input-field input-switch input-switch--differences">
+									<input id="show-difference" v-model="differences" type="checkbox">
+												<label for="show-difference">
+										<span>differences</span>
+												</label>
+								</div>
+											<div class="input-field input-switch input-switch--merged">
+									<input id="show-merged" v-model="showMerged" type="checkbox">
+												<label for="show-merged">
+										<span>merged</span>
+												</label>
+								</div>
+										</div>
 							<h4></h4>
 						</li>
 						<li
@@ -362,10 +361,9 @@ export default {
 		--form-body: #{color(Offwhite)};
 		--form-accent: #{color(Green)};
 		position: absolute;
-		top: left;
 		top: 0;
 		padding: 4rem 0 0 grid(1);
-		z-index: 3;
+		z-index: 6;
 		display: flex;
 		flex-direction: column;
 		@media #{$small-only} {

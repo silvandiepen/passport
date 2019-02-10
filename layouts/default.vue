@@ -5,6 +5,7 @@
 		<main class="page panel--main">
 			<nuxt />
 		</main>
+		<made-with />
 		<layout-footer />
 	</div>
 </template>
@@ -12,12 +13,14 @@
 <script>
 const LayoutHeader = () => import('~/components/layout/header.vue');
 const LayoutFooter = () => import('@/components/layout/temp-footer.vue');
+const madeWith = () => import('@/components/layout/made-with.vue');
 const CountryList = () => import('@/components/CountryList.vue');
 
 export default {
 	components: {
 		LayoutHeader,
 		LayoutFooter,
+		madeWith,
 		CountryList
 	},
 	computed: {
