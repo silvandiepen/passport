@@ -15,13 +15,13 @@
 					</nuxt-link>
 				</li>
 				<li class="navigation__item">
-					<nuxt-link class="navigation__link" to="/combinations" @click="setFoldList">
+					<nuxt-link class="navigation__link" to="/combine" @click="setFoldList">
 						<span class="navigation__text">
-							Combinations
+							Combine
 						</span>
 					</nuxt-link>
 				</li>
-				<li class="navigation__item">
+				<li `lass="navigation__item">
 					<nuxt-link
 						class="navigation__link"
 						to="/compare"
@@ -30,7 +30,10 @@
 					>
 						<span class="navigation__text" :class="{ 'has-count': count > 0 }">
 							Compare
-							<span ref="count" :class="countPopClass" class="count" v-html="count"							></span>
+							<span
+ref="count"
+:class="countPopClass" class="count" 								v-html="count"
+></span>
 						</span>
 					</nuxt-link>
 					<div v-if="hasCompareCountries" class="compare-list">
@@ -105,9 +108,9 @@ export default {
 		},
 		getTitle(ID = 1) {
 			if (isNaN(ID) && ID.length == 2) {
-				return this.$store.getters.getCountry(ID).title;
+				return this.$store.getters.getCountry(ID).short_title;
 			} else if (!isNaN(ID)) {
-				return this.$store.state.passport.countryList[ID].title;
+				return this.$store.state.passport.countryList[ID].short_title;
 			} else {
 				return 'Not Set';
 			}
@@ -161,9 +164,12 @@ export default {
 			}
 		}
 		&--listtrigger {
-			background-color: color(Blue);
-			width: 3rem;
+
+			&,
+			.navigation__link {			width: 3rem;
 			height: 3rem;
+			background-color: color(Blue);
+			}
 			span {
 				@include menu();
 				@include menu-body() {
@@ -199,8 +205,16 @@ export default {
 			box-shadow: none !important;
 			outline: none !important;
 		}
+		button:hover {
+			box-shadow: none !important;
+			outline: none !important;
+			background-color: color(Green);
+		}
 		&.nuxt-link-exact-active {
 			background-color: color(Purple);
+		}
+		&:hover {
+			background-color: darken(Purple, 10%);
 		}
 		&--total {
 			padding-right: 3rem;
@@ -208,8 +222,8 @@ export default {
 	}
 	&__text {
 		color: color(White);
-		&.has-count{
-			span.count{
+		&.has-count {
+			span.count {
 				display: inline-block;
 			}
 		}
@@ -238,8 +252,8 @@ export default {
 					@keyframes popItlikeItsHot {
 						0%,
 						100% {
-							transform: translateY(-50%) scale(1);
 							box-shadow: 0 0 0 2px color(White, 0.5);
+							transform: translateY(-50%) scale(1);
 						}
 						75% {
 							box-shadow: 0 0 0 2px color(Yellow, 1);

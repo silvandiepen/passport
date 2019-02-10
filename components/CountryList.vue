@@ -8,7 +8,7 @@
 				<li v-for="(country, index) in countries" :key="index" class="countries__item">
 					<nuxt-link :to="'/country/' + country.id" class="countries__link">
 						<span class="countries__text">
-							<small>{{ country.id }}</small> {{ country.title }}
+							<small>{{ country.id }}</small> {{ country.short_title }}
 						</span>
 					</nuxt-link>
 					<button
@@ -55,7 +55,7 @@ export default {
 	},
 	watch: {
 		$route() {
-			console.log('trigger setFoldList');
+			// console.log('trigger setFoldList');
 			if (window.innerWidth < 750) {
 				this.$store.dispatch('setFoldList', true);
 			}
@@ -198,11 +198,11 @@ export default {
 		top: 50%;
 		right: 0;
 		display: block;
-		border: none;
-		height: 100%;
 		width: 3rem;
-		color: color(White);
+		height: 100%;
+		border: none;
 		background-color: color(White, 0.05);
+		color: color(White);
 		font-size: 10px;
 		transform: translateY(-50%);
 		span {

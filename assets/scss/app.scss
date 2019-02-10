@@ -44,6 +44,7 @@ body{
 }
 main {
 	section.content {
+		position: relative;
 		.row {
 			max-width: 960px;
 		}
@@ -108,5 +109,18 @@ button {
 	@media #{$small-only} {
 		width: 100%;
 		margin-top: 0.5rem;
+	}
+}
+
+
+
+.short_title {
+	@media #{$large-up} {
+		display: none;
+	}
+}
+.long_title {
+	@media #{$medium-down} {
+		display: none;
 	}
 }

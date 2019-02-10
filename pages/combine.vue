@@ -236,14 +236,12 @@ table {
 	float: none;
 }
 .loader {
-	font-size: 3rem;
 	$loader-bullet: 0.2em;
 	$loader-corner: 15%;
 	$loader-color: Yellow;
+	display: inline-block;
 	width: 1em;
 	height: 1em;
-	display: inline-block;
-	animation: loader 1s steps(8) infinite;
 	background-image: radial-gradient(closest-side, color($loader-color) 100%, color($loader-color, 0)),
 		radial-gradient(closest-side, color($loader-color, 0.75) 100%, color($loader-color, 0)),
 		radial-gradient(closest-side, color($loader-color, 0.625) 100%, color($loader-color, 0)),
@@ -252,14 +250,16 @@ table {
 		radial-gradient(closest-side, color($loader-color, 0.25) 100%, color($loader-color, 0)),
 		radial-gradient(closest-side, color($loader-color, 0.125) 100%, color($loader-color, 0)),
 		radial-gradient(closest-side, color($loader-color, 0) 100%, color($loader-color, 0));
-	background-size: $loader-bullet $loader-bullet, $loader-bullet $loader-bullet, $loader-bullet $loader-bullet,
-		$loader-bullet $loader-bullet, $loader-bullet $loader-bullet, $loader-bullet $loader-bullet,
-		$loader-bullet $loader-bullet, $loader-bullet $loader-bullet;
 	background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat,
 		no-repeat;
 	background-position: center top, top $loader-corner right $loader-corner, right center,
 		bottom $loader-corner right $loader-corner, center bottom, left $loader-corner bottom $loader-corner, left center,
 		left $loader-corner top $loader-corner;
+	background-size: $loader-bullet $loader-bullet, $loader-bullet $loader-bullet, $loader-bullet $loader-bullet,
+		$loader-bullet $loader-bullet, $loader-bullet $loader-bullet, $loader-bullet $loader-bullet,
+		$loader-bullet $loader-bullet, $loader-bullet $loader-bullet;
+	font-size: 3rem;
+	animation: loader 1s steps(8) infinite;
 
 	@at-root {
 		@keyframes loader {

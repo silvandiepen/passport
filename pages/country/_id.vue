@@ -1,11 +1,11 @@
 <template>
 	<div class="page">
-		<div v-if="mounted" class="content">
+		<section v-if="mounted" class="background--white content">
 			<div class="row">
 				<div class="column small-full">
 					<div class="intro">
 						<h2 v-if="currentCountry">
-							{{ currentCountry.title }}
+Passport of {{ currentCountry.title }}
 						</h2>
 						<div v-if="wikiData" class="expand-data" :class="{ 'expand-data--loaded': wikiData }">
 							<input id="expand-data" type="checkbox" class="expand-data__toggle"  >
@@ -17,19 +17,34 @@
 								<span></span>
 							</label>
 						</div>
+
+						<button v-if="isInCompare" class="button button--rounded button--purple" @click="compareThis">
+							Add to compare
+						</button>
+						<button v-if="!isInCompare" class="button button--rounded button--purple" @click="removeFromCompare">
+							Remove from compare
+						</button>
 					</div>
 				</div>
 			</div>
+		</section>
+		<section v-if="mounted" class="background--dark content">
+			<div class="row">
+				<div class="column small-full">
+					<country-map />
+				</div>
+			</div>
+		</section>
+		<section v-if="mounted" class="background--purple content">
 			<div class="row reverse-mobile">
 				<div class="column small-full medium-half">
 					<country-visas :country-id="countryId" :show-title="false" />
 				</div>
 				<div class="column small-full medium-half">
-					<country-map />
 					<country-stats :current-country="currentCountry" />
 				</div>
 			</div>
-		</div>
+		</section>
 	</div>
 </template>
 
@@ -64,6 +79,12 @@ export default {
 		_this.mounted = true;
 	},
 	methods: {
+		isInCompare() {
+				return this.$store.state.passport.compareCountries.contains(this.currentCountry.id);
+		},
+		compareThis() {
+			this.$store.commit('passport/toggleCompare', this.currentCountry.id);
+		},
 		getWikiData() {
 			const _this = this;
 			const pageTitle = this.$store.getters.getCountry(this.countryId).title;

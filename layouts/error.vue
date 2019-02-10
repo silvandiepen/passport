@@ -17,12 +17,12 @@
 export default {
 	props: ['error'],
 	created() {
-		console.log('created-route', this.$route);
-		console.log('created-props', this.$props);
+		// console.log('created-route', this.$route);
+		// console.log('created-props', this.$props);
 	},
 	mounted() {
-		console.log('mounted-route', this.$route);
-		console.log('mounted-props', this.$props);
+		// console.log('mounted-route', this.$route);
+		// console.log('mounted-props', this.$props);
 	}
 };
 </script>

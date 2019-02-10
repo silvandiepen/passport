@@ -1,17 +1,17 @@
 .button{
-	position: relative;
-	font-size: 1rem;
 	--button-padding: .75rem 2rem;
 	--button-border-radius: 0;
 	--button-background-color: #{color(Blue)};
 	--button-text-color: white;
+	position: relative;
+	font-size: 1rem;
 }
 @include silicon-math-minus('.icon.reset');
 
 .icon.reset{
-	transform: rotate(45deg);
+	--stroke: 2px;
 	top: 50%;
 	left: 0.5rem;
 	font-size: 14px;
-	--stroke: 2px;
+	transform: rotate(45deg);
 }

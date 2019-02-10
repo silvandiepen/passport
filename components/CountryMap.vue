@@ -56,6 +56,14 @@ export default {
 @import '~tools';
 .country-map {
 	width: 100%;
+	// background-color: color(White);
+	// border-radius: 50%;
+	// position: absolute; top: 0; left: 50%;
+	// width: 50%;
+	// max-width: 320px;
+	// min-width: 240px;
+	// transform: translate(-50%,-50%);
+	// box-shadow: 0 0 0 20px white;
 	svg {
 		width: 100%;
 	}
@@ -68,7 +76,7 @@ export default {
 		&.status-2{ fill: mix(color(Green), color(Yellow), 50%); }
 		&.status-1{ fill: color(Yellow); }
 		&.status-0{ fill: color(Orange); }
-		&.status-current{ fill: color(Black); }
+		&.status-current{ fill: color(White); }
 	}
 	@keyframes popIn {
 		0% {

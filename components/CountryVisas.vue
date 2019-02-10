@@ -17,9 +17,7 @@
 				:key="key"
 				class="country-visas__item"
 			>
-				<span class="country-name">
-					{{ country.title }}
-				</span>
+				<span class="country-name" v-html="country.title"></span>
 				<span class="country-visas__label">
 					<visa-label :type-number="country.value" />
 				</span>

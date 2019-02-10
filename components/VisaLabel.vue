@@ -46,16 +46,34 @@ export default {
 			visaType: null
 		};
 	},
+	watch: {
+		type: {
+			handler() {
+				this.setType();
+			},
+			immediate: true
+		},
+		typeNumber: {
+			handler() {
+				this.setType();
+			},
+			immediate: true
+		}
+	},
 	created() {
 		if (this.$props.width) {
 			this.elementWidth = {
 				width: Math.round((this.$props.width[0] / this.$props.width[1]) * 100) + '%'
 			};
 		}
-		if (this.$props.type) {
-			this.visaType = this.$props.type;
-		} else {
-			this.visaType = this.$props.typeNumber;
+	},
+	methods: {
+		setType() {
+			if (this.$props.type) {
+				this.visaType = this.$props.type;
+			} else {
+				this.visaType = this.$props.typeNumber;
+			}
 		}
 	}
 };
@@ -78,10 +96,10 @@ export default {
 		height: 1.5rem;
 		border-radius: 50%;
 		.labels & {
-			height: auto;
 			width: auto;
-			padding: 0.1rem;
+			height: auto;
 			font-size: 10px;
+			padding: 0.1rem;
 		}
 	}
 	&__text {
@@ -123,7 +141,7 @@ export default {
 		color: color(White);
 	}
 	&.visa--1 {
-		border-color: color(White, .25);
+		border-color: color(White, 0.25);
 		background-color: color(White, 0.1);
 		color: color(White);
 	}

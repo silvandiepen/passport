@@ -3,23 +3,24 @@
 		<span v-if="compareData" v-show="compareData.length > 4" class="compare-visas__shadow"></span>
 		<div class="compare-visas__container">
 			<div class="country-row">
-				<div v-if="compareData.length > 1" class="country-row__tools">
+			
+				<div ref="list" class="country-row__container country-row__container--titles">
+					<ul class="country-cols country-cols--titles">
+						<li class="country-cols__column country-cols__column--title">
+								<div v-if="compareData.length > 1" class="country-row__tools">
 					<div class="input-field input-switch input-switch--differences">
-						<input id="show-difference" v-model="differences" type="checkbox"  >
+						<input id="show-difference" v-model="differences" type="checkbox">
 						<label for="show-difference">
 							<span>differences</span>
 						</label>
 					</div>
 					<div class="input-field input-switch input-switch--merged">
-						<input id="show-merged" v-model="showMerged" type="checkbox"/>
+						<input id="show-merged" v-model="showMerged" type="checkbox" >
 						<label for="show-merged">
 							<span>merged</span>
 						</label>
 					</div>
 				</div>
-				<div ref="list" class="country-row__container country-row__container--titles">
-					<ul class="country-cols country-cols--titles">
-						<li class="country-cols__column country-cols__column--title">
 							<h4></h4>
 						</li>
 						<li
@@ -42,7 +43,8 @@
 								<span class="icon remove" @click="removeCountry(country.id)">
 									remove
 								</span>
-								{{ country.title }}
+								<span class="long_title" v-html="country.title"></span>
+								<span class="short_title" v-html="country.short_title"></span>
 							</h4>
 							<div class="labels">
 								<visa-label type="total" :show-text="false" :count="country.score.total" />
@@ -61,7 +63,8 @@
 							<ul class="country-cols__list">
 								<li v-for="(c, i) in blacklistFilter(countryList, false, 'titles')" :key="i" class="country-cols__item">
 									<h5 class="sub">
-										{{ c.title }}
+										<span class="long_title" v-html="c.title"></span>
+										<span class="short_title" v-html="c.short_title"></span>
 									</h5>
 								</li>
 							</ul>
@@ -289,14 +292,14 @@ export default {
 
 @include silicon-math-minus('.icon.remove');
 .icon.remove {
+	position: absolute;
+	top: 0;
+	left: 50%;
 	color: red;
 	font-size: 1rem;
 	text-indent: -999em;
-	position: absolute;
-	left: 50%;
-	top: 0;
-	transition: transform 0.3s ease-in-out;
 	transform: translate(-50%, -100%) rotate(-45deg) scale(0.5);
+	transition: transform 0.3s ease-in-out;
 	&:hover {
 		transform: translate(-50%, -100%) rotate(-45deg) scale(1);
 	}
@@ -315,14 +318,29 @@ export default {
 	position: relative;
 	width: 100%;
 	&__shadow {
-		display: none;
-		width: grid(4);
-		height: 100vh;
 		position: absolute;
-		right: 0;
 		top: 0;
-		background-image: linear-gradient(to right, color(Black, 0), color(Black, 1));
+		right: 0;
 		z-index: 5;
+		display: none;
+		width: grid(2);
+		height: 100vh;
+		background-image: linear-gradient(
+			to left,
+			hsl(0, 0%, 0%) 0%,
+			hsla(0, 0%, 0%, 0.738) 19%,
+			hsla(0, 0%, 0%, 0.541) 34%,
+			hsla(0, 0%, 0%, 0.382) 47%,
+			hsla(0, 0%, 0%, 0.278) 56.5%,
+			hsla(0, 0%, 0%, 0.194) 65%,
+			hsla(0, 0%, 0%, 0.126) 73%,
+			hsla(0, 0%, 0%, 0.075) 80.2%,
+			hsla(0, 0%, 0%, 0.042) 86.1%,
+			hsla(0, 0%, 0%, 0.021) 91%,
+			hsla(0, 0%, 0%, 0.008) 95.2%,
+			hsla(0, 0%, 0%, 0.002) 98.2%,
+			hsla(0, 0%, 0%, 0) 100%
+		);
 		pointer-events: none;
 	}
 	@media #{$small-only} {
@@ -380,17 +398,19 @@ export default {
 		}
 		&--visas {
 			position: relative;
-			color: color(White);
+			height: 100vh;
 			background-color: color(Black);
+			color: color(White);
+			overflow: scroll;
 			&:before {
 				content: '';
+				position: absolute;
+				top: 0;
+				left: 0;
+				z-index: 4;
 				width: 100%;
 				height: 3rem;
 				background-image: linear-gradient(to bottom, color(Black), color(Black, 0));
-				position: absolute;
-				left: 0;
-				top: 0;
-				z-index: 4;
 				pointer-events: none;
 			}
 			.country-cols__column {
@@ -430,7 +450,7 @@ export default {
 			padding: 0rem 0.5rem 1rem 0.5rem;
 			margin-left: 2rem;
 			// white-space: nowrap;
-			@media #{$small-only}{
+			@media #{$small-only} {
 				height: 10rem;
 			}
 		}
@@ -445,8 +465,8 @@ export default {
 			.country-cols__list,
 			.country-cols__item {
 				@media #{$small-only} {
-					text-align: left;
 					width: 100% !important;
+					text-align: left;
 				}
 			}
 
@@ -469,8 +489,6 @@ export default {
 		}
 	}
 	&--countries {
-		height: 100vh;
-		overflow: scroll;
 		.country-cols__item {
 			display: block;
 			width: 100%;
@@ -509,8 +527,8 @@ export default {
 			background-color: color(White, 0.05);
 		}
 		@media #{$small-only} {
-			height: grid(2.5);
 			width: grid(3);
+			height: grid(2.5);
 			line-height: grid(2);
 			text-align: center;
 		}
