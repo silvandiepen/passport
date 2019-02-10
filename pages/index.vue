@@ -83,7 +83,7 @@
 							Passport with the least visa required countries.
 						</h3>
 					</div>
-					<hr  >
+					<hr/>
 					<table width="100%">
 						<tr v-for="(country, index) in orderedStats" :key="index">
 							<td>{{ index + 1 }}</td>
@@ -94,6 +94,7 @@
 							</td>
 							<td width="50%">
 								<span class="labels">
+									<visa-label type="total" :show-text="false" :count="country.score.total" />
 									<visa-label
 										type="free"
 										:show-text="false"
@@ -208,7 +209,7 @@ h4 {
 }
 table {
 	width: 100%;
-	.labels{
+	.labels {
 		width: 100%;
 	}
 }

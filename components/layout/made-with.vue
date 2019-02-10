@@ -39,8 +39,8 @@
 			<div class="column small-full medium-third content">
 				<h4>By?</h4>
 				<p>
-					<a href="https://www.silvandiepen.nl"><strong>Sil van Diepen</strong></a
-					>, a developer and illustrator from the Netherlands. More of me, in the footer below :)
+					<a href="https://www.silvandiepen.nl"> <strong>Sil van Diepen</strong> </a>, a developer and illustrator from the
+					Netherlands. More of me, in the footer below :)
 				</p>
 			</div>
 		</div>
