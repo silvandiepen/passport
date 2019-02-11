@@ -11,9 +11,9 @@
 				</div>
 			</div>
 		</section>
-		<section class="background--purple">
+		<section class="background--white">
 			<div class="row">
-				<div class="column small-full large-half">
+				<div class="column small-full large-half background--purple">
 					<div class="content">
 						<h2>Overal Passport ranking</h2>
 						<h4 class="sub">
@@ -49,7 +49,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="column small-full large-half background--dark">
+				<div class="column small-full large-half background--dark titles-column">
 					<div class="content">
 						<div v-if="order.type === 'score.title'">
 							<h3>All countries</h3>
@@ -187,6 +187,13 @@ export default {
 
 <style lang="scss">
 @import '~tools';
+
+.titles-column {
+	position: relative;
+	bottom: 0;
+	height: 100%;
+	align-self: flex-end;
+}
 
 .total-list {
 	&__item {

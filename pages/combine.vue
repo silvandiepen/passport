@@ -11,9 +11,9 @@
 				</div>
 			</div>
 		</section>
-		<section class=" background--purple">
+		<section class="background--white">
 			<div class="row">
-				<div class="column small-full large-half">
+				<div class="column small-full large-half background--purple">
 					<div class="content">
 						<h4>Your country</h4>
 						<p>Every country you select below will add all posibilities of that country.</p>
@@ -29,7 +29,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="column small-full large-half background--black">
+				<div class="column small-full large-half background--black column-list">
 					<div class="content">
 						<ul>
 							<li v-for="country in inList">
@@ -205,6 +205,11 @@ export default {
 
 <style lang="scss" scoped>
 @import '~tools';
+
+.column-list{
+	height: 100%;
+	align-self: flex-end;
+}
 .list {
 	display: block;
 	.item {
