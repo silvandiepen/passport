@@ -1,11 +1,8 @@
 <template>
 	<div class="countries" :class="{ 'is-folded': folded }">
-		<!-- <div class="input-field input-search">
-			<input v-model="searchTerm" type="search" placeholder="Search.." >
-		</div> -->
 		<div class="countries__container">
 			<ul v-if="countries" class="countries__list">
-				<li v-for="(country, index) in countries" :key="index" class="countries__item">
+				<li v-for="(country, index) in filterCountries(countries)" :key="index" class="countries__item">
 					<nuxt-link :to="'/country/' + country.id" class="countries__link">
 						<span class="countries__text">
 							<small>{{ country.id }}</small> {{ country.short_title }}
@@ -27,6 +24,9 @@
 					</a>
 				</li> -->
 			</ul>
+		</div>
+		<div class="input-field input-search">
+			<input v-model="searchTerm" type="search" placeholder="Search.." >
 		</div>
 	</div>
 </template>
@@ -70,7 +70,7 @@ export default {
 			let _this = this;
 			if (_this.searchTerm.length > 1) {
 				return Object.keys(list)
-					.filter((item) => list[item].title.indexOf(_this.searchTerm) > 0)
+					.filter((item) => list[item].title.toLowerCase().indexOf(_this.searchTerm.toLowerCase()) > -1)
 					.reduce((obj, key) => {
 						obj[key] = list[key];
 						return obj;
@@ -126,7 +126,7 @@ export default {
 		top: 0;
 		z-index: 3;
 		width: 100%;
-		height: 100%;
+		height: calc(100% - 3rem);
 		background-image: linear-gradient(
 			to bottom,
 			color(Black, 1),
@@ -139,8 +139,8 @@ export default {
 
 	&__container {
 		position: relative;
-		// height: calc(100% - 3rem);
-		height: 100%;
+		height: calc(100% - 3rem);
+		// height: 100%;
 		overflow: scroll;
 
 		@media #{$small-only} {
@@ -221,6 +221,21 @@ export default {
 	@include silicon-check('.to-compare.is-in-compare span');
 	@media (hover: hover) {
 		@include silicon-math-times('.to-compare.is-in-compare:hover span');
+	}
+	.input-search {
+		&,
+		&:hover,
+		&:focus,
+		&:active {
+			&,
+			input {
+				background-color: color(Dark) !important; 
+			}
+		}
+		input {
+			height: 100%;
+			width: 100%;
+		}
 	}
 }
 </style>
