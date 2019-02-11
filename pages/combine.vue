@@ -48,7 +48,7 @@
 					<tr v-for="(country, index) in orderByTotal(combinations)" :key="index">
 						<td>{{ index + 1 }}</td>
 						<td>
-							<nuxt-link :to="{ name: 'compare', params: { id: `${country.ids[0]}-${country.ids[1]}` } }">
+							<nuxt-link :to="`compare/${country.ids[0]}-${country.ids[1]}`">
 								<strong>{{ country.id }}</strong>
 							</nuxt-link>
 						</td>
