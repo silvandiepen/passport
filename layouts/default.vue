@@ -37,7 +37,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~henris';
+@import '~tools';
 .medium-0 {
 	@media #{$medium-up} {
 		width: 0px !important;

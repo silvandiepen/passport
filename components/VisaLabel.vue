@@ -86,7 +86,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~henris';
+@import '~tools';
 .visa-label {
 	display: inline-block;
 	border-width: 1px;
@@ -155,26 +155,35 @@ export default {
 	&.visa-free {
 		border-color: color(Green, 1);
 		background-color: color(Green, 0.75);
+		background-image: linear-gradient(to right, color(Green), darken(Green, 5%));
 	}
 	&.visa-2,
 	&.visa-eta {
 		border-color: mix(color(Green), color(Yellow), 50%);
 		background-color: mix(color(Green, 0.75), color(Yellow, 0.75), 50%);
+		background-image: linear-gradient(
+			to right,
+			mix(color(Green, 0.75), color(Yellow, 0.75), 50%),
+			darken(mix(color(Green, 0.75), color(Yellow, 0.75), 50%), 5%)
+		);
 	}
 	&.visa-1,
 	&.visa-arrival,
 	&.visa-on-arrival {
 		border-color: color(Yellow, 1);
 		background-color: color(Yellow, 0.75);
+		background-image: linear-gradient(to right, color(Yellow), darken(Yellow, 5%));
 	}
 	&.visa-0,
 	&.visa-required {
-		border-color: color(Orange, 1);
-		background-color: color(Orange, 0.75);
+		border-color: color(Pink, 1);
+		background-color: color(Pink, 0.75);
+		background-image: linear-gradient(to right, lighten(Pink, 5%), darken(Pink, 5%));
 	}
 	&.visa-total {
-		border-color: color(Black, 1);
-		background-color: color(Black, 0.75);
+		border-color: color(Dark, 1);
+		background-color: color(Dark, 0.75);
+		background-image: linear-gradient(to right, lighten(Dark, 5%), darken(Dark, 5%));
 		color: color(White);
 	}
 	&.visa--1 {

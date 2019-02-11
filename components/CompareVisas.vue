@@ -286,7 +286,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~henris';
+@import '~tools';
 @import '~silicons';
 
 @include silicon-math-minus('.icon.remove');
