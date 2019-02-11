@@ -2,7 +2,7 @@
 	<main class="page page--home">
 		<section class="content background--white">
 			<div class="row">
-				<div class="column small-full">
+				<div class="column small-full medium-half">
 					<h3>Combinations</h3>
 					<p>
 						Combining passports can be interesting, see which passports you can combine with your passport to get the highest
@@ -11,33 +11,38 @@
 				</div>
 			</div>
 		</section>
-		<section class="content background--purple">
+		<section class=" background--purple">
 			<div class="row">
-				<div class="column small-full medium-half">
-					<h4>Your country</h4>
-					<p>Every country you select below will add all posibilities of that country.</p>
-					<div class="input-field input-select">
-						<select v-model="currentCountry">
-							<option :value="[]">
-								Select a country
-							</option>
-							<option v-for="(country, index) in countryList" :key="index" :value="country" @click="startLoader">
-								{{ country.title }}
-							</option>
-						</select>
+				<div class="column small-full large-half">
+					<div class="content">
+						<h4>Your country</h4>
+						<p>Every country you select below will add all posibilities of that country.</p>
+						<div class="input-field input-select">
+							<select v-model="currentCountry">
+								<option :value="[]">
+									Select a country
+								</option>
+								<option v-for="(country, index) in countryList" :key="index" :value="country" @click="startLoader"								>
+									{{ country.title }}
+								</option>
+							</select>
+						</div>
 					</div>
 				</div>
-				<div class="column small-full medium-half">
-					<ul>
-						<li v-for="country in inList">
-							{{ country.title }}
-						</li>
-					</ul>
-					<br  >
-					<button v-if="combinations.length > 0" class="button button--dark" @click="reset">
-						reset list
-						<span class="icon reset"></span>
-					</button>
+				<div class="column small-full large-half background--black">
+					<div class="content">
+						<ul>
+							<li v-for="country in inList">
+								{{ country.title }}
+							</li>
+						</ul>
+						<br/>
+						<br/>
+						<button v-if="combinations.length > 0" class="button button--dark" @click="reset">
+							reset list
+							<span class="icon reset"></span>
+						</button>
+					</div>
 				</div>
 			</div>
 		</section>
