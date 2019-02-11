@@ -15,40 +15,39 @@
 			<div class="row">
 				<div class="column small-full large-half">
 					<div class="content">
-							<h2>Overal Passport ranking</h2>
-							<h4 class="sub">
-								Scores
-							</h4>
-							<p>The scores are based on a way that visa free give 3 points, eta 2 and on arrival 1.</p>
+						<h2>Overal Passport ranking</h2>
+						<h4 class="sub">
+							Scores
+						</h4>
+						<p>The scores are based on a way that visa free give 3 points, eta 2 and on arrival 1.</p>
 
-							<div class="input-field input-select">
-								<select v-model="order.type">
-									<option value="score.total">
-										Score
-									</option>
-									<option value="score.title">
-										Country Name
-									</option>
-									<option value="score.free">
-										Visa Free
-									</option>
-									<option value="score.required">
-										Visa Required
-									</option>
-								</select>
-							</div>
-							<div class="input-field input-select">
-								<select v-model="order.direction">
-									<option value="asc">
-										Low to high
-									</option>
-									<option value="desc">
-										High to low
-									</option>
-								</select>
-							</div>
-					
-</div>
+						<div class="input-field input-select">
+							<select v-model="order.type">
+								<option value="score.total">
+									Score
+								</option>
+								<option value="score.title">
+									Country Name
+								</option>
+								<option value="score.free">
+									Visa Free
+								</option>
+								<option value="score.required">
+									Visa Required
+								</option>
+							</select>
+						</div>
+						<div class="input-field input-select">
+							<select v-model="order.direction">
+								<option value="asc">
+									Low to high
+								</option>
+								<option value="desc">
+									High to low
+								</option>
+							</select>
+						</div>
+					</div>
 				</div>
 				<div class="column small-full large-half background--dark">
 					<div class="content">
@@ -94,7 +93,10 @@
 					<td>{{ country.score.total }}</td>
 					<td>
 						<nuxt-link :to="`country/${country.id}`">
-							<strong>{{ country.title }} </strong>
+							<strong>
+								<span class="long_title" v-html="country.title"></span>
+								<span class="short_title" v-html="country.short_title"></span>
+							</strong>
 						</nuxt-link>
 					</td>
 					<td width="50%">
