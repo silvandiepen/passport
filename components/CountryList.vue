@@ -100,7 +100,6 @@ export default {
 @import '~tools';
 @import '~silicons';
 .countries {
-	position: relative;
 	height: 100vh;
 	background-color: color(Black);
 	color: color(White);

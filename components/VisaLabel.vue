@@ -1,5 +1,5 @@
 <template>
-	<span class="visa-label" :class="['visa-' + visaType]" :style="elementWidth">
+	<span :class="[labelType, 'visa-' + visaType]" :style="elementWidth">
 		<span v-if="(visaType == 3 || visaType == 'free') && showText == true" class="visa-label__text">
 			Free
 		</span>
@@ -12,7 +12,9 @@
 		<span v-if="(visaType == 0 || visaType == 'required') && showText == true" class="visa-label__text">
 			Required
 		</span>
-		{{ count }}
+		<span class="visa-label__count">
+			{{ count }}
+		</span>
 	</span>
 </template>
 
@@ -30,6 +32,10 @@ export default {
 		type: {
 			type: String,
 			default: null
+		},
+		labelType: {
+			type: String,
+			default: 'visa-label'
 		},
 		typeNumber: {
 			type: Number,
@@ -63,7 +69,7 @@ export default {
 	created() {
 		if (this.$props.width) {
 			this.elementWidth = {
-				width: Math.round((this.$props.width[0] / this.$props.width[1]) * 100) + '%'
+				width: Math.ceil((this.$props.width[0] / this.$props.width[1]) * 100) + '%'
 			};
 		}
 	},
@@ -114,6 +120,37 @@ export default {
 			display: none;
 		}
 	}
+}
+
+.label-blocks {
+	width: 100%;
+	white-space: nowrap;
+	font-size: 0;
+}
+
+.block-label {
+	position: relative;
+	font-size: 1rem;
+	display: inline-block;
+	color: color(White);
+	border-width: 0;
+	line-height: inherit;
+	padding: 1.5rem 0.25rem;
+	.visa-label__count {
+		position: absolute;
+		background-color: inherit;
+		padding: 0.25rem;
+		border-radius: $base-border-radius;
+		font-size: 12px;
+		left: 0;
+		top: 50%;
+		transform: translate(-50%, -50%);
+		font-weight: bold;
+	}
+}
+
+.visa-label,
+.block-label {
 	&.visa-3,
 	&.visa-free {
 		border-color: color(Green, 1);

@@ -30,10 +30,7 @@
 					>
 						<span class="navigation__text" :class="{ 'has-count': count > 0 }">
 							Compare
-							<span
-ref="count"
-:class="countPopClass" class="count" 								v-html="count"
-></span>
+							<span ref="count" :class="countPopClass" class="count" v-html="count"							></span>
 						</span>
 					</nuxt-link>
 					<div v-if="hasCompareCountries" class="compare-list">
@@ -164,11 +161,11 @@ export default {
 			}
 		}
 		&--listtrigger {
-
 			&,
-			.navigation__link {			width: 3rem;
-			height: 3rem;
-			background-color: color(Blue);
+			.navigation__link {
+				width: 3rem;
+				height: 3rem;
+				background-color: color(Blue);
 			}
 			span {
 				@include menu();
@@ -252,8 +249,8 @@ export default {
 					@keyframes popItlikeItsHot {
 						0%,
 						100% {
-							box-shadow: 0 0 0 2px color(White, 0.5);
 							transform: translateY(-50%) scale(1);
+							box-shadow: 0 0 0 2px color(White, 0.5);
 						}
 						75% {
 							box-shadow: 0 0 0 2px color(Yellow, 1);

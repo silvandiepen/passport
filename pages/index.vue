@@ -11,120 +11,126 @@
 				</div>
 			</div>
 		</section>
-		<section class="content background--purple">
+		<section class="background--purple">
 			<div class="row">
-				<div class="column small-full">
-					<h2>Overal Passport ranking</h2>
-					<h4 class="sub">
-						Scores
-					</h4>
-					<p>The scores are based on a way that visa free give 3 points, eta 2 and on arrival 1.</p>
+				<div class="column small-full large-half">
+					<div class="content">
+							<h2>Overal Passport ranking</h2>
+							<h4 class="sub">
+								Scores
+							</h4>
+							<p>The scores are based on a way that visa free give 3 points, eta 2 and on arrival 1.</p>
 
-					<div class="input-field input-select">
-						<select v-model="order.type">
-							<option value="score.total">
-								Score
-							</option>
-							<option value="score.title">
-								Country Name
-							</option>
-							<option value="score.free">
-								Visa Free
-							</option>
-							<option value="score.required">
-								Visa Required
-							</option>
-						</select>
-					</div>
-					<div class="input-field input-select">
-						<select v-model="order.direction">
-							<option value="asc">
-								Low to high
-							</option>
-							<option value="desc">
-								High to low
-							</option>
-						</select>
+							<div class="input-field input-select">
+								<select v-model="order.type">
+									<option value="score.total">
+										Score
+									</option>
+									<option value="score.title">
+										Country Name
+									</option>
+									<option value="score.free">
+										Visa Free
+									</option>
+									<option value="score.required">
+										Visa Required
+									</option>
+								</select>
+							</div>
+							<div class="input-field input-select">
+								<select v-model="order.direction">
+									<option value="asc">
+										Low to high
+									</option>
+									<option value="desc">
+										High to low
+									</option>
+								</select>
+							</div>
+					
+</div>
+				</div>
+				<div class="column small-full large-half background--dark">
+					<div class="content">
+						<div v-if="order.type === 'score.title'">
+							<h3>All countries</h3>
+							<h5 class="sub">
+								Ordered by name
+							</h5>
+						</div>
+						<div v-else-if="order.type === 'score.total'">
+							<h3>Highest scoring countries</h3>
+							<h5 v-show="order.direction === 'desc'" class="sub">
+								Ordered from best to worst
+							</h5>
+							<h5 v-show="order.direction === 'asc'" class="sub">
+								Ordered from worst to best
+							</h5>
+						</div>
+						<div v-else-if="order.type === 'score.free'">
+							<h3 v-show="order.direction === 'desc'">
+								Passport with the most visa free countries.
+							</h3>
+							<h3 v-show="order.direction === 'asc'">
+								Passport with the least visa free countries.
+							</h3>
+						</div>
+						<div v-else-if="order.type === 'score.required'">
+							<h3 v-show="order.direction === 'desc'">
+								Passport with the most visa required countries.
+							</h3>
+							<h3 v-show="order.direction === 'asc'">
+								Passport with the least visa required countries.
+							</h3>
+						</div>
 					</div>
 				</div>
 			</div>
 		</section>
-		<section class="content background--dark">
-			<div class="row">
-				<div class="column small-full">
-					<div v-if="order.type === 'score.title'">
-						<h3>All countries</h3>
-						<h5 class="sub">
-							Ordered by name
-						</h5>
-					</div>
-					<div v-else-if="order.type === 'score.total'">
-						<h3>Highest scoring countries</h3>
-						<h5 v-show="order.direction === 'desc'" class="sub">
-							Ordered from best to worst
-						</h5>
-						<h5 v-show="order.direction === 'asc'" class="sub">
-							Ordered from worst to best
-						</h5>
-					</div>
-					<div v-else-if="order.type === 'score.free'">
-						<h3 v-show="order.direction === 'desc'">
-							Passport with the most visa free countries.
-						</h3>
-						<h3 v-show="order.direction === 'asc'">
-							Passport with the least visa free countries.
-						</h3>
-					</div>
-					<div v-else-if="order.type === 'score.required'">
-						<h3 v-show="order.direction === 'desc'">
-							Passport with the most visa required countries.
-						</h3>
-						<h3 v-show="order.direction === 'asc'">
-							Passport with the least visa required countries.
-						</h3>
-					</div>
-					<hr/>
-					<table width="100%">
-						<tr v-for="(country, index) in orderedStats" :key="index">
-							<td>{{ index + 1 }}</td>
-							<td>
-								<nuxt-link :to="{ name: 'compare', params: { id: country.id } }">
-									<strong>{{ country.title }}</strong>
-								</nuxt-link>
-							</td>
-							<td width="50%">
-								<span class="labels">
-									<visa-label type="total" :show-text="false" :count="country.score.total" />
-									<visa-label
-										type="free"
-										:show-text="false"
-										:width="[country.score.free, orderedStats.length]"
-										:count="country.score.free"
-									/>
-									<visa-label
-										type="eta"
-										:show-text="false"
-										:width="[country.score.eta, orderedStats.length]"
-										:count="country.score.eta"
-									/>
-									<visa-label
-										type="arrival"
-										:show-text="false"
-										:width="[country.score.arrival, orderedStats.length]"
-										:count="country.score.arrival"
-									/>
-									<visa-label
-										type="required"
-										:show-text="false"
-										:width="[country.score.required, orderedStats.length]"
-										:count="country.score.required"
-									/>
-								</span>
-							</td>
-						</tr>
-					</table>
-				</div>
-			</div>
+		<section class="ranking background--white">
+			<table width="100%">
+				<tr v-for="(country, index) in orderedStats" :key="index">
+					<td>{{ index + 1 }}</td>
+					<td>{{ country.score.total }}</td>
+					<td>
+						<nuxt-link :to="`country/${country.id}`">
+							<strong>{{ country.title }} </strong>
+						</nuxt-link>
+					</td>
+					<td width="50%">
+						<span class="label-blocks">
+							<visa-label
+								label-type="block-label"
+								type="free"
+								:show-text="false"
+								:width="[country.score.free, orderedStats.length]"
+								:count="country.score.free"
+							/>
+							<visa-label
+								label-type="block-label"
+								type="eta"
+								:show-text="false"
+								:width="[country.score.eta, orderedStats.length]"
+								:count="country.score.eta"
+							/>
+							<visa-label
+								label-type="block-label"
+								type="arrival"
+								:show-text="false"
+								:width="[country.score.arrival, orderedStats.length]"
+								:count="country.score.arrival"
+							/>
+							<visa-label
+								label-type="block-label"
+								type="required"
+								:show-text="false"
+								:width="[country.score.required, orderedStats.length]"
+								:count="country.score.required"
+							/>
+						</span>
+					</td>
+				</tr>
+			</table>
 		</section>
 	</main>
 </template>
@@ -211,6 +217,35 @@ table {
 	width: 100%;
 	.labels {
 		width: 100%;
+	}
+}
+
+.ranking {
+	table {
+		tr {
+			td:first-child {
+				background-color: color(Black);
+				text-align: center;
+				color: color(White);
+			}
+			td:nth-child(2) {
+				background-color: color(Blue);
+				text-align: center;
+				color: color(White);
+			}
+			td:last-child {
+				padding: 0;
+			}
+		}
+	}
+}
+.label-blocks {
+	.label {
+		height: 100%;
+		margin: 0;
+		& + label {
+			margin: 0;
+		}
 	}
 }
 </style>

@@ -1,12 +1,12 @@
 <template>
 	<div class="layout layout-default" :class="{ 'is-folded': folded }">
-		<country-list class="panel--left" />
 		<layout-header />
+		<country-list class="panel--left" />
 		<main class="page panel--main">
 			<nuxt />
+			<made-with />
+			<layout-footer />
 		</main>
-		<made-with />
-		<layout-footer />
 	</div>
 </template>
 
@@ -56,12 +56,12 @@ export default {
 		.is-folded & {
 			pointer-events: none;
 		}
-		@media #{$small-only}{
+		@media #{$small-only} {
 			width: 100vw;
 		}
 	}
 	&--main {
-		position: absolute;
+		position: relative;
 		top: 0;
 		left: grid(4);
 		width: calc(100vw - #{grid(4)});

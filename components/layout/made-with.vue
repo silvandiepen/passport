@@ -4,14 +4,14 @@
 			<div class="column small-full"></div>
 		</div>
 		<div class="row">
-			<div class="column small-full medium-third content">
+			<div class="column small-full large-third content">
 				<h4>Why?</h4>
 				<p>
 					After a discussion of which passport combination would be better to have. In case of most visa free countries,
 					there wasn't any website which could easily show this. So thats why this website now exists.
 				</p>
 			</div>
-			<div class="column small-full medium-third content">
+			<div class="column small-full large-third content">
 				<h4>With?</h4>
 				<p>Passport is made using a few different frameworks.</p>
 				<ul>
@@ -36,7 +36,7 @@
 				</ul>
 			</div>
 
-			<div class="column small-full medium-third content">
+			<div class="column small-full large-third content">
 				<h4>By?</h4>
 				<p>
 					<a href="https://www.silvandiepen.nl"> <strong>Sil van Diepen</strong> </a>, a developer and illustrator from the
@@ -47,9 +47,13 @@
 	</section>
 </template>
 <style lang="scss">
+@import '~tools';
 .content {
 	.content {
-		padding: 1rem;
+		padding: 1rem 0;
+		@media #{$large-up} {
+			padding: 1rem;
+		}
 	}
 }
 </style>

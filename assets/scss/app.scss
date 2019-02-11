@@ -58,6 +58,8 @@ main {
 .page {
 	position: relative;
 	width: 100%;
+}
+.page--compare{
 	@media #{$medium-up} {
 		max-height: 100vh;
 		overflow: scroll;
@@ -112,7 +114,10 @@ button {
 	}
 }
 
-
+.label-blocks{
+	width: 100%; 
+	display: block;
+}
 
 .short_title {
 	@media #{$large-up} {

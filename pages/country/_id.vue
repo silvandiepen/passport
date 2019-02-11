@@ -4,11 +4,9 @@
 			<div class="row">
 				<div class="column small-full">
 					<div class="intro">
-						<h2 v-if="currentCountry">
-Passport of {{ currentCountry.title }}
-						</h2>
+						<h2 v-if="currentCountry">Passport of {{ currentCountry.title }}</h2>
 						<div v-if="wikiData" class="expand-data" :class="{ 'expand-data--loaded': wikiData }">
-							<input id="expand-data" type="checkbox" class="expand-data__toggle"  >
+							<input id="expand-data" type="checkbox" class="expand-data__toggle" >
 							<div class="expand-data__content">
 								{{ wikiData }}
 							</div>
@@ -80,7 +78,7 @@ export default {
 	},
 	methods: {
 		isInCompare() {
-				return this.$store.state.passport.compareCountries.contains(this.currentCountry.id);
+			return this.$store.state.passport.compareCountries.contains(this.currentCountry.id);
 		},
 		compareThis() {
 			this.$store.commit('passport/toggleCompare', this.currentCountry.id);
