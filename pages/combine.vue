@@ -22,22 +22,23 @@
 								<option :value="[]">
 									Select a country
 								</option>
-								<option v-for="(country, index) in countryList" :key="index" :value="country" @click="startLoader"								>
+								<option v-for="(country, index) in countryList" :key="index" :value="country"
+@click="startLoader">
 									{{ country.title }}
 								</option>
 							</select>
 						</div>
 					</div>
 				</div>
-				<div class="column small-full large-half background--black column-list">
+				<div v-if="inList.length > 0" class="column small-full large-half background--black column-list">
 					<div class="content">
 						<ul>
 							<li v-for="country in inList">
 								{{ country.title }}
 							</li>
 						</ul>
-						<br/>
-						<br/>
+						<br  >
+						<br  >
 						<button v-if="combinations.length > 0" class="button button--dark" @click="reset">
 							reset list
 							<span class="icon reset"></span>
@@ -206,7 +207,7 @@ export default {
 <style lang="scss" scoped>
 @import '~tools';
 
-.column-list{
+.column-list {
 	height: 100%;
 	align-self: flex-end;
 }
