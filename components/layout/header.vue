@@ -30,7 +30,8 @@
 					>
 						<span class="navigation__text" :class="{ 'has-count': count > 0 }">
 							Compare
-							<span ref="count" :class="countPopClass" class="count" v-html="count"							></span>
+							<span ref="count" :class="countPopClass" class="count"
+v-html="count"></span>
 						</span>
 					</nuxt-link>
 					<div v-if="hasCompareCountries" class="compare-list">
@@ -143,7 +144,7 @@ export default {
 	position: fixed;
 	top: 0;
 	left: 0;
-	z-index: 10;
+	z-index: 20;
 }
 .navigation {
 	background-color: color(Black);
